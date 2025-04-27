@@ -88,7 +88,7 @@ public class UsuarioPersistenciaImpl extends javax.swing.JFrame implements Usuar
         ResultSet rs = bd.executarQuery(sql);
 
         try {
-            
+              
             System.out.println(rs.next());
   
             String usuario = rs.getString("usuario");

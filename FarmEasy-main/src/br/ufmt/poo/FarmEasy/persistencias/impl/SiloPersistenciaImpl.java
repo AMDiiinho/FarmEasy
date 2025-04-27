@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author arthurmarques
  */
-public class SiloPersistenciaImpl implements SiloPersistencia {
+public class SiloPersistenciaImpl extends javax.swing.JFrame implements SiloPersistencia {
 
     BancoDeDados bd = new BancoDeDados();
     
@@ -36,10 +37,9 @@ public class SiloPersistenciaImpl implements SiloPersistencia {
     @Override
     public void atualizar(Silo silo) {
             
-        String sql = "UPDATE tb_silos qtdProdutos = ? capacidade = ? WHERE id = ?;";
+        String sql = "UPDATE tb_silos qtdProdutos = ? WHERE id = ?;";
         List parametros = new ArrayList();
         parametros.add(silo.getQtdProdutos());
-        parametros.add(silo.getCapacidade());
         parametros.add(silo.getId());
         bd.inserir(sql, parametros);
         
@@ -57,8 +57,9 @@ public class SiloPersistenciaImpl implements SiloPersistencia {
             while(rs.next()){
                 
                 int id = rs.getInt("id");
+                int qtdProdutos = rs.getInt("qtdProdutos");
                 int capacidade = rs.getInt("capacidade");
-                Silo silo = new Silo(id, capacidade);
+                Silo silo = new Silo(id, qtdProdutos, capacidade);
                 lista.add(silo);
             }
             
@@ -69,5 +70,38 @@ public class SiloPersistenciaImpl implements SiloPersistencia {
         
         return lista;    
     }
+    
+    @Override
+    public void entradaEstoque(int idSilo, int qtdProdutos){
+        
+               
+        try {
+            
+            String sqlSelect  = "SELECT qtdProdutos, capacidade FROM tb_silos WHERE id = '" + idSilo + "';";
+            ResultSet rs = bd.executarQuery(sqlSelect);
+            
+            while(rs.next()){
+                
+                int qtdProdutosAtual = rs.getInt("qtdProdutos");
+                int capacidade = rs.getInt("capacidade");
+                
+                int qtdProdutosNova = qtdProdutosAtual + qtdProdutos;
+                
+                if(qtdProdutosNova <= capacidade){
+                    String sqlUpdate = "UPDATE tb_silos SET qtdProdutos = '" + qtdProdutosNova + "' WHERE id = '" + idSilo + "';";
+                    bd.executarQuery(sqlUpdate);
+                                       
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Espaço insuficiente no silo!");
+                }
+            }
+        } catch (Exception erro){
+          
+        }
+    }
+    
+    
+    
+    
     
 }

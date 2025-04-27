@@ -20,4 +20,6 @@ public interface ProdutoPersistencia {
     public void atualizar(Produto produto);
     
     public List<Produto> buscar();
+    
+    public void atualizarEstoque(String nomeProduto, int quantidade);
 }

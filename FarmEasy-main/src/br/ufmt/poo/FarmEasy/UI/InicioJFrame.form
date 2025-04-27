@@ -782,10 +782,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="chiqueirosjScrollPane" alignment="0" min="-2" pref="146" max="-2" attributes="0"/>
-                          <Component id="abrigosPorcosjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="abrigosPorcosjLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="chiqueirosjScrollPane" min="-2" pref="249" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="tituloCadastroPorcojLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -811,7 +811,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="248" max="32767" attributes="0"/>
+                      <EmptySpace pref="192" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -873,12 +873,13 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="galinheirosjTable1">
+                <Component class="javax.swing.JTable" name="chiqueirosjTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="2" rowCount="5">
+                      <Table columnCount="3" rowCount="5">
                         <Column editable="false" title="ID" type="java.lang.String"/>
-                        <Column editable="false" title="Espaco" type="java.lang.String"/>
+                        <Column editable="false" title="qtdAnimais" type="java.lang.String"/>
+                        <Column editable="true" title="Capacidade" type="java.lang.String"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -900,7 +901,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="galinheirosjTable1MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="chiqueirosjTableMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -1041,38 +1042,36 @@
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="ovelhasjScrollPane" alignment="0" min="-2" pref="146" max="-2" attributes="0"/>
-                          <Component id="abrigosOvelhasjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="abrigosOvelhasjLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="ovelhasjScrollPane" min="-2" pref="247" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                      <EmptySpace pref="95" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tituloCadastroOvelhasjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="idOvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="nomeOvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="racaOvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="OvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="valorOvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="idOvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="nomeOvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="racaOvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="OvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="valorOvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="idOvelhajTextField" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
+                              <Component id="corOvelhajComboBox" alignment="0" max="32767" attributes="0"/>
+                              <Component id="nomeOvelhajTextField" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="cancelarOvelhajButton" min="-2" pref="96" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="salvarOvelhajButton" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="idOvelhajTextField" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
-                                  <Component id="corOvelhajComboBox" alignment="0" pref="204" max="32767" attributes="0"/>
-                                  <Component id="nomeOvelhajTextField" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="cancelarOvelhajButton" min="-2" pref="96" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="salvarOvelhajButton" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="apriscojComboBox" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="valorOvelhajTextField" alignment="0" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="apriscojComboBox" alignment="0" max="32767" attributes="0"/>
+                              <Component id="valorOvelhajTextField" alignment="0" min="-2" pref="204" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="tituloCadastroOvelhasjLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="258" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1134,12 +1133,13 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="galinheirosjTable2">
+                <Component class="javax.swing.JTable" name="apriscosjTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="2" rowCount="5">
+                      <Table columnCount="3" rowCount="5">
                         <Column editable="false" title="ID" type="java.lang.String"/>
-                        <Column editable="false" title="Espaco" type="java.lang.String"/>
+                        <Column editable="false" title="qtdAnimais" type="java.lang.String"/>
+                        <Column editable="false" title="Capacidade" type="java.lang.String"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1161,7 +1161,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="galinheirosjTable2MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="apriscosjTableMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -1299,16 +1299,16 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="vacasjScrollPane" alignment="0" min="-2" pref="146" max="-2" attributes="0"/>
-                          <Component id="curraisVacasjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="curraisVacasjLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="vacasjScrollPane" min="-2" pref="247" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                               <Component id="tituloCadastroVacasjLabel" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="idVacajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="nomeVacajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -1331,7 +1331,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="271" max="32767" attributes="0"/>
+                      <EmptySpace pref="220" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1393,12 +1393,13 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="galinheirosjTable3">
+                <Component class="javax.swing.JTable" name="curraisjTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="2" rowCount="5">
+                      <Table columnCount="3" rowCount="5">
                         <Column editable="false" title="ID" type="java.lang.String"/>
-                        <Column editable="false" title="Espaco" type="java.lang.String"/>
+                        <Column editable="false" title="qtdAnimais" type="java.lang.String"/>
+                        <Column editable="false" title="Capacidade" type="java.lang.String"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1420,7 +1421,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="galinheirosjTable3MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="curraisjTableMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -1553,60 +1554,71 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tituloCadastroSilosjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="silosjScrollPane" alignment="0" min="-2" pref="259" max="-2" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="salvarSilojButton" min="-2" pref="96" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="tituloCadastroSilosjLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cancelarSilojButton" min="-2" pref="96" max="-2" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="idSilojLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="capacidadeSilojLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="cancelarSilojButton" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="capacidadeSilojLabel" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                              <Component id="capacidadeSilojSpinner" min="-2" pref="137" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+                                              <Component id="salvarSilojButton" min="-2" pref="96" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="capacidadeSilojSpinner" min="-2" pref="123" max="-2" attributes="0"/>
-                                          <Component id="idSilojTextField" min="-2" pref="106" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                                          <Component id="idSilojLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                          <Component id="idSilojTextField" min="-2" pref="137" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="tituloCadastroSilosjLabel1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Component id="iDsilojLabel" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Component id="quantidadeEntradajLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="produtojLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="cancelarEntradajButton" min="-2" pref="96" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
+                                          <Component id="registrarEntradajButton" min="-2" pref="96" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="produtojComboBox" max="32767" attributes="0"/>
+                                          <Component id="quantidadeEntradajSpinner" max="32767" attributes="0"/>
+                                          <Component id="IDsilojComboBox" min="-2" pref="138" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
+                              <EmptySpace pref="90" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="37" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tituloCadastroSilosjLabel1" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="iDsilojLabel" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="quantidadeEntradajLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="produtojLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="produtojComboBox" pref="114" max="32767" attributes="0"/>
-                                  <Component id="quantidadeEntradajSpinner" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="IDsilojComboBox" alignment="0" max="32767" attributes="0"/>
-                              </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="187" max="-2" attributes="0"/>
+                              <Component id="voltarSilosjButton" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="tabelaSilosjLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="silosjScrollPane" min="-2" pref="259" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="voltarSilosjButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1616,34 +1628,60 @@
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="tituloCadastroSilosjLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="tituloCadastroSilosjLabel1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="tabelaSilosjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="idSilojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="produtojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="idSilojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="produtojComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="idSilojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="idSilojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="capacidadeSilojSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="capacidadeSilojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="cancelarSilojButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="salvarSilojButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                              <Component id="tituloCadastroSilosjLabel1" min="-2" pref="30" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="produtojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="produtojComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="quantidadeEntradajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="quantidadeEntradajSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="iDsilojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="IDsilojComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="silosjScrollPane" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="capacidadeSilojSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="capacidadeSilojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="quantidadeEntradajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="quantidadeEntradajSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="registrarEntradajButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cancelarEntradajButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="voltarSilosjButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cancelarSilojButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="salvarSilojButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="iDsilojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="IDsilojComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="silosjScrollPane" min="-2" pref="161" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="voltarSilosjButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="54" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1793,6 +1831,27 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
+            <Component class="javax.swing.JButton" name="cancelarEntradajButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cancelar"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="registrarEntradajButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Registrar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registrarEntradajButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="tabelaSilosjLabel">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Cantarell" size="24" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Silos"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="produtosjPanel">
@@ -1826,33 +1885,27 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="tituloCadastroProdutosjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="valorProdutojLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="nomeProdutojLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="quantidadeProdutojLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="cancelarProdutojButton" min="-2" pref="96" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="salvarProdutojButton" min="-2" pref="96" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="nomeProdutojTextField" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="valorProdutojTextField" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="quantidadeProdutojSpinner" alignment="0" min="-2" pref="204" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                                      <Component id="idProdutojLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="idProdutojTextField" min="-2" pref="98" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="valorProdutojLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nomeProdutojLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="cancelarProdutojButton" min="-2" pref="96" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="salvarProdutojButton" min="-2" pref="96" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="nomeProdutojTextField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="valorProdutojTextField" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                              <Component id="idProdutojLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="idProdutojTextField" min="-2" pref="98" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="155" max="32767" attributes="0"/>
@@ -1879,11 +1932,6 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="nomeProdutojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="nomeProdutojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="quantidadeProdutojLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="quantidadeProdutojSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -2022,13 +2070,6 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="valorProdutojTextField">
-            </Component>
-            <Component class="javax.swing.JLabel" name="quantidadeProdutojLabel1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Quantidade:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JSpinner" name="quantidadeProdutojSpinner">
             </Component>
           </SubComponents>
         </Container>

@@ -14,9 +14,9 @@ public class Silo {
     private int qtdProdutos;
     private int capacidade;
     
-    public Silo(int id, int capacidade) {
+    public Silo(int id, int qtdProdutos, int capacidade) {
         this.id = id;
-        this.qtdProdutos = 0;
+        this.qtdProdutos = qtdProdutos;
         this.capacidade = capacidade;
     }
     

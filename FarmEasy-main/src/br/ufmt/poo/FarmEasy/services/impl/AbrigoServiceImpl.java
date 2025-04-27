@@ -62,10 +62,8 @@ public class AbrigoServiceImpl implements AbrigoService {
             String tipo = abrigo.getTipo();
             String capacidade = abrigo.getCapacidade() + "";
             AbrigoDTO dto = new AbrigoDTO(id, tipo, capacidade);
+            lista.add(dto);
             
-            if(tipo.equals(tipoAbrigo)){
-                lista.add(dto);
-            }
             
         }
         

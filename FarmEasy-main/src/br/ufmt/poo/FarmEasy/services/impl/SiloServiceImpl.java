@@ -25,6 +25,7 @@ public class SiloServiceImpl implements SiloService {
         } 
         
         int id = 0;
+        int qtdProdutos = Integer.parseInt(dto.getQtdProdutos());
         int estoque = Integer.parseInt(dto.getCapacidade());
         
         if(!dto.getId().equals("")){
@@ -32,7 +33,7 @@ public class SiloServiceImpl implements SiloService {
             id = Integer.parseInt(dto.getId());            
         }
         
-        Silo silo = new Silo (id, estoque);
+        Silo silo = new Silo (id, qtdProdutos, estoque);
         
         SiloPersistencia persistencia = new SiloPersistenciaImpl();
         
@@ -57,8 +58,9 @@ public class SiloServiceImpl implements SiloService {
         List<Silo> silos = persistencia.buscar();
         for (Silo silo : silos) {
             String id = silo.getId() + "";
+            String qtdProdutos = silo.getQtdProdutos() + "";
             String capacidade = silo.getCapacidade() + "";
-            SiloDTO dto = new SiloDTO(id, capacidade);
+            SiloDTO dto = new SiloDTO(id, qtdProdutos, capacidade);
             lista.add(dto);
             
         }

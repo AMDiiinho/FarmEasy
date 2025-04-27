@@ -21,4 +21,6 @@ public interface SiloPersistencia {
     
     public List<Silo> buscar();
     
+    public void entradaEstoque(int id, int qtdProdutos);
+    
 }

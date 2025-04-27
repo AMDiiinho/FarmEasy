@@ -51,7 +51,7 @@ public class AbrigoPersistenciaImpl implements AbrigoPersistencia {
     public List<Abrigo> buscar(String tipoAbrigo) {
         
         List<Abrigo> lista = new ArrayList();
-        String sql = "SELECT * FROM tb_abrigos WHERE tipo = " + tipoAbrigo + ";";
+        String sql = "SELECT * FROM tb_abrigos WHERE tipo = '" + tipoAbrigo + "';";
         ResultSet rs = bd.executarQuery(sql);
         
         try {

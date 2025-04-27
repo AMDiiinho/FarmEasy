@@ -15,9 +15,9 @@ public class SiloDTO {
     private String qtdProdutos;
     private String capacidade;
         
-    public SiloDTO(String id, String capacidade) {
+    public SiloDTO(String id, String qtdProdutos, String capacidade) {
         this.id = id;
-        this.qtdProdutos = "0";
+        this.qtdProdutos = qtdProdutos;
         this.capacidade = capacidade;
     }
     

@@ -72,4 +72,39 @@ public class ProdutoPersistenciaImpl implements ProdutoPersistencia{
         return lista;
     }
     
+    
+    @Override
+    public void atualizarEstoque(String nomeProduto, int quantidade){
+        
+        String sqlSelect = "SELECT estoque FROM tb_produtos WHERE nome = '" + nomeProduto + "';";
+        ResultSet rs = bd.executarQuery(sqlSelect);
+        
+        try {
+            
+            while(rs.next()){
+                
+                int estoqueAtual = rs.getInt("estoque");
+                
+                int estoqueNovo = estoqueAtual + quantidade;
+                
+                String sqlUpdate = "UPDATE tb_produtos SET estoque = '" + estoqueNovo + "' WHERE nome = '" + nomeProduto + "';";
+                bd.executarQuery(sqlUpdate);
+                
+            }
+            
+        } catch (Exception erro){
+            
+        }
+        
+        //String sql = "UPDATE tb_produtos SET estoque = '" + nomeProduto + "' WHERE nome = '" + nomeProduto + "';"; 
+        //bd.executarQuery(sql);
+        
+    }
+    
+    
+    
+    
+    
+
+    
 }
