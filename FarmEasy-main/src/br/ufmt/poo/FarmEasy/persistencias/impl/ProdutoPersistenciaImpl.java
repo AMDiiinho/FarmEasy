@@ -95,9 +95,7 @@ public class ProdutoPersistenciaImpl implements ProdutoPersistencia{
         } catch (Exception erro){
             
         }
-        
-        //String sql = "UPDATE tb_produtos SET estoque = '" + nomeProduto + "' WHERE nome = '" + nomeProduto + "';"; 
-        //bd.executarQuery(sql);
+       
         
     }
     

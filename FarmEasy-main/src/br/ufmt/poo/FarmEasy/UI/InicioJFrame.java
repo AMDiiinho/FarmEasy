@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import br.ufmt.poo.FarmEasy.UI.DTOs.SiloDTO;
 import br.ufmt.poo.FarmEasy.UI.DTOs.ProdutoDTO;
 import br.ufmt.poo.FarmEasy.UI.DTOs.AbrigoDTO;
+import br.ufmt.poo.FarmEasy.UI.DTOs.AnimalDTO;
 import br.ufmt.poo.FarmEasy.UI.DTOs.GalinhaDTO;
 import br.ufmt.poo.FarmEasy.UI.DTOs.OvelhaDTO;
 import br.ufmt.poo.FarmEasy.UI.DTOs.PorcoDTO;
@@ -36,7 +37,9 @@ import br.ufmt.poo.FarmEasy.persistencias.UsuarioPersistencia;
 import br.ufmt.poo.FarmEasy.persistencias.impl.ProdutoPersistenciaImpl;
 import br.ufmt.poo.FarmEasy.persistencias.impl.SiloPersistenciaImpl;
 import br.ufmt.poo.FarmEasy.persistencias.impl.UsuarioPersistenciaImpl;
+import br.ufmt.poo.FarmEasy.services.AnimalService;
 import br.ufmt.poo.FarmEasy.services.UsuarioService;
+import br.ufmt.poo.FarmEasy.services.impl.AnimalServiceImpl;
 import br.ufmt.poo.FarmEasy.services.impl.UsuarioServiceImpl;
 
 
@@ -60,13 +63,61 @@ public class InicioJFrame extends javax.swing.JFrame {
     }
     
     
+    private void carregarTabelaAnimais(String tipoAnimal){
+        
+        AnimalService animalServiceGalinha = new AnimalServiceImpl();
+            
+        List<AnimalDTO> listaGalinhas = animalServiceGalinha.listar(tipoAnimal);
+        
+        DefaultTableModel dfmGalinhas = (DefaultTableModel) galinhasjTable.getModel();
+        int linhasGalinhas = dfmGalinhas.getRowCount();
+        for (int i = 0; i < linhasGalinhas; i++) {
+            dfmGalinhas.removeRow(0);
+            
+        }
+        
+        for (AnimalDTO animalDTO : listaGalinhas) {
+            Object[] linhaGalinha = new Object[4];
+            linhaGalinha[0] = animalDTO.getId();
+            linhaGalinha[1] = animalDTO.getRaca();
+            linhaGalinha[2] = animalDTO.getQuantidade();
+            linhaGalinha[3] = animalDTO.getValor();
+            
+            dfmGalinhas.addRow(linhaGalinha);
+            
+        }
+        
+        AnimalService animalServicePorco = new AnimalServiceImpl();
+            
+        List<AnimalDTO> listaPorcos = animalServicePorco.listar(tipoAnimal);
+        
+        DefaultTableModel dfmPorcos = (DefaultTableModel) porcosjTable.getModel();
+        int linhasPorcos = dfmPorcos.getRowCount();
+        for (int i = 0; i < linhasPorcos; i++) {
+            dfmPorcos.removeRow(0);
+            
+        }
+        
+        for (AnimalDTO animalDTO : listaPorcos) {
+            Object[] linhaPorco = new Object[4];
+            linhaPorco[0] = animalDTO.getId();
+            linhaPorco[1] = animalDTO.getRaca();
+            linhaPorco[2] = animalDTO.getQuantidade();
+            linhaPorco[3] = animalDTO.getValor();
+            
+            dfmPorcos.addRow(linhaPorco);
+            
+        }
+    }
+    
+    
     private void carregarTabelaAbrigo(String tipoAbrigo){
         
         AbrigoService serviceAbrigo = new AbrigoServiceImpl();
             
         List<AbrigoDTO> listaAbrigos = serviceAbrigo.listar(tipoAbrigo);
         
-        DefaultTableModel dfmAbrigoGalinheiro = (DefaultTableModel) galinheirosjTable.getModel();
+        DefaultTableModel dfmAbrigoGalinheiro = (DefaultTableModel) galinhasjTable.getModel();
         int linhasAbrigoGalinheiro = dfmAbrigoGalinheiro.getRowCount();
         for (int i = 0; i < linhasAbrigoGalinheiro; i++) {
             dfmAbrigoGalinheiro.removeRow(0);
@@ -83,7 +134,7 @@ public class InicioJFrame extends javax.swing.JFrame {
             
         }
         
-        DefaultTableModel dfmAbrigoChiqueiro = (DefaultTableModel) chiqueirosjTable.getModel();
+        DefaultTableModel dfmAbrigoChiqueiro = (DefaultTableModel) porcosjTable.getModel();
         int linhasAbrigoChiqueiro = dfmAbrigoChiqueiro.getRowCount();
         for (int i = 0; i < linhasAbrigoChiqueiro; i++) {
             dfmAbrigoChiqueiro.removeRow(0);
@@ -201,6 +252,8 @@ public class InicioJFrame extends javax.swing.JFrame {
     }    
     
     
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -225,30 +278,27 @@ public class InicioJFrame extends javax.swing.JFrame {
         animaisjButton = new javax.swing.JButton();
         menuAnimaisjPanel = new javax.swing.JPanel();
         voltarMenuAnimaisjButton = new javax.swing.JButton();
-        galinheirosjButton = new javax.swing.JButton();
-        chiqueirosjButton = new javax.swing.JButton();
-        curraisjButton = new javax.swing.JButton();
-        apriscosjButton = new javax.swing.JButton();
+        galinhasjButton = new javax.swing.JButton();
+        porcosjButton = new javax.swing.JButton();
+        vacasjButton = new javax.swing.JButton();
+        ovelhasjButton = new javax.swing.JButton();
         registrarNovoAbrigojButton = new javax.swing.JButton();
         abrigosjLabel = new javax.swing.JLabel();
-        galinheirosjPanel = new javax.swing.JPanel();
-        galinheirosjScrollPane = new javax.swing.JScrollPane();
-        galinheirosjTable = new javax.swing.JTable();
-        voltarGalinheirosjButton = new javax.swing.JButton();
+        galinhasjPanel = new javax.swing.JPanel();
+        galinhasjScrollPane = new javax.swing.JScrollPane();
+        galinhasjTable = new javax.swing.JTable();
+        voltarGalinhajButton = new javax.swing.JButton();
         abrigosGalinhasjLabel = new javax.swing.JLabel();
         idGalinhajLabel = new javax.swing.JLabel();
         nomeGalinhajLabel = new javax.swing.JLabel();
         valorGalinhajLabel = new javax.swing.JLabel();
         valorGalinhajTextField = new javax.swing.JTextField();
         idGalinhajTextField = new javax.swing.JTextField();
-        racaGalinhajComboBox = new javax.swing.JComboBox<>();
         salvarGalinhajButton = new javax.swing.JButton();
         cancelarGalinhajButton = new javax.swing.JButton();
-        galinheirojLabel = new javax.swing.JLabel();
-        galinheirojComboBox = new javax.swing.JComboBox<>();
         tituloCadastroGalinhasjLabel1 = new javax.swing.JLabel();
-        racaGalinhajLabel = new javax.swing.JLabel();
-        nomeGalinhajTextField = new javax.swing.JTextField();
+        nomeRacajTextField = new javax.swing.JTextField();
+        conultarGalinheirosjButton = new javax.swing.JButton();
         registroAbrigosjPanel = new javax.swing.JPanel();
         registroAbrigosjLabel = new javax.swing.JLabel();
         tipoAbrigojLabel = new javax.swing.JLabel();
@@ -262,19 +312,15 @@ public class InicioJFrame extends javax.swing.JFrame {
         registroAbrigosVoltarjButton = new javax.swing.JButton();
         chiqueirosjPanel = new javax.swing.JPanel();
         chiqueirosjScrollPane = new javax.swing.JScrollPane();
-        chiqueirosjTable = new javax.swing.JTable();
+        porcosjTable = new javax.swing.JTable();
         voltarChiqueirosjButton = new javax.swing.JButton();
         abrigosPorcosjLabel = new javax.swing.JLabel();
         idPorcojLabel = new javax.swing.JLabel();
         nomePorcojLabel = new javax.swing.JLabel();
-        racaPorcojLabel = new javax.swing.JLabel();
-        nomePorcojTextField = new javax.swing.JTextField();
+        racaPorcojTextField = new javax.swing.JTextField();
         idPorcojTextField = new javax.swing.JTextField();
-        racaPorcojComboBox = new javax.swing.JComboBox<>();
         salvarPorcojButton = new javax.swing.JButton();
         cancelarPorcojButton = new javax.swing.JButton();
-        chiqueirojLabel = new javax.swing.JLabel();
-        chiqueirojComboBox = new javax.swing.JComboBox<>();
         tituloCadastroPorcojLabel = new javax.swing.JLabel();
         valorPorcojLabel = new javax.swing.JLabel();
         valorPorcojTextField = new javax.swing.JTextField();
@@ -284,15 +330,11 @@ public class InicioJFrame extends javax.swing.JFrame {
         voltarOvelhasjButton = new javax.swing.JButton();
         abrigosOvelhasjLabel = new javax.swing.JLabel();
         idOvelhajLabel = new javax.swing.JLabel();
-        nomeOvelhajLabel = new javax.swing.JLabel();
         racaOvelhajLabel = new javax.swing.JLabel();
-        nomeOvelhajTextField = new javax.swing.JTextField();
         idOvelhajTextField = new javax.swing.JTextField();
         corOvelhajComboBox = new javax.swing.JComboBox<>();
         salvarOvelhajButton = new javax.swing.JButton();
         cancelarOvelhajButton = new javax.swing.JButton();
-        OvelhajLabel = new javax.swing.JLabel();
-        apriscojComboBox = new javax.swing.JComboBox<>();
         tituloCadastroOvelhasjLabel = new javax.swing.JLabel();
         valorOvelhajLabel = new javax.swing.JLabel();
         valorOvelhajTextField = new javax.swing.JTextField();
@@ -303,14 +345,10 @@ public class InicioJFrame extends javax.swing.JFrame {
         curraisVacasjLabel = new javax.swing.JLabel();
         idVacajLabel = new javax.swing.JLabel();
         nomeVacajLabel = new javax.swing.JLabel();
-        racaVacajLabel = new javax.swing.JLabel();
         nomeVacajTextField = new javax.swing.JTextField();
         idVacajTextField = new javax.swing.JTextField();
-        racaVacajComboBox = new javax.swing.JComboBox<>();
         salvarVacajButton = new javax.swing.JButton();
         cancelarVacajButton = new javax.swing.JButton();
-        curraljLabel = new javax.swing.JLabel();
-        curraljComboBox = new javax.swing.JComboBox<>();
         tituloCadastroVacasjLabel = new javax.swing.JLabel();
         valorVacajTextField = new javax.swing.JTextField();
         valorVacajLabel = new javax.swing.JLabel();
@@ -414,7 +452,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                     .addGroup(loginjPanelLayout.createSequentialGroup()
                         .addGap(290, 290, 290)
                         .addComponent(cadastrarContajButton)))
-                .addContainerGap(303, Short.MAX_VALUE))
+                .addContainerGap(339, Short.MAX_VALUE))
         );
         loginjPanelLayout.setVerticalGroup(
             loginjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -478,7 +516,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addComponent(produtosjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(animaisjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(sairjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(301, Short.MAX_VALUE))
+                .addContainerGap(337, Short.MAX_VALUE))
         );
         menuPrincipaljPanelLayout.setVerticalGroup(
             menuPrincipaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -505,31 +543,31 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
-        galinheirosjButton.setText("Galinheiros");
-        galinheirosjButton.addActionListener(new java.awt.event.ActionListener() {
+        galinhasjButton.setText("Galinhas");
+        galinhasjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                galinheirosjButtonActionPerformed(evt);
+                galinhasjButtonActionPerformed(evt);
             }
         });
 
-        chiqueirosjButton.setText("Chiqueiros");
-        chiqueirosjButton.addActionListener(new java.awt.event.ActionListener() {
+        porcosjButton.setText("Porcos");
+        porcosjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chiqueirosjButtonActionPerformed(evt);
+                porcosjButtonActionPerformed(evt);
             }
         });
 
-        curraisjButton.setText("Currais");
-        curraisjButton.addActionListener(new java.awt.event.ActionListener() {
+        vacasjButton.setText("Vacas");
+        vacasjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                curraisjButtonActionPerformed(evt);
+                vacasjButtonActionPerformed(evt);
             }
         });
 
-        apriscosjButton.setText("Apriscos");
-        apriscosjButton.addActionListener(new java.awt.event.ActionListener() {
+        ovelhasjButton.setText("Ovelhas");
+        ovelhasjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                apriscosjButtonActionPerformed(evt);
+                ovelhasjButtonActionPerformed(evt);
             }
         });
 
@@ -541,7 +579,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         });
 
         abrigosjLabel.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
-        abrigosjLabel.setText("Abrigos");
+        abrigosjLabel.setText("Animais");
 
         javax.swing.GroupLayout menuAnimaisjPanelLayout = new javax.swing.GroupLayout(menuAnimaisjPanel);
         menuAnimaisjPanel.setLayout(menuAnimaisjPanelLayout);
@@ -560,14 +598,14 @@ public class InicioJFrame extends javax.swing.JFrame {
                             .addComponent(abrigosjLabel))
                         .addGroup(menuAnimaisjPanelLayout.createSequentialGroup()
                             .addGap(26, 26, 26)
-                            .addComponent(galinheirosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(galinhasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(chiqueirosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(porcosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(apriscosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ovelhasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(curraisjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(214, Short.MAX_VALUE))
+                            .addComponent(vacasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
         menuAnimaisjPanelLayout.setVerticalGroup(
             menuAnimaisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -576,10 +614,10 @@ public class InicioJFrame extends javax.swing.JFrame {
                 .addComponent(abrigosjLabel)
                 .addGap(115, 115, 115)
                 .addGroup(menuAnimaisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chiqueirosjButton)
-                    .addComponent(galinheirosjButton)
-                    .addComponent(apriscosjButton)
-                    .addComponent(curraisjButton))
+                    .addComponent(porcosjButton)
+                    .addComponent(galinhasjButton)
+                    .addComponent(ovelhasjButton)
+                    .addComponent(vacasjButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                 .addGroup(menuAnimaisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(voltarMenuAnimaisjButton)
@@ -589,25 +627,25 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         controlejPanel.add(menuAnimaisjPanel, "card4");
 
-        galinheirosjPanel.setBackground(new java.awt.Color(0, 255, 153));
+        galinhasjPanel.setBackground(new java.awt.Color(0, 255, 153));
 
-        galinheirosjTable.setModel(new javax.swing.table.DefaultTableModel(
+        galinhasjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "qtdAnimais", "Capacidade"
+                "ID", "Raça", "Quantidade", "Valor"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -618,37 +656,30 @@ public class InicioJFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        galinheirosjTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        galinhasjTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                galinheirosjTableMouseClicked(evt);
+                galinhasjTableMouseClicked(evt);
             }
         });
-        galinheirosjScrollPane.setViewportView(galinheirosjTable);
+        galinhasjScrollPane.setViewportView(galinhasjTable);
 
-        voltarGalinheirosjButton.setText("<<<");
-        voltarGalinheirosjButton.addActionListener(new java.awt.event.ActionListener() {
+        voltarGalinhajButton.setText("<<<");
+        voltarGalinhajButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                voltarGalinheirosjButtonActionPerformed(evt);
+                voltarGalinhajButtonActionPerformed(evt);
             }
         });
 
         abrigosGalinhasjLabel.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
-        abrigosGalinhasjLabel.setText("Galinheiros");
+        abrigosGalinhasjLabel.setText("Raças");
 
         idGalinhajLabel.setText("ID:");
 
-        nomeGalinhajLabel.setText("Nome:");
+        nomeGalinhajLabel.setText("Nome da raça:");
 
         valorGalinhajLabel.setText("Valor:");
 
         idGalinhajTextField.setEditable(false);
-
-        racaGalinhajComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Nenhum>", "Legorne", "Caipira", "Isa Brown", "Carijó", "Brahma", "Pescoço Pelado Vermelho", "New Hampshire", "Índio Gigante" }));
-        racaGalinhajComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                racaGalinhajComboBoxActionPerformed(evt);
-            }
-        });
 
         salvarGalinhajButton.setText("Salvar");
         salvarGalinhajButton.addActionListener(new java.awt.event.ActionListener() {
@@ -664,92 +695,84 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
-        galinheirojLabel.setText("Galinheiro:");
-
-        galinheirojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Nenhum>" }));
-
         tituloCadastroGalinhasjLabel1.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
-        tituloCadastroGalinhasjLabel1.setText("Cadastro de galinhas");
+        tituloCadastroGalinhasjLabel1.setText("Cadastro de raça de galinha");
 
-        racaGalinhajLabel.setText("Raça:");
+        conultarGalinheirosjButton.setText("Consultar galinheiros");
+        conultarGalinheirosjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                conultarGalinheirosjButtonActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout galinheirosjPanelLayout = new javax.swing.GroupLayout(galinheirosjPanel);
-        galinheirosjPanel.setLayout(galinheirosjPanelLayout);
-        galinheirosjPanelLayout.setHorizontalGroup(
-            galinheirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, galinheirosjPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(voltarGalinheirosjButton)
-                .addGap(32, 32, 32))
-            .addGroup(galinheirosjPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(galinheirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(galinheirosjPanelLayout.createSequentialGroup()
-                        .addComponent(abrigosGalinhasjLabel)
-                        .addGap(66, 66, 66)
-                        .addComponent(tituloCadastroGalinhasjLabel1))
-                    .addGroup(galinheirosjPanelLayout.createSequentialGroup()
-                        .addComponent(galinheirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(galinheirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idGalinhajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(nomeGalinhajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(galinheirojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(racaGalinhajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(valorGalinhajLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(galinheirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(idGalinhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(racaGalinhajComboBox, 0, 204, Short.MAX_VALUE)
-                            .addGroup(galinheirosjPanelLayout.createSequentialGroup()
-                                .addComponent(cancelarGalinhajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout galinhasjPanelLayout = new javax.swing.GroupLayout(galinhasjPanel);
+        galinhasjPanel.setLayout(galinhasjPanelLayout);
+        galinhasjPanelLayout.setHorizontalGroup(
+            galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, galinhasjPanelLayout.createSequentialGroup()
+                .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(galinhasjPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(voltarGalinhajButton))
+                    .addGroup(galinhasjPanelLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(abrigosGalinhasjLabel)
+                            .addComponent(galinhasjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(conultarGalinheirosjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(galinhasjPanelLayout.createSequentialGroup()
+                                .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idGalinhajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(nomeGalinhajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(valorGalinhajLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(salvarGalinhajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(galinheirojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(nomeGalinhajTextField)
-                            .addComponent(valorGalinhajTextField, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(170, Short.MAX_VALUE))
+                                .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(idGalinhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(galinhasjPanelLayout.createSequentialGroup()
+                                        .addComponent(cancelarGalinhajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(salvarGalinhajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(nomeRacajTextField)
+                                    .addComponent(valorGalinhajTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tituloCadastroGalinhasjLabel1))))
+                .addGap(66, 66, 66))
         );
-        galinheirosjPanelLayout.setVerticalGroup(
-            galinheirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(galinheirosjPanelLayout.createSequentialGroup()
+        galinhasjPanelLayout.setVerticalGroup(
+            galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(galinhasjPanelLayout.createSequentialGroup()
                 .addContainerGap(44, Short.MAX_VALUE)
-                .addGroup(galinheirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(abrigosGalinhasjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tituloCadastroGalinhasjLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tituloCadastroGalinhasjLabel1))
                 .addGap(21, 21, 21)
-                .addGroup(galinheirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(galinheirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(galinheirosjPanelLayout.createSequentialGroup()
-                        .addGroup(galinheirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(galinhasjPanelLayout.createSequentialGroup()
+                        .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idGalinhajLabel)
                             .addComponent(idGalinhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(galinheirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nomeGalinhajLabel)
-                            .addComponent(nomeGalinhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nomeRacajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(galinheirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(racaGalinhajComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(racaGalinhajLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(galinheirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(valorGalinhajLabel)
                             .addComponent(valorGalinhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(galinheirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(galinheirojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(galinheirojLabel))
-                        .addGap(19, 19, 19)
-                        .addGroup(galinheirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cancelarGalinhajButton)
-                            .addComponent(salvarGalinhajButton))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(voltarGalinheirosjButton)
-                .addGap(27, 27, 27))
+                            .addComponent(salvarGalinhajButton)))
+                    .addComponent(galinhasjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(conultarGalinheirosjButton)
+                .addGap(22, 22, 22)
+                .addComponent(voltarGalinhajButton)
+                .addGap(58, 58, 58))
         );
 
-        controlejPanel.add(galinheirosjPanel, "card5");
+        controlejPanel.add(galinhasjPanel, "card5");
 
         registroAbrigosjPanel.setBackground(new java.awt.Color(0, 255, 153));
 
@@ -812,7 +835,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                             .addComponent(tipoAbrigojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(espacojSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(IDjTextField))))
-                .addContainerGap(349, Short.MAX_VALUE))
+                .addContainerGap(385, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registroAbrigosjPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(registroAbrigosVoltarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -851,23 +874,23 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         chiqueirosjPanel.setBackground(new java.awt.Color(0, 255, 153));
 
-        chiqueirosjTable.setModel(new javax.swing.table.DefaultTableModel(
+        porcosjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "qtdAnimais", "Capacidade"
+                "ID", "Raça", "Quantidade", "Valor"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -878,12 +901,12 @@ public class InicioJFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        chiqueirosjTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        porcosjTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                chiqueirosjTableMouseClicked(evt);
+                porcosjTableMouseClicked(evt);
             }
         });
-        chiqueirosjScrollPane.setViewportView(chiqueirosjTable);
+        chiqueirosjScrollPane.setViewportView(porcosjTable);
 
         voltarChiqueirosjButton.setText("<<<");
         voltarChiqueirosjButton.addActionListener(new java.awt.event.ActionListener() {
@@ -897,18 +920,9 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         idPorcojLabel.setText("ID:");
 
-        nomePorcojLabel.setText("Nome:");
-
-        racaPorcojLabel.setText("Raça:");
+        nomePorcojLabel.setText("Nome da raça:");
 
         idPorcojTextField.setEditable(false);
-
-        racaPorcojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Nenhum>", "Canastra", "Caruncho", "Piau", "Moura", "Duroc", "Hampshire", "Landrace", "Large White", "Pietrain" }));
-        racaPorcojComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                racaPorcojComboBoxActionPerformed(evt);
-            }
-        });
 
         salvarPorcojButton.setText("Salvar");
         salvarPorcojButton.addActionListener(new java.awt.event.ActionListener() {
@@ -924,17 +938,8 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
-        chiqueirojLabel.setText("Chiqueiro:");
-
-        chiqueirojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Nenhum>" }));
-        chiqueirojComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chiqueirojComboBoxActionPerformed(evt);
-            }
-        });
-
         tituloCadastroPorcojLabel.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
-        tituloCadastroPorcojLabel.setText("Cadastro de porcos");
+        tituloCadastroPorcojLabel.setText("Cadastro de raça porco");
 
         valorPorcojLabel.setText("Valor:");
 
@@ -950,29 +955,28 @@ public class InicioJFrame extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(chiqueirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(abrigosPorcosjLabel)
-                    .addComponent(chiqueirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(chiqueirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tituloCadastroPorcojLabel)
+                    .addComponent(chiqueirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(chiqueirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(chiqueirosjPanelLayout.createSequentialGroup()
                         .addGroup(chiqueirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(idPorcojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(nomePorcojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(racaPorcojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(chiqueirojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(valorPorcojLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(nomePorcojLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(chiqueirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(chiqueirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(idPorcojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(racaPorcojComboBox, 0, 204, Short.MAX_VALUE)
-                            .addComponent(nomePorcojTextField)
+                            .addComponent(racaPorcojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(tituloCadastroPorcojLabel)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chiqueirosjPanelLayout.createSequentialGroup()
+                        .addComponent(valorPorcojLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(chiqueirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(chiqueirosjPanelLayout.createSequentialGroup()
                                 .addComponent(cancelarPorcojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(salvarPorcojButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(chiqueirojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(valorPorcojTextField, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(192, Short.MAX_VALUE))
+                                .addComponent(salvarPorcojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(valorPorcojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(79, 79, 79))
         );
         chiqueirosjPanelLayout.setVerticalGroup(
             chiqueirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -991,20 +995,12 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(chiqueirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nomePorcojLabel)
-                            .addComponent(nomePorcojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(chiqueirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(racaPorcojLabel)
-                            .addComponent(racaPorcojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(racaPorcojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(chiqueirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(valorPorcojLabel)
                             .addComponent(valorPorcojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(chiqueirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chiqueirojLabel)
-                            .addComponent(chiqueirojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
                         .addGroup(chiqueirosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cancelarPorcojButton)
                             .addComponent(salvarPorcojButton))))
@@ -1063,8 +1059,6 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         idOvelhajLabel.setText("ID:");
 
-        nomeOvelhajLabel.setText("Nome:");
-
         racaOvelhajLabel.setText("Cor:");
 
         idOvelhajTextField.setEditable(false);
@@ -1090,10 +1084,6 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
-        OvelhajLabel.setText("Aprisco:");
-
-        apriscojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Nenhum>" }));
-
         tituloCadastroOvelhasjLabel.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
         tituloCadastroOvelhasjLabel.setText("Cadastro de ovelhas");
 
@@ -1112,24 +1102,20 @@ public class InicioJFrame extends javax.swing.JFrame {
                 .addGroup(apriscosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(abrigosOvelhasjLabel)
                     .addComponent(ovelhasjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addGroup(apriscosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(idOvelhajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nomeOvelhajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(racaOvelhajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(OvelhajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(valorOvelhajLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(apriscosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(apriscosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(idOvelhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(corOvelhajComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nomeOvelhajTextField)
                         .addGroup(apriscosjPanelLayout.createSequentialGroup()
                             .addComponent(cancelarOvelhajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(salvarOvelhajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(apriscojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(valorOvelhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tituloCadastroOvelhasjLabel))
                 .addGap(103, 103, 103))
@@ -1148,11 +1134,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(apriscosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idOvelhajLabel)
                             .addComponent(idOvelhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(apriscosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nomeOvelhajLabel)
-                            .addComponent(nomeOvelhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(53, 53, 53)
                         .addGroup(apriscosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(racaOvelhajLabel)
                             .addComponent(corOvelhajComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1160,11 +1142,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(apriscosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(valorOvelhajLabel)
                             .addComponent(valorOvelhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(apriscosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(OvelhajLabel)
-                            .addComponent(apriscojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
+                        .addGap(57, 57, 57)
                         .addGroup(apriscosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cancelarOvelhajButton)
                             .addComponent(salvarOvelhajButton))))
@@ -1225,16 +1203,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         nomeVacajLabel.setText("Nome:");
 
-        racaVacajLabel.setText("Raça:");
-
         idVacajTextField.setEditable(false);
-
-        racaVacajComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Nenhum>", "Holandesa", "Jersey", "Parda Suíça", "Gir", "Girolando", "Guzerá", "Sindi" }));
-        racaVacajComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                racaVacajComboBoxActionPerformed(evt);
-            }
-        });
 
         salvarVacajButton.setText("Salvar");
         salvarVacajButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1247,15 +1216,6 @@ public class InicioJFrame extends javax.swing.JFrame {
         cancelarVacajButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarVacajButtonActionPerformed(evt);
-            }
-        });
-
-        curraljLabel.setText("Curral:");
-
-        curraljComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Nenhum>" }));
-        curraljComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                curraljComboBoxActionPerformed(evt);
             }
         });
 
@@ -1286,21 +1246,17 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(curraisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(idVacajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(nomeVacajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(racaVacajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(curraljLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(valorVacajLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(curraisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(idVacajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(racaVacajComboBox, 0, 204, Short.MAX_VALUE)
                             .addComponent(nomeVacajTextField)
                             .addGroup(curraisjPanelLayout.createSequentialGroup()
                                 .addComponent(cancelarVacajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(salvarVacajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(curraljComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(salvarVacajButton, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
                             .addComponent(valorVacajTextField))))
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addContainerGap(256, Short.MAX_VALUE))
         );
         curraisjPanelLayout.setVerticalGroup(
             curraisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1320,19 +1276,11 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(curraisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nomeVacajLabel)
                             .addComponent(nomeVacajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(curraisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(racaVacajLabel)
-                            .addComponent(racaVacajComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(53, 53, 53)
                         .addGroup(curraisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(valorVacajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(valorVacajLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(curraisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(curraljLabel)
-                            .addComponent(curraljComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
+                        .addGap(57, 57, 57)
                         .addGroup(curraisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cancelarVacajButton)
                             .addComponent(salvarVacajButton))))
@@ -1652,7 +1600,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addComponent(idProdutojLabel)
                         .addGap(18, 18, 18)
                         .addComponent(idProdutojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
         produtosjPanelLayout.setVerticalGroup(
             produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1745,7 +1693,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         cadastrojPanelLayout.setHorizontalGroup(
             cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cadastrojPanelLayout.createSequentialGroup()
-                .addContainerGap(211, Short.MAX_VALUE)
+                .addContainerGap(247, Short.MAX_VALUE)
                 .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cadastrojPanelLayout.createSequentialGroup()
                         .addComponent(cadastrojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1862,17 +1810,17 @@ public class InicioJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tipoAbrigojComboBoxActionPerformed
 
-    private void voltarGalinheirosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarGalinheirosjButtonActionPerformed
+    private void voltarGalinhajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarGalinhajButtonActionPerformed
         cancelarGalinhajButtonActionPerformed(evt);
-        controlejPanel.remove(galinheirosjPanel);
+        controlejPanel.remove(galinhasjPanel);
         controlejPanel.add(menuAnimaisjPanel);
         menuAnimaisjPanel.setVisible(true);
         menuAnimaisjPanel.setVisible(false);        
-    }//GEN-LAST:event_voltarGalinheirosjButtonActionPerformed
+    }//GEN-LAST:event_voltarGalinhajButtonActionPerformed
 
-    private void galinheirosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_galinheirosjTableMouseClicked
+    private void galinhasjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_galinhasjTableMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_galinheirosjTableMouseClicked
+    }//GEN-LAST:event_galinhasjTableMouseClicked
 
     private void registrarNovoAbrigojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarNovoAbrigojButtonActionPerformed
         controlejPanel.remove(menuAnimaisjPanel);
@@ -1881,7 +1829,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         registroAbrigosjPanel.setVisible(true);
     }//GEN-LAST:event_registrarNovoAbrigojButtonActionPerformed
 
-    private void apriscosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apriscosjButtonActionPerformed
+    private void ovelhasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovelhasjButtonActionPerformed
         controlejPanel.remove(menuAnimaisjPanel);
         controlejPanel.add(apriscosjPanel);
         apriscosjPanel.setVisible(false);
@@ -1889,9 +1837,9 @@ public class InicioJFrame extends javax.swing.JFrame {
         
         String tipoAbrigo = "Aprisco";
         carregarTabelaAbrigo(tipoAbrigo);
-    }//GEN-LAST:event_apriscosjButtonActionPerformed
+    }//GEN-LAST:event_ovelhasjButtonActionPerformed
 
-    private void curraisjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_curraisjButtonActionPerformed
+    private void vacasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vacasjButtonActionPerformed
         controlejPanel.remove(menuAnimaisjPanel);
         controlejPanel.add(curraisjPanel);
         curraisjPanel.setVisible(true);
@@ -1899,29 +1847,28 @@ public class InicioJFrame extends javax.swing.JFrame {
         
         String tipoAbrigo = "Curral";
         carregarTabelaAbrigo(tipoAbrigo);
-    }//GEN-LAST:event_curraisjButtonActionPerformed
+    }//GEN-LAST:event_vacasjButtonActionPerformed
 
-    private void chiqueirosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chiqueirosjButtonActionPerformed
+    private void porcosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porcosjButtonActionPerformed
         controlejPanel.remove(menuAnimaisjPanel);
         controlejPanel.add(chiqueirosjPanel);
         chiqueirosjPanel.setVisible(false);
         chiqueirosjPanel.setVisible(true);
         
-        String tipoAbrigo = "Chiqueiro";
-        carregarTabelaAbrigo(tipoAbrigo);
-    }//GEN-LAST:event_chiqueirosjButtonActionPerformed
+        String tipoAnimal = "Porco";
+        carregarTabelaAnimais(tipoAnimal);
+    }//GEN-LAST:event_porcosjButtonActionPerformed
 
-    private void galinheirosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_galinheirosjButtonActionPerformed
+    private void galinhasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_galinhasjButtonActionPerformed
         controlejPanel.remove(menuAnimaisjPanel);
-        controlejPanel.add(galinheirosjPanel);
-        galinheirosjPanel.setVisible(false);
-        galinheirosjPanel.setVisible(true);
+        controlejPanel.add(galinhasjPanel);
+        galinhasjPanel.setVisible(false);
+        galinhasjPanel.setVisible(true);
         
+        String tipoAnimal = "Galinha";
+        carregarTabelaAnimais(tipoAnimal);
         
-        String tipoAbrigo = "Galinheiro";
-        carregarTabelaAbrigo(tipoAbrigo);
-        
-    }//GEN-LAST:event_galinheirosjButtonActionPerformed
+    }//GEN-LAST:event_galinhasjButtonActionPerformed
 
     private void voltarMenuAnimaisjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarMenuAnimaisjButtonActionPerformed
         controlejPanel.remove(menuAnimaisjPanel);
@@ -1962,40 +1909,37 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_registroAbrigosVoltarjButtonActionPerformed
 
     private void salvarGalinhajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarGalinhajButtonActionPerformed
+        
         String id = idGalinhajTextField.getText();
-        String nome = valorGalinhajTextField.getText();
-        String raca = racaGalinhajComboBox.getSelectedItem().toString();
-        Double valorVenda = Double.valueOf(valorGalinhajTextField.getText());
+        String tipo = "Galinha";
+        String nomeRaca = nomeRacajTextField.getText();
+        String quantidade = "0";
+        String valorVenda = valorGalinhajTextField.getText();    
         
+        AnimalDTO animalDTO = new AnimalDTO(id, tipo, nomeRaca, quantidade, valorVenda);
         
-        GalinhaDTO galinha = new GalinhaDTO(id, nome, raca, valorVenda);
-        
-        GalinhaService galinhaService = new GalinhaServiceImpl();
+        AnimalService animalService = new AnimalServiceImpl();
         
      
         try {               
-            galinhaService.salvar(galinha);
+            animalService.salvar(animalDTO);
             cancelarGalinhajButtonActionPerformed(evt);
-            JOptionPane.showMessageDialog(this, "Galinha registrada com sucesso!");             
+            JOptionPane.showMessageDialog(this, "Nova raça registrada com sucesso!");             
         } catch(Exception erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
         }
     }//GEN-LAST:event_salvarGalinhajButtonActionPerformed
 
     private void cancelarGalinhajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarGalinhajButtonActionPerformed
-        nomeGalinhajTextField.setText("");
+        nomeRacajTextField.setText("");
         valorGalinhajTextField.setText("");
-        racaGalinhajComboBox.setSelectedIndex(0);
-        galinheirojComboBox.setSelectedIndex(0);
+        //racaGalinhajComboBox.setSelectedIndex(0);
+        //galinheirojComboBox.setSelectedIndex(0);
     }//GEN-LAST:event_cancelarGalinhajButtonActionPerformed
 
-    private void racaGalinhajComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_racaGalinhajComboBoxActionPerformed
+    private void porcosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_porcosjTableMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_racaGalinhajComboBoxActionPerformed
-
-    private void chiqueirosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chiqueirosjTableMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chiqueirosjTableMouseClicked
+    }//GEN-LAST:event_porcosjTableMouseClicked
 
     private void voltarChiqueirosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarChiqueirosjButtonActionPerformed
         cancelarPorcojButtonActionPerformed(evt);
@@ -2005,26 +1949,23 @@ public class InicioJFrame extends javax.swing.JFrame {
         menuAnimaisjPanel.setVisible(false);
     }//GEN-LAST:event_voltarChiqueirosjButtonActionPerformed
 
-    private void racaPorcojComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_racaPorcojComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_racaPorcojComboBoxActionPerformed
-
     private void salvarPorcojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarPorcojButtonActionPerformed
+        
         String id = idPorcojTextField.getText();
-        String nome = nomePorcojTextField.getText();
-        String raca = racaPorcojComboBox.getSelectedItem().toString();
-        Double valor = Double.valueOf(valorPorcojTextField.getText());
+        String tipo = "Porco";
+        String nomeRaca = racaPorcojTextField.getText();
+        String quantidade = "0";
+        String valorVenda = valorPorcojTextField.getText();    
         
-        PorcoDTO porco = new PorcoDTO(id, nome, raca, valor);
-                
-        PorcoService porcoService = new PorcoServiceImpl();
+        AnimalDTO animalDTO = new AnimalDTO(id, tipo, nomeRaca, quantidade, valorVenda);
         
+        AnimalService animalService = new AnimalServiceImpl();
         
-        try{
-            porcoService.salvar(porco);
-            cancelarPorcojButtonActionPerformed(evt);
-            JOptionPane.showMessageDialog(this, "Porco registrado com suceso!");
-                
+     
+        try {               
+            animalService.salvar(animalDTO);
+            cancelarGalinhajButtonActionPerformed(evt);
+            JOptionPane.showMessageDialog(this, "Nova raça registrada com sucesso!");             
         } catch(Exception erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
         }
@@ -2032,9 +1973,9 @@ public class InicioJFrame extends javax.swing.JFrame {
 
     private void cancelarPorcojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarPorcojButtonActionPerformed
         valorPorcojTextField.setText("");
-        nomePorcojTextField.setText("");
-        racaPorcojComboBox.setSelectedIndex(0);
-        chiqueirojComboBox.setSelectedIndex(0);
+        racaPorcojTextField.setText("");
+        //racaPorcojComboBox.setSelectedIndex(0);
+        //chiqueirojComboBox.setSelectedIndex(0);
     }//GEN-LAST:event_cancelarPorcojButtonActionPerformed
 
     private void apriscosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_apriscosjTableMouseClicked
@@ -2051,17 +1992,17 @@ public class InicioJFrame extends javax.swing.JFrame {
 
     private void salvarOvelhajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarOvelhajButtonActionPerformed
         String id = idOvelhajTextField.getText();
-        String nome = nomeOvelhajTextField.getText();
+        //String nome = nomeOvelhajTextField.getText();
         String cor = corOvelhajComboBox.getSelectedItem().toString();
         Double valor = Double.valueOf(valorOvelhajTextField.getText());
         
-        OvelhaDTO ovelha = new OvelhaDTO(id, nome, cor, valor);
+        //OvelhaDTO ovelha = new OvelhaDTO(id, nome, cor, valor);
         
         OvelhaService ovelhaService = new OvelhaServiceImpl();
         
         
         try{
-            ovelhaService.salvar(ovelha);
+            //ovelhaService.salvar(ovelha);
             cancelarOvelhajButtonActionPerformed(evt);
             JOptionPane.showMessageDialog(this, "Ovelha registrada com sucesso!");
         } catch(Exception erro) {
@@ -2072,9 +2013,9 @@ public class InicioJFrame extends javax.swing.JFrame {
 
     private void cancelarOvelhajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarOvelhajButtonActionPerformed
         valorOvelhajTextField.setText("");
-        nomeOvelhajTextField.setText("");
+        //nomeOvelhajTextField.setText("");
         corOvelhajComboBox.setSelectedIndex(0);
-        apriscojComboBox.setSelectedIndex(0);
+        //apriscojComboBox.setSelectedIndex(0);
     }//GEN-LAST:event_cancelarOvelhajButtonActionPerformed
 
     private void curraisjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_curraisjTableMouseClicked
@@ -2089,24 +2030,20 @@ public class InicioJFrame extends javax.swing.JFrame {
         menuAnimaisjPanel.setVisible(false);
     }//GEN-LAST:event_voltarVacasjButtonActionPerformed
 
-    private void racaVacajComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_racaVacajComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_racaVacajComboBoxActionPerformed
-
     private void salvarVacajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarVacajButtonActionPerformed
         
         String id = idVacajTextField.getText();
         String nome = nomeVacajTextField.getText();
-        String raca = racaVacajComboBox.getSelectedItem().toString();
+        //String raca = racaVacajComboBox.getSelectedItem().toString();
         Double valor = Double.valueOf(valorVacajTextField.getText());
         
-        VacaDTO vaca = new VacaDTO(id, nome, raca, valor);
+        //VacaDTO vaca = new VacaDTO(id, nome, raca, valor);
         
         VacaService vacaService = new VacaServiceImpl();
       
         
         try{
-            vacaService.salvar(vaca);
+            //vacaService.salvar(vaca);
             cancelarVacajButtonActionPerformed(evt);
             JOptionPane.showMessageDialog(this, "Vaca registrada com sucesso!");
         } catch(Exception erro){
@@ -2116,24 +2053,12 @@ public class InicioJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_salvarVacajButtonActionPerformed
 
-    private void chiqueirojComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chiqueirojComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chiqueirojComboBoxActionPerformed
-
     private void cancelarVacajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarVacajButtonActionPerformed
         valorVacajTextField.setText("");
         nomeVacajTextField.setText("");
-        racaVacajComboBox.setSelectedIndex(0);
-        curraljComboBox.setSelectedIndex(0);
+        //racaVacajComboBox.setSelectedIndex(0);
+        //curraljComboBox.setSelectedIndex(0);
     }//GEN-LAST:event_cancelarVacajButtonActionPerformed
-
-    private void curraljComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_curraljComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_curraljComboBoxActionPerformed
-
-    private void corOvelhajComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corOvelhajComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_corOvelhajComboBoxActionPerformed
 
     private void silosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_silosjTableMouseClicked
         // TODO add your handling code here:
@@ -2298,6 +2223,13 @@ public class InicioJFrame extends javax.swing.JFrame {
                 
     }//GEN-LAST:event_registrarEntradajButtonActionPerformed
 
+    private void corOvelhajComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corOvelhajComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_corOvelhajComboBoxActionPerformed
+
+    private void conultarGalinheirosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conultarGalinheirosjButtonActionPerformed
+    }//GEN-LAST:event_conultarGalinheirosjButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2340,14 +2272,11 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField DDDjFormattedTextField;
     private javax.swing.JTextField IDjTextField;
     private javax.swing.JComboBox<String> IDsilojComboBox;
-    private javax.swing.JLabel OvelhajLabel;
     private javax.swing.JLabel abrigosGalinhasjLabel;
     private javax.swing.JLabel abrigosOvelhasjLabel;
     private javax.swing.JLabel abrigosPorcosjLabel;
     private javax.swing.JLabel abrigosjLabel;
     private javax.swing.JButton animaisjButton;
-    private javax.swing.JComboBox<String> apriscojComboBox;
-    private javax.swing.JButton apriscosjButton;
     private javax.swing.JPanel apriscosjPanel;
     private javax.swing.JTable apriscosjTable;
     private javax.swing.JPanel armazenamentojPanel;
@@ -2367,31 +2296,23 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JButton cancelarVacajButton;
     private javax.swing.JLabel capacidadeSilojLabel;
     private javax.swing.JSpinner capacidadeSilojSpinner;
-    private javax.swing.JComboBox<String> chiqueirojComboBox;
-    private javax.swing.JLabel chiqueirojLabel;
-    private javax.swing.JButton chiqueirosjButton;
     private javax.swing.JPanel chiqueirosjPanel;
     private javax.swing.JScrollPane chiqueirosjScrollPane;
-    private javax.swing.JTable chiqueirosjTable;
     private javax.swing.JButton confirmarjButton;
     private javax.swing.JButton consultarArmazenamentojButton;
     private javax.swing.JPanel controlejPanel;
+    private javax.swing.JButton conultarGalinheirosjButton;
     private javax.swing.JComboBox<String> corOvelhajComboBox;
     private javax.swing.JLabel curraisVacasjLabel;
-    private javax.swing.JButton curraisjButton;
     private javax.swing.JPanel curraisjPanel;
     private javax.swing.JTable curraisjTable;
-    private javax.swing.JComboBox<String> curraljComboBox;
-    private javax.swing.JLabel curraljLabel;
     private javax.swing.JButton entrarjButton;
     private javax.swing.JLabel espacojLabel;
     private javax.swing.JSpinner espacojSpinner;
-    private javax.swing.JComboBox<String> galinheirojComboBox;
-    private javax.swing.JLabel galinheirojLabel;
-    private javax.swing.JButton galinheirosjButton;
-    private javax.swing.JPanel galinheirosjPanel;
-    private javax.swing.JScrollPane galinheirosjScrollPane;
-    private javax.swing.JTable galinheirosjTable;
+    private javax.swing.JButton galinhasjButton;
+    private javax.swing.JPanel galinhasjPanel;
+    private javax.swing.JScrollPane galinhasjScrollPane;
+    private javax.swing.JTable galinhasjTable;
     private javax.swing.JLabel iDsilojLabel;
     private javax.swing.JLabel idAbrigojLabel;
     private javax.swing.JLabel idGalinhajLabel;
@@ -2412,19 +2333,19 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel menuAnimaisjPanel;
     private javax.swing.JPanel menuPrincipaljPanel;
     private javax.swing.JLabel nomeGalinhajLabel;
-    private javax.swing.JTextField nomeGalinhajTextField;
-    private javax.swing.JLabel nomeOvelhajLabel;
-    private javax.swing.JTextField nomeOvelhajTextField;
     private javax.swing.JLabel nomePorcojLabel;
-    private javax.swing.JTextField nomePorcojTextField;
     private javax.swing.JLabel nomeProdutojLabel;
     private javax.swing.JTextField nomeProdutojTextField;
+    private javax.swing.JTextField nomeRacajTextField;
     private javax.swing.JLabel nomeVacajLabel;
     private javax.swing.JTextField nomeVacajTextField;
     private javax.swing.JLabel nomejLabel;
     private javax.swing.JTextField nomejTextField;
+    private javax.swing.JButton ovelhasjButton;
     private javax.swing.JScrollPane ovelhasjScrollPane;
     private javax.swing.JButton plantacoesjButton;
+    private javax.swing.JButton porcosjButton;
+    private javax.swing.JTable porcosjTable;
     private javax.swing.JComboBox<String> produtojComboBox;
     private javax.swing.JLabel produtojLabel;
     private javax.swing.JButton produtosjButton;
@@ -2434,13 +2355,8 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JTable produtosjTable;
     private javax.swing.JLabel quantidadeEntradajLabel;
     private javax.swing.JSpinner quantidadeEntradajSpinner;
-    private javax.swing.JComboBox<String> racaGalinhajComboBox;
-    private javax.swing.JLabel racaGalinhajLabel;
     private javax.swing.JLabel racaOvelhajLabel;
-    private javax.swing.JComboBox<String> racaPorcojComboBox;
-    private javax.swing.JLabel racaPorcojLabel;
-    private javax.swing.JComboBox<String> racaVacajComboBox;
-    private javax.swing.JLabel racaVacajLabel;
+    private javax.swing.JTextField racaPorcojTextField;
     private javax.swing.JButton registrarEntradajButton;
     private javax.swing.JButton registrarNovoAbrigojButton;
     private javax.swing.JButton registroAbrigosCanceljButton;
@@ -2473,6 +2389,7 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel tituloCadastroVacasjLabel;
     private javax.swing.JLabel usuariojLabel;
     private javax.swing.JTextField usuariojTextField;
+    private javax.swing.JButton vacasjButton;
     private javax.swing.JScrollPane vacasjScrollPane;
     private javax.swing.JLabel valorGalinhajLabel;
     private javax.swing.JTextField valorGalinhajTextField;
@@ -2485,7 +2402,7 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel valorVacajLabel;
     private javax.swing.JTextField valorVacajTextField;
     private javax.swing.JButton voltarChiqueirosjButton;
-    private javax.swing.JButton voltarGalinheirosjButton;
+    private javax.swing.JButton voltarGalinhajButton;
     private javax.swing.JButton voltarMenuAnimaisjButton;
     private javax.swing.JButton voltarOvelhasjButton;
     private javax.swing.JButton voltarProdutosjButton;

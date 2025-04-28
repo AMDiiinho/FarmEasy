@@ -1,0 +1,72 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package br.ufmt.poo.FarmEasy.persistencias.impl;
+
+import br.ufmt.poo.FarmEasy.persistencias.AnimalPersistencia;
+import br.ufmt.poo.FarmEasy.persistencias.entidade.Animal;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.SQLException;
+
+/**
+ *
+ * @author arthurmarques
+ */
+public class AnimalPersistenciaImpl implements AnimalPersistencia {
+
+    BancoDeDados bd = new BancoDeDados();
+    
+    @Override
+    public void executar(Animal animal) {
+        String sql = "INSERT INTO tb_animais (tipo, raca, valor) VALUES (?, ?, ?);";
+        List parametros = new ArrayList();
+        parametros.add(animal.getTipo());
+        parametros.add(animal.getRaca());
+        parametros.add(animal.getValor());
+        bd.inserir(sql, parametros);    
+    }
+
+    @Override
+    public void remover(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void atualizar(Animal animal) {
+        String sql = "UPDATE tb_animais valor = ? WHERE id = ?;";
+        List parametros = new ArrayList();
+        parametros.add(animal.getValor());
+        bd.inserir(sql, parametros);    
+    }
+
+    @Override
+    public List<Animal> buscar(String tipoAnimal) {
+        List<Animal> lista = new ArrayList();
+        String sql = "SELECT * FROM tb_animais WHERE tipo = '" + tipoAnimal + "';";
+        ResultSet rs = bd.executarQuery(sql);
+        
+        
+        try{
+            while(rs.next()){
+                
+                int id = rs.getInt("id");
+                String tipo = rs.getString("tipo");
+                String raca = rs.getString("raca");
+                int quantidade = rs.getInt("quantidade");
+                double valor = rs.getDouble("valor");
+                Animal animal = new Animal(id, tipo, raca, quantidade, valor);
+                lista.add(animal);
+        }
+            
+        } catch (SQLException erro){
+            erro.printStackTrace();
+            throw new RuntimeException("Falha ao recuperar os dados do banco!");
+        }
+        
+        return lista;
+    }
+    
+}
