@@ -717,7 +717,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="chiqueirosjPanel">
+        <Container class="javax.swing.JPanel" name="porcosjPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="ff" red="0" type="rgb"/>
@@ -734,14 +734,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="voltarChiqueirosjButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="voltarPorcosjButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="abrigosPorcosjLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="chiqueirosjScrollPane" min="-2" pref="334" max="-2" attributes="0"/>
+                          <Component id="racasPorcosjLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="porcosjScrollPane" min="-2" pref="334" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="43" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -779,12 +779,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace pref="32" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="abrigosPorcosjLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="racasPorcosjLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="tituloCadastroPorcojLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="chiqueirosjScrollPane" min="-2" pref="269" max="-2" attributes="0"/>
+                          <Component id="porcosjScrollPane" min="-2" pref="269" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="idPorcojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -808,14 +808,14 @@
                           </Group>
                       </Group>
                       <EmptySpace pref="75" max="32767" attributes="0"/>
-                      <Component id="voltarChiqueirosjButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="voltarPorcosjButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="chiqueirosjScrollPane">
+            <Container class="javax.swing.JScrollPane" name="porcosjScrollPane">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -856,20 +856,20 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="voltarChiqueirosjButton">
+            <Component class="javax.swing.JButton" name="voltarPorcosjButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;&lt;&lt;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="voltarChiqueirosjButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="voltarPorcosjButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="abrigosPorcosjLabel">
+            <Component class="javax.swing.JLabel" name="racasPorcosjLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Cantarell" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Chiqueiros"/>
+                <Property name="text" type="java.lang.String" value="Ra&#xe7;as"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="idPorcojLabel">
@@ -922,7 +922,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="apriscosjPanel">
+        <Container class="javax.swing.JPanel" name="ovelhasjPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="ff" red="0" type="rgb"/>
@@ -946,29 +946,38 @@
                       <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="abrigosOvelhasjLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="ovelhasjScrollPane" min="-2" pref="247" max="-2" attributes="0"/>
+                          <Component id="ovelhasjScrollPane" min="-2" pref="321" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="145" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="idOvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="racaOvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="valorOvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="idOvelhajTextField" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
-                              <Component id="corOvelhajComboBox" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="cancelarOvelhajButton" min="-2" pref="96" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="salvarOvelhajButton" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace pref="89" max="32767" attributes="0"/>
+                              <Component id="idOvelhajLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="idOvelhajTextField" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
+                                  <Component id="tituloCadastroOvelhasjLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="valorOvelhajTextField" alignment="0" min="-2" pref="204" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="tituloCadastroOvelhasjLabel" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="racaOvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="valorOvelhajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="corOvelhajComboBox" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="cancelarOvelhajButton" min="-2" pref="96" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="salvarOvelhajButton" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="valorOvelhajTextField" alignment="0" min="-2" pref="204" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -982,13 +991,12 @@
                       </Group>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="ovelhasjScrollPane" min="-2" pref="269" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="idOvelhajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="idOvelhajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="racaOvelhajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="corOvelhajComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1004,8 +1012,9 @@
                                   <Component id="salvarOvelhajButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Component id="ovelhasjScrollPane" alignment="0" min="-2" pref="315" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="75" max="32767" attributes="0"/>
+                      <EmptySpace pref="29" max="32767" attributes="0"/>
                       <Component id="voltarOvelhasjButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
@@ -1020,13 +1029,14 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="apriscosjTable">
+                <Component class="javax.swing.JTable" name="ovelhasjTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="3" rowCount="5">
+                      <Table columnCount="4" rowCount="5">
                         <Column editable="false" title="ID" type="java.lang.String"/>
-                        <Column editable="false" title="qtdAnimais" type="java.lang.String"/>
-                        <Column editable="false" title="Capacidade" type="java.lang.String"/>
+                        <Column editable="false" title="Cor" type="java.lang.String"/>
+                        <Column editable="false" title="Quantidade" type="java.lang.String"/>
+                        <Column editable="false" title="Valor" type="java.lang.String"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1048,7 +1058,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="apriscosjTableMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ovelhasjTableMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -1139,7 +1149,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="curraisjPanel">
+        <Container class="javax.swing.JPanel" name="vacasjPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="ff" red="0" type="rgb"/>
@@ -1154,43 +1164,46 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="voltarVacasjButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace pref="36" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="curraisVacasjLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="vacasjScrollPane" min="-2" pref="247" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                              <Component id="tituloCadastroVacasjLabel" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="voltarVacasjButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="idVacajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="nomeVacajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="valorVacajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="vacasjLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="vacasjScrollPane" min="-2" pref="338" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="idVacajTextField" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
-                                  <Component id="nomeVacajTextField" alignment="0" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="cancelarVacajButton" min="-2" pref="96" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="salvarVacajButton" pref="96" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                      <Component id="tituloCadastroVacasjLabel" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="valorVacajTextField" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="idVacajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nomeVacajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="valorVacajLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="idVacajTextField" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
+                                          <Component id="racaVacajTextField" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="cancelarVacajButton" min="-2" pref="96" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="salvarVacajButton" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="valorVacajTextField" alignment="0" min="-2" pref="204" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
+                              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="256" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1199,12 +1212,11 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace pref="32" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="curraisVacasjLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="vacasjLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="tituloCadastroVacasjLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="vacasjScrollPane" min="-2" pref="269" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="idVacajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1213,21 +1225,22 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="nomeVacajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="nomeVacajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="racaVacajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="valorVacajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="valorVacajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="cancelarVacajButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="salvarVacajButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Component id="vacasjScrollPane" alignment="0" min="-2" pref="333" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="75" max="32767" attributes="0"/>
+                      <EmptySpace pref="11" max="32767" attributes="0"/>
                       <Component id="voltarVacasjButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
@@ -1242,17 +1255,28 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="curraisjTable">
+                <Component class="javax.swing.JTable" name="vacasjTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="3" rowCount="5">
+                      <Table columnCount="4" rowCount="5">
                         <Column editable="false" title="ID" type="java.lang.String"/>
-                        <Column editable="false" title="qtdAnimais" type="java.lang.String"/>
-                        <Column editable="false" title="Capacidade" type="java.lang.String"/>
+                        <Column editable="false" title="Ra&#xe7;a" type="java.lang.String"/>
+                        <Column editable="false" title="Quantidade" type="java.lang.String"/>
+                        <Column editable="false" title="Valor" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -1270,7 +1294,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="curraisjTableMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="vacasjTableMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -1283,12 +1307,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="voltarVacasjButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="curraisVacasjLabel">
+            <Component class="javax.swing.JLabel" name="vacasjLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Cantarell" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Currais"/>
+                <Property name="text" type="java.lang.String" value="Vacas"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="idVacajLabel">
@@ -1298,10 +1322,10 @@
             </Component>
             <Component class="javax.swing.JLabel" name="nomeVacajLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nome:"/>
+                <Property name="text" type="java.lang.String" value="Nome da ra&#xe7;a:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="nomeVacajTextField">
+            <Component class="javax.swing.JTextField" name="racaVacajTextField">
             </Component>
             <Component class="javax.swing.JTextField" name="idVacajTextField">
               <Properties>
@@ -1329,7 +1353,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Cantarell" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cadastro de vacas"/>
+                <Property name="text" type="java.lang.String" value="Cadastro de ra&#xe7;as de vacas"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="valorVacajTextField">
