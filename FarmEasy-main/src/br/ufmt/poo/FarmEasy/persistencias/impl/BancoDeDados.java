@@ -56,7 +56,6 @@ public class BancoDeDados {
             return con.createStatement().executeQuery(sql);
             
             } catch(SQLException erro) {
-                erro.printStackTrace();
                 throw new RuntimeException("Erro ao inserir no banco de dados");
         }
     }

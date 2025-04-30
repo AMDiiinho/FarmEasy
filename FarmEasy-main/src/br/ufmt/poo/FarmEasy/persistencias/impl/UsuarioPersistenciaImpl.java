@@ -89,19 +89,20 @@ public class UsuarioPersistenciaImpl extends javax.swing.JFrame implements Usuar
 
         try {
               
-            System.out.println(rs.next());
+            if(rs.next()){
   
-            String usuario = rs.getString("usuario");
-            String senha = rs.getString("senha");         
+                String usuario = rs.getString("usuario");
+                String senha = rs.getString("senha");         
 
-            if(senha.equals(senhaAcesso) && usuario.equals(usuarioAcesso)){
-                return true;
-            }
-              
+                if(senha.equals(senhaAcesso) && usuario.equals(usuarioAcesso)){
+                    return true;
+                }
+            }             
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(rootPane, "Usuário e/ou senha incorreta!");
+            erro.printStackTrace();
         }
-        return false;
+        JOptionPane.showMessageDialog(rootPane, "Usuario e/ou senha incorretos!");
+        throw new RuntimeException("Usuario e/ou senha incorretos!");
     }
     
 }
