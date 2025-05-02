@@ -89,6 +89,7 @@ public class SiloPersistenciaImpl extends javax.swing.JFrame implements SiloPers
                 
                 if(qtdProdutosNova <= capacidade){
                     String sqlUpdate = "UPDATE tb_silos SET qtdProdutos = '" + qtdProdutosNova + "' WHERE id = '" + idSilo + "';";
+                    JOptionPane.showMessageDialog(rootPane, "Entrada de produto registrada com sucesso!");
                     bd.executarQuery(sqlUpdate);
                                        
                 } else {

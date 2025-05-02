@@ -16,10 +16,10 @@ public class Abrigo {
     private int qtdAnimais;
     private int capacidade;
     
-    public Abrigo(int id, String tipo, int capacidade) {
+    public Abrigo(int id, String tipo, int qtdAnimais, int capacidade) {
         this.id = id;
         this.tipo = tipo;
-        this.qtdAnimais = 0;
+        this.qtdAnimais = qtdAnimais;
         this.capacidade = capacidade;
     }
     

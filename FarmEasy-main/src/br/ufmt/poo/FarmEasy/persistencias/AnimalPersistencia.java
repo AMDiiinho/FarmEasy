@@ -21,6 +21,6 @@ public interface AnimalPersistencia {
     
     public List<Animal> buscar(String tipoAnimal);
     
-    
+    public void atualizarQtdAnimais(String racaAnimal, int quantidade);
     
 }

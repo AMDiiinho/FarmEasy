@@ -17,10 +17,10 @@ public class AbrigoDTO {
     private String capacidade;
     
 
-    public AbrigoDTO(String id, String tipo, String capacidade) {
+    public AbrigoDTO(String id, String tipo, String qtdAnimais, String capacidade) {
         this.id = id;
         this.tipo = tipo;
-        this.qtdAnimais = "0";
+        this.qtdAnimais = qtdAnimais;
         this.capacidade = capacidade;
     }
 

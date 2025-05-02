@@ -27,6 +27,7 @@ public class AbrigoServiceImpl implements AbrigoService {
         }
         
         int id = 0;
+        int qtdAnimais = Integer.parseInt(dto.getQtdAnimais());
         int capacidade = Integer.parseInt(dto.getCapacidade());
         
         if(!dto.getId().equals("")){
@@ -34,7 +35,7 @@ public class AbrigoServiceImpl implements AbrigoService {
             id = Integer.parseInt(dto.getId());            
         }
         
-        Abrigo abrigo = new Abrigo (id, dto.getTipo(), capacidade);
+        Abrigo abrigo = new Abrigo (id, dto.getTipo(), qtdAnimais, capacidade);
         
         AbrigoPersistencia persistencia = new AbrigoPersistenciaImpl();
         
@@ -60,8 +61,9 @@ public class AbrigoServiceImpl implements AbrigoService {
         for (Abrigo abrigo : abrigos) {
             String id = abrigo.getId() + "";
             String tipo = abrigo.getTipo();
+            String qtdAnimais = abrigo.getQtdAnimais() + "";
             String capacidade = abrigo.getCapacidade() + "";
-            AbrigoDTO dto = new AbrigoDTO(id, tipo, capacidade);
+            AbrigoDTO dto = new AbrigoDTO(id, tipo, qtdAnimais, capacidade);
             lista.add(dto);
             
             

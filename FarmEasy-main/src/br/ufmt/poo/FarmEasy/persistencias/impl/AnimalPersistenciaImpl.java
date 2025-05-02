@@ -69,4 +69,30 @@ public class AnimalPersistenciaImpl implements AnimalPersistencia {
         return lista;
     }
     
+    @Override
+    public void atualizarQtdAnimais(String racaAnimal, int quantidade){
+        
+        String sqlSelect = "SELECT quantidade FROM tb_animais WHERE raca = '" + racaAnimal + "';";
+        ResultSet rs = bd.executarQuery(sqlSelect);
+        
+        try {
+            
+            if(rs.next()){
+                
+                int qtdAtual = rs.getInt("quantidade");
+                
+                int qtdNova = qtdAtual + quantidade;
+                
+                String sqlUpdate = "UPDATE tb_animais SET quantidade = '" + qtdNova + "' WHERE raca = '" + racaAnimal + "';";
+                bd.executarQuery(sqlUpdate);
+                
+            }
+            
+        } catch (Exception erro){
+            
+        }
+       
+        
+    }
+    
 }

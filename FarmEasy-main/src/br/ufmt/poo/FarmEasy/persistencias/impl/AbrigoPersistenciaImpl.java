@@ -10,12 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author aluno
  */
-public class AbrigoPersistenciaImpl implements AbrigoPersistencia {
+public class AbrigoPersistenciaImpl extends javax.swing.JFrame implements AbrigoPersistencia {
 
     private BancoDeDados bd = new BancoDeDados();
     
@@ -59,8 +60,9 @@ public class AbrigoPersistenciaImpl implements AbrigoPersistencia {
                 
                 int id = rs.getInt("id");
                 String tipo = rs.getString("tipo");
+                int qtdAnimais = rs.getInt("qtdAnimais");
                 int capacidade = rs.getInt("capacidade");
-                Abrigo abrigo = new Abrigo(id, tipo, capacidade);
+                Abrigo abrigo = new Abrigo(id, tipo, qtdAnimais, capacidade);
                 lista.add(abrigo);
                 
                 
@@ -71,6 +73,40 @@ public class AbrigoPersistenciaImpl implements AbrigoPersistencia {
         }
             
         return lista;  
+    }
+    
+    @Override
+    public void entradaAnimais(int idAbrigo, int qtdAnimais){
+                       
+        try {
+            
+            if(qtdAnimais <= 0){
+                JOptionPane.showMessageDialog(rootPane, "O campo quantidade não pode zer menor ou igual a zero!");
+            } else {
+            
+                String sqlSelect  = "SELECT qtdAnimais, capacidade FROM tb_abrigos WHERE id = '" + idAbrigo + "';";
+                ResultSet rs = bd.executarQuery(sqlSelect);
+
+                if(rs.next()){
+
+                    int qtdAnimaisAtual = rs.getInt("qtdAnimais");
+                    int capacidade = rs.getInt("capacidade");
+
+                    int qtdAnimaisNova = qtdAnimaisAtual + qtdAnimais;
+
+                    if(qtdAnimaisNova <= capacidade){
+                        String sqlUpdate = "UPDATE tb_abrigos SET qtdAnimais = '" + qtdAnimaisNova + "' WHERE id = '" + idAbrigo + "';";
+                        JOptionPane.showMessageDialog(rootPane, "Entrada de animais registrada!");
+                        bd.executarQuery(sqlUpdate);
+
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Espaço insuficiente no abrigo!");
+                    }
+                }
+            } 
+        } catch (Exception erro) {
+  
+        }
     }
     
 }
