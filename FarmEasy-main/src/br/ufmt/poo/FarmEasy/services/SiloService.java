@@ -17,6 +17,6 @@ public interface SiloService {
     
     public void remover(SiloDTO dto);
     
-    public List <SiloDTO> listar();
+    public List <SiloDTO> listar(int idUsuario);
     
 }

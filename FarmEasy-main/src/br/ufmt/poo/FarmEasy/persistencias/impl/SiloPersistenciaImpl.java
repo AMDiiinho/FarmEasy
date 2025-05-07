@@ -23,8 +23,9 @@ public class SiloPersistenciaImpl extends javax.swing.JFrame implements SiloPers
     @Override
     public void executar(Silo silo) {
         
-        String sql = "INSERT INTO tb_silos (capacidade) VALUES (?);";
+        String sql = "INSERT INTO tb_silos (usuarioId, capacidade) VALUES (?,?);";
         List parametros = new ArrayList();
+        parametros.add(silo.getUsuarioId());
         parametros.add(silo.getCapacidade());
         bd.inserir(sql, parametros);   
     }
@@ -46,10 +47,10 @@ public class SiloPersistenciaImpl extends javax.swing.JFrame implements SiloPers
     }
 
     @Override
-    public List<Silo> buscar() {
+    public List<Silo> buscar(int idUsuario) {
         
         List<Silo> lista = new ArrayList();
-        String sql = "SELECT * FROM tb_silos";
+        String sql = "SELECT * FROM tb_silos WHERE usuarioId = '" + idUsuario + "';";
         ResultSet rs = bd.executarQuery(sql);
         
         
@@ -57,9 +58,10 @@ public class SiloPersistenciaImpl extends javax.swing.JFrame implements SiloPers
             while(rs.next()){
                 
                 int id = rs.getInt("id");
+                int usuarioId = rs.getInt("usuarioId");
                 int qtdProdutos = rs.getInt("qtdProdutos");
                 int capacidade = rs.getInt("capacidade");
-                Silo silo = new Silo(id, qtdProdutos, capacidade);
+                Silo silo = new Silo(id, usuarioId, qtdProdutos, capacidade);
                 lista.add(silo);
             }
             
@@ -72,7 +74,7 @@ public class SiloPersistenciaImpl extends javax.swing.JFrame implements SiloPers
     }
     
     @Override
-    public void entradaEstoque(int idSilo, int qtdProdutos){
+    public boolean entradaEstoque(int idSilo, int qtdProdutos){
         
                
         try {
@@ -94,11 +96,13 @@ public class SiloPersistenciaImpl extends javax.swing.JFrame implements SiloPers
                                        
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Espaço insuficiente no silo!");
+                    return false;
                 }
             }
         } catch (Exception erro){
           
         }
+        return true;
     }
     
     

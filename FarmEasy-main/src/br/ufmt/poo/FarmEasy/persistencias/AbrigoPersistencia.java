@@ -19,8 +19,8 @@ public interface AbrigoPersistencia {
     
     public void atualizar(Abrigo abrigo);
     
-    public List<Abrigo> buscar(String tipoAbrigo);
+    public List<Abrigo> buscar(int idUsuario, String tipoAbrigo);
     
-    public void entradaAnimais(int idAbrigo, int qtdAnimais);
+    public boolean entradaAnimais(int idAbrigo, int qtdAnimais);
     
 }

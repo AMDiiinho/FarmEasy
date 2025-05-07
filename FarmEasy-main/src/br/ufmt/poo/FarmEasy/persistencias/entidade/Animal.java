@@ -11,14 +11,16 @@ package br.ufmt.poo.FarmEasy.persistencias.entidade;
 public class Animal {
     
     private int id;
+    private int usuarioId;
     private String tipo;
     private String raca;
     private int quantidade;
     private double valor;
     
-    public Animal(int id, String tipo, String raca, int quantidade, double valor){
+    public Animal(int id, int usuarioId, String tipo, String raca, int quantidade, double valor){
         
         this.id = id;
+        this.usuarioId = usuarioId;
         this.tipo = tipo;
         this.raca = raca;
         this.quantidade = quantidade;
@@ -32,6 +34,14 @@ public class Animal {
     
     public void setId(int id){
         this.id = id;
+    }
+    
+    public int getUsuarioId(){
+        return usuarioId;
+    }
+    
+    public void setUsuarioId(int usuarioId){
+        this.usuarioId = usuarioId;
     }
     
     public String getTipo(){

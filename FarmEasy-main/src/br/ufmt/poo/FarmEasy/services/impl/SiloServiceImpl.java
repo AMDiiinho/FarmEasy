@@ -18,13 +18,14 @@ import java.util.ArrayList;
  */
 public class SiloServiceImpl implements SiloService {
     
-     @Override
+    @Override
     public void salvar(SiloDTO dto) {
         if(Integer.parseInt(dto.getCapacidade()) <= 0){
             throw new RuntimeException("O campo capacidade não pode ser menor ou igual a zero!"); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         } 
         
         int id = 0;
+        int usuarioId = 0;
         int qtdProdutos = Integer.parseInt(dto.getQtdProdutos());
         int estoque = Integer.parseInt(dto.getCapacidade());
         
@@ -33,7 +34,10 @@ public class SiloServiceImpl implements SiloService {
             id = Integer.parseInt(dto.getId());            
         }
         
-        Silo silo = new Silo (id, qtdProdutos, estoque);
+        if(!dto.getUsuarioId().equals("")){
+            usuarioId = Integer.parseInt(dto.getUsuarioId());
+        }            
+        Silo silo = new Silo (id, usuarioId, qtdProdutos, estoque);
         
         SiloPersistencia persistencia = new SiloPersistenciaImpl();
         
@@ -50,17 +54,18 @@ public class SiloServiceImpl implements SiloService {
     }
 
     @Override
-    public List<SiloDTO> listar() {
+    public List<SiloDTO> listar(int idUsuario) {
         
         SiloPersistencia persistencia = new SiloPersistenciaImpl();
         
         List<SiloDTO> lista = new ArrayList<>();
-        List<Silo> silos = persistencia.buscar();
+        List<Silo> silos = persistencia.buscar(idUsuario);
         for (Silo silo : silos) {
             String id = silo.getId() + "";
+            String usuarioId = silo.getUsuarioId() + "";
             String qtdProdutos = silo.getQtdProdutos() + "";
             String capacidade = silo.getCapacidade() + "";
-            SiloDTO dto = new SiloDTO(id, qtdProdutos, capacidade);
+            SiloDTO dto = new SiloDTO(id, usuarioId, qtdProdutos, capacidade);
             lista.add(dto);
             
         }

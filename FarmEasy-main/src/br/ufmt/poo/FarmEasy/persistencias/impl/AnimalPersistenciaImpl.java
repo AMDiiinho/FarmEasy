@@ -21,8 +21,10 @@ public class AnimalPersistenciaImpl implements AnimalPersistencia {
     
     @Override
     public void executar(Animal animal) {
-        String sql = "INSERT INTO tb_animais (tipo, raca, valor) VALUES (?, ?, ?);";
+        
+        String sql = "INSERT INTO tb_animais (usuarioId, tipo, raca, valor) VALUES (?, ?, ?, ?);";
         List parametros = new ArrayList();
+        parametros.add(animal.getUsuarioId());
         parametros.add(animal.getTipo());
         parametros.add(animal.getRaca());
         parametros.add(animal.getValor());
@@ -43,9 +45,9 @@ public class AnimalPersistenciaImpl implements AnimalPersistencia {
     }
 
     @Override
-    public List<Animal> buscar(String tipoAnimal) {
+    public List<Animal> buscar(int idUsuario, String tipoAnimal) {
         List<Animal> lista = new ArrayList();
-        String sql = "SELECT * FROM tb_animais WHERE tipo = '" + tipoAnimal + "';";
+        String sql = "SELECT * FROM tb_animais WHERE usuarioId = '" + idUsuario + "' AND tipo = '" + tipoAnimal + "';";
         ResultSet rs = bd.executarQuery(sql);
         
         
@@ -53,11 +55,12 @@ public class AnimalPersistenciaImpl implements AnimalPersistencia {
             while(rs.next()){
                 
                 int id = rs.getInt("id");
+                int usuarioId = rs.getInt("usuarioId");
                 String tipo = rs.getString("tipo");
                 String raca = rs.getString("raca");
                 int quantidade = rs.getInt("quantidade");
                 double valor = rs.getDouble("valor");
-                Animal animal = new Animal(id, tipo, raca, quantidade, valor);
+                Animal animal = new Animal(id, usuarioId, tipo, raca, quantidade, valor);
                 lista.add(animal);
         }
             

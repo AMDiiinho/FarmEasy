@@ -23,8 +23,9 @@ public class AbrigoPersistenciaImpl extends javax.swing.JFrame implements Abrigo
     @Override
     public void executar(Abrigo abrigo) {               
         
-        String sql = "INSERT INTO tb_abrigos (tipo, capacidade) VALUES (?,?);";
+        String sql = "INSERT INTO tb_abrigos (usuarioId, tipo, capacidade) VALUES (?,?,?);";
         List parametros = new ArrayList();
+        parametros.add(abrigo.getUsuarioId());
         parametros.add(abrigo.getTipo());
         parametros.add(abrigo.getCapacidade());
         bd.inserir(sql, parametros);  
@@ -49,20 +50,21 @@ public class AbrigoPersistenciaImpl extends javax.swing.JFrame implements Abrigo
     }
 
     @Override
-    public List<Abrigo> buscar(String tipoAbrigo) {
+    public List<Abrigo> buscar(int idUsuario, String tipoAbrigo) {
         
         List<Abrigo> lista = new ArrayList();
-        String sql = "SELECT * FROM tb_abrigos WHERE tipo = '" + tipoAbrigo + "';";
+        String sql = "SELECT * FROM tb_abrigos WHERE usuarioId = '" + idUsuario + "' AND tipo = '" + tipoAbrigo + "';";
         ResultSet rs = bd.executarQuery(sql);
         
         try {
             while(rs.next()){
                 
                 int id = rs.getInt("id");
+                int usuarioId = rs.getInt("usuarioId");
                 String tipo = rs.getString("tipo");
                 int qtdAnimais = rs.getInt("qtdAnimais");
                 int capacidade = rs.getInt("capacidade");
-                Abrigo abrigo = new Abrigo(id, tipo, qtdAnimais, capacidade);
+                Abrigo abrigo = new Abrigo(id, usuarioId, tipo, qtdAnimais, capacidade);
                 lista.add(abrigo);
                 
                 
@@ -76,37 +78,39 @@ public class AbrigoPersistenciaImpl extends javax.swing.JFrame implements Abrigo
     }
     
     @Override
-    public void entradaAnimais(int idAbrigo, int qtdAnimais){
+    public boolean entradaAnimais(int idAbrigo, int qtdAnimais){
                        
         try {
-            
+                      
             if(qtdAnimais <= 0){
                 JOptionPane.showMessageDialog(rootPane, "O campo quantidade não pode zer menor ou igual a zero!");
             } else {
             
                 String sqlSelect  = "SELECT qtdAnimais, capacidade FROM tb_abrigos WHERE id = '" + idAbrigo + "';";
                 ResultSet rs = bd.executarQuery(sqlSelect);
-
+                
                 if(rs.next()){
 
                     int qtdAnimaisAtual = rs.getInt("qtdAnimais");
                     int capacidade = rs.getInt("capacidade");
 
                     int qtdAnimaisNova = qtdAnimaisAtual + qtdAnimais;
-
-                    if(qtdAnimaisNova <= capacidade){
+          
+                    if(qtdAnimaisNova <= capacidade){                                             
                         String sqlUpdate = "UPDATE tb_abrigos SET qtdAnimais = '" + qtdAnimaisNova + "' WHERE id = '" + idAbrigo + "';";
                         JOptionPane.showMessageDialog(rootPane, "Entrada de animais registrada!");
                         bd.executarQuery(sqlUpdate);
 
-                    } else {
+                        } else {                       
                         JOptionPane.showMessageDialog(rootPane, "Espaço insuficiente no abrigo!");
+                        return false;
                     }
-                }
+                }               
             } 
         } catch (Exception erro) {
   
         }
+        return true;
     }
     
 }

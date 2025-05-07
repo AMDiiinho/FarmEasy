@@ -19,7 +19,7 @@ public interface AnimalPersistencia {
     
     public void atualizar(Animal animal);
     
-    public List<Animal> buscar(String tipoAnimal);
+    public List<Animal> buscar(int usuarioId, String tipoAnimal);
     
     public void atualizarQtdAnimais(String racaAnimal, int quantidade);
     

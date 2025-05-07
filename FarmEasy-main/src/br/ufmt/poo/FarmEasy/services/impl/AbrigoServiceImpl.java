@@ -23,10 +23,11 @@ public class AbrigoServiceImpl implements AbrigoService {
     @Override
     public void salvar(AbrigoDTO dto) {
         if(Integer.parseInt(dto.getCapacidade()) <= 0){
-            throw new RuntimeException("O campo capacidade não pode ser menor ou igual a zero!"); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            throw new RuntimeException("O campo capacidade não pode ser menor ou igual a zero!"); 
         }
         
         int id = 0;
+        int usuarioId = 0;
         int qtdAnimais = Integer.parseInt(dto.getQtdAnimais());
         int capacidade = Integer.parseInt(dto.getCapacidade());
         
@@ -35,7 +36,12 @@ public class AbrigoServiceImpl implements AbrigoService {
             id = Integer.parseInt(dto.getId());            
         }
         
-        Abrigo abrigo = new Abrigo (id, dto.getTipo(), qtdAnimais, capacidade);
+        if(!dto.getUsuarioId().equals("")){
+            
+            usuarioId = Integer.parseInt(dto.getUsuarioId());            
+        }
+        
+        Abrigo abrigo = new Abrigo (id, usuarioId, dto.getTipo(), qtdAnimais, capacidade);
         
         AbrigoPersistencia persistencia = new AbrigoPersistenciaImpl();
         
@@ -52,18 +58,19 @@ public class AbrigoServiceImpl implements AbrigoService {
     }
 
     @Override
-    public List<AbrigoDTO> listar(String tipoAbrigo) {
+    public List<AbrigoDTO> listar(int idUsuario, String tipoAbrigo) {
         
         AbrigoPersistencia persistencia = new AbrigoPersistenciaImpl();
         
         List<AbrigoDTO> lista = new ArrayList<>();
-        List<Abrigo> abrigos = persistencia.buscar(tipoAbrigo);
+        List<Abrigo> abrigos = persistencia.buscar(idUsuario, tipoAbrigo);
         for (Abrigo abrigo : abrigos) {
             String id = abrigo.getId() + "";
+            String usuarioId = abrigo.getUsuarioId() + "";
             String tipo = abrigo.getTipo();
             String qtdAnimais = abrigo.getQtdAnimais() + "";
             String capacidade = abrigo.getCapacidade() + "";
-            AbrigoDTO dto = new AbrigoDTO(id, tipo, qtdAnimais, capacidade);
+            AbrigoDTO dto = new AbrigoDTO(id, usuarioId, tipo, qtdAnimais, capacidade);
             lista.add(dto);
             
             

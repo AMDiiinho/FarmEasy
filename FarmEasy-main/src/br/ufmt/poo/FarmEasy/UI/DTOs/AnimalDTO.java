@@ -11,14 +11,16 @@ package br.ufmt.poo.FarmEasy.UI.DTOs;
 public class AnimalDTO {
     
     private String id;
+    private String usuarioId;
     private String tipo;
     private String raca;
     private String quantidade;
     private String valor;
     
-    public AnimalDTO(String id, String tipo, String raca, String quantidade, String valor){
+    public AnimalDTO(String id, String usuarioId, String tipo, String raca, String quantidade, String valor){
         
         this.id = id;
+        this.usuarioId = usuarioId;
         this.tipo = tipo;
         this.raca = raca;
         this.quantidade = quantidade;
@@ -32,6 +34,14 @@ public class AnimalDTO {
     
     public void setId(String id){
         this.id = id;
+    }
+    
+    public String getUsuarioId(){
+        return usuarioId;
+    }
+    
+    public void setUsuarioId(String usuarioId){
+        this.usuarioId = usuarioId;
     }
     
     public String getTipo(){

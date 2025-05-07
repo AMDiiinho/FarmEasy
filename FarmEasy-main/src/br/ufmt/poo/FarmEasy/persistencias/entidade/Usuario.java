@@ -16,7 +16,7 @@ public class Usuario {
     private String telefone;
     private String cpf;
     private String usuario;
-    public String senha;
+    private String senha;
     
     
     public Usuario(int id, String nome, String telefone, String cpf, String usuario, String senha) {
@@ -44,7 +44,7 @@ public class Usuario {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+    
     public String getTelefone() {
         return telefone;
     }

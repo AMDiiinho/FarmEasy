@@ -17,6 +17,6 @@ public interface AbrigoService {
     
     public void remover(AbrigoDTO dto);
     
-    public List<AbrigoDTO> listar(String tipoAbrigo);
+    public List<AbrigoDTO> listar(int usuarioId, String tipoAbrigo);
     
 }

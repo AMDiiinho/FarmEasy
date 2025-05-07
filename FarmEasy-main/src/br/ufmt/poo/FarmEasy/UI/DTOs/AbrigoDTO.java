@@ -12,13 +12,15 @@ public class AbrigoDTO {
 
     
     private String id;
+    private String usuarioId;
     private String tipo;
     private String qtdAnimais;
     private String capacidade;
     
 
-    public AbrigoDTO(String id, String tipo, String qtdAnimais, String capacidade) {
+    public AbrigoDTO(String id, String usuarioId, String tipo, String qtdAnimais, String capacidade) {
         this.id = id;
+        this.usuarioId = usuarioId;
         this.tipo = tipo;
         this.qtdAnimais = qtdAnimais;
         this.capacidade = capacidade;
@@ -30,6 +32,14 @@ public class AbrigoDTO {
 
     public void setId(String id) {
         this.id = id;
+    }
+    
+    public String getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public String getTipo() {

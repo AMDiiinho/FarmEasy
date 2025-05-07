@@ -19,7 +19,7 @@ public interface UsuarioPersistencia {
     
     public void atualizar(Usuario usuario);
     
-    public boolean login(String usuarioAcesso, String senhaAcesso);
+    public int login(String usuarioAcesso, String senhaAcesso);
     
     public List<Usuario> buscar();
     

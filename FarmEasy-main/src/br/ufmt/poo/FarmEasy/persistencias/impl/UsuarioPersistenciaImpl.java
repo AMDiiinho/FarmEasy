@@ -82,20 +82,21 @@ public class UsuarioPersistenciaImpl extends javax.swing.JFrame implements Usuar
     }
     
     @Override
-    public boolean login(String usuarioAcesso, String senhaAcesso){
+    public int login(String usuarioAcesso, String senhaAcesso){
         
-        String sql = "SELECT usuario, senha FROM tb_usuarios WHERE usuario = '"+ usuarioAcesso +"' AND senha = '"+ senhaAcesso +"';";
+        String sql = "SELECT id, usuario, senha FROM tb_usuarios WHERE usuario = '" + usuarioAcesso + "' AND senha = '"+ senhaAcesso +"';";
         ResultSet rs = bd.executarQuery(sql);
 
         try {
               
             if(rs.next()){
-  
+                
+                String usuarioId = rs.getString("id");
                 String usuario = rs.getString("usuario");
                 String senha = rs.getString("senha");         
-
+      
                 if(senha.equals(senhaAcesso) && usuario.equals(usuarioAcesso)){
-                    return true;
+                    return Integer.parseInt(usuarioId);
                 }
             }             
         } catch (Exception erro) {

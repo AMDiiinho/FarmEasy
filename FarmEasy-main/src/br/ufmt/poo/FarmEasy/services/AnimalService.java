@@ -17,6 +17,6 @@ public interface AnimalService {
     
     public void remover(AnimalDTO dto);
     
-    public List<AnimalDTO> listar(String tipoAnimal);
+    public List<AnimalDTO> listar(int usuarioId, String tipoAnimal);
     
 }

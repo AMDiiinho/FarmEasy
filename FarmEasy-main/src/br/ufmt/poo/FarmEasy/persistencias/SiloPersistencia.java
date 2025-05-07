@@ -19,8 +19,8 @@ public interface SiloPersistencia {
     
     public void atualizar(Silo silo);
     
-    public List<Silo> buscar();
+    public List<Silo> buscar(int idUsuario);
     
-    public void entradaEstoque(int id, int qtdProdutos);
+    public boolean entradaEstoque(int id, int qtdProdutos);
     
 }

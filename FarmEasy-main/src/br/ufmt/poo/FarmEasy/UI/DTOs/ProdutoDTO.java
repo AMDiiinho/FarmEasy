@@ -12,13 +12,15 @@ public class ProdutoDTO {
 
     
     private String id;
+    private String usuarioId;
     private String nome;
     private String estoque;
     private String valor;
     
     
-    public ProdutoDTO(String id, String nome, String estoque, String valor) {
+    public ProdutoDTO(String id, String usuarioId, String nome, String estoque, String valor) {
         this.id = id;
+        this.usuarioId = usuarioId;
         this.nome = nome;
         this.estoque = estoque;
         this.valor = valor;
@@ -32,7 +34,15 @@ public class ProdutoDTO {
     public void setId(String id) {
         this.id = id;
     }
+    
+    public String getUsuarioId() {
+        return usuarioId;
+    }
 
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+    
     public String getNome() {
         return nome;
     }

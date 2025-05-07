@@ -12,13 +12,15 @@ public class Produto {
 
       
     private int id;
+    private int usuarioId;
     private String nome;
     private int estoque;
     private double valor;
     
     
-    public Produto(int id, String nome, int estoque, double valor) {
+    public Produto(int id, int usuarioId, String nome, int estoque, double valor) {
         this.id = id;
+        this.usuarioId = usuarioId;
         this.nome = nome;
         this.estoque = estoque;
         this.valor = valor;
@@ -31,6 +33,14 @@ public class Produto {
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public int getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(int usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public String getNome() {

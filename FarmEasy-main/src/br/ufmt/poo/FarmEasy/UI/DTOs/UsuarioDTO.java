@@ -10,7 +10,7 @@ package br.ufmt.poo.FarmEasy.UI.DTOs;
  */
 public class UsuarioDTO {
 
-        
+            
     private String id;
     private String nome;
     private String telefone;
@@ -43,7 +43,7 @@ public class UsuarioDTO {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+  
     public String getTelefone() {
         return telefone;
     }
@@ -51,7 +51,7 @@ public class UsuarioDTO {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-
+    
     public String getCpf() {
         return cpf;
     }

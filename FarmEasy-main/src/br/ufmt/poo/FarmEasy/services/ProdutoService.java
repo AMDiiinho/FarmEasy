@@ -17,6 +17,6 @@ public interface ProdutoService {
     
     public void remover(ProdutoDTO dto);
     
-    List <ProdutoDTO> listar();
+    List <ProdutoDTO> listar(int idUsuario);
     
 }

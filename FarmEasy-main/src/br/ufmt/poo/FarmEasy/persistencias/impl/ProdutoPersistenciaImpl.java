@@ -22,9 +22,10 @@ public class ProdutoPersistenciaImpl implements ProdutoPersistencia{
     @Override
     public void executar(Produto produto) {
         
-        String sql = "INSERT INTO tb_produtos (nome, estoque, valor) VALUES (?, ?, ?);";
+        String sql = "INSERT INTO tb_produtos (nome, usuarioId, estoque, valor) VALUES (?, ?, ?, ?);";
         List parametros = new ArrayList();
         parametros.add(produto.getNome());
+        parametros.add(produto.getUsuarioId());
         parametros.add(produto.getEstoque());
         parametros.add(produto.getValor());
         bd.inserir(sql, parametros);
@@ -46,10 +47,10 @@ public class ProdutoPersistenciaImpl implements ProdutoPersistencia{
     }
 
     @Override
-    public List<Produto> buscar() {
+    public List<Produto> buscar(int idUsuario) {
         
         List<Produto> lista = new ArrayList();
-        String sql = "SELECT * FROM tb_produtos";
+        String sql = "SELECT * FROM tb_produtos WHERE usuarioId = '" + idUsuario + "';";
         ResultSet rs = bd.executarQuery(sql);
         
         
@@ -57,10 +58,11 @@ public class ProdutoPersistenciaImpl implements ProdutoPersistencia{
             while(rs.next()){
                 
                 int id = rs.getInt("id");
+                int usuarioId = rs.getInt("usuarioId");
                 String nome = rs.getString("nome");
                 int estoque = rs.getInt("estoque");
                 double valor = rs.getDouble("valor");
-                Produto produto = new Produto(id, nome, estoque, valor);
+                Produto produto = new Produto(id, usuarioId, nome, estoque, valor);
                 lista.add(produto);
             }
             

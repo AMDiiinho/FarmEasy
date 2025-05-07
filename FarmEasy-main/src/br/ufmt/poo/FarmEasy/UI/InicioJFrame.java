@@ -24,6 +24,7 @@ import br.ufmt.poo.FarmEasy.persistencias.SiloPersistencia;
 import br.ufmt.poo.FarmEasy.persistencias.UsuarioPersistencia;
 import br.ufmt.poo.FarmEasy.persistencias.impl.AbrigoPersistenciaImpl;
 import br.ufmt.poo.FarmEasy.persistencias.impl.AnimalPersistenciaImpl;
+import br.ufmt.poo.FarmEasy.persistencias.impl.BancoDeDados;
 import br.ufmt.poo.FarmEasy.persistencias.impl.ProdutoPersistenciaImpl;
 import br.ufmt.poo.FarmEasy.persistencias.impl.SiloPersistenciaImpl;
 import br.ufmt.poo.FarmEasy.persistencias.impl.UsuarioPersistenciaImpl;
@@ -32,6 +33,8 @@ import br.ufmt.poo.FarmEasy.services.UsuarioService;
 import br.ufmt.poo.FarmEasy.services.impl.AnimalServiceImpl;
 import br.ufmt.poo.FarmEasy.services.impl.SiloServiceImpl;
 import br.ufmt.poo.FarmEasy.services.impl.UsuarioServiceImpl;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -42,22 +45,18 @@ public class InicioJFrame extends javax.swing.JFrame {
     /**
      * Creates new form menuJFrame
      */
-    public InicioJFrame() {
+    
+    static int idUsuario;
 
+    public InicioJFrame() {
         initComponents();
-        atualizarTabelaProdutos();
-        atualizarTabelaSilos();
-        carregarComboBoxIdSilos();
-        carregarComboBoxProdutos();
-        carregarComboBoxRacas();
-        carregarComboBoxIdAbrigos();
     }
 
-    private void atualizarTabelaAnimais(String tipoAnimal) {
+    private void atualizarTabelaAnimais(int idUsuario, String tipoAnimal) {
 
         AnimalService animalServiceGalinha = new AnimalServiceImpl();
 
-        List<AnimalDTO> listaGalinhas = animalServiceGalinha.listar(tipoAnimal);
+        List<AnimalDTO> listaGalinhas = animalServiceGalinha.listar(idUsuario, tipoAnimal);
 
         DefaultTableModel dfmGalinhas = (DefaultTableModel) galinhasjTable.getModel();
         int linhasGalinhas = dfmGalinhas.getRowCount();
@@ -79,7 +78,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         AnimalService animalServicePorco = new AnimalServiceImpl();
 
-        List<AnimalDTO> listaPorcos = animalServicePorco.listar(tipoAnimal);
+        List<AnimalDTO> listaPorcos = animalServicePorco.listar(idUsuario, tipoAnimal);
 
         DefaultTableModel dfmPorcos = (DefaultTableModel) porcosjTable.getModel();
         int linhasPorcos = dfmPorcos.getRowCount();
@@ -101,7 +100,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         AnimalService animalServiceOvelha = new AnimalServiceImpl();
 
-        List<AnimalDTO> listaOvelhas = animalServiceOvelha.listar(tipoAnimal);
+        List<AnimalDTO> listaOvelhas = animalServiceOvelha.listar(idUsuario, tipoAnimal);
 
         DefaultTableModel dfmOvelhas = (DefaultTableModel) ovelhasjTable.getModel();
         int linhasOvelhas = dfmOvelhas.getRowCount();
@@ -123,7 +122,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         AnimalService animalServiceVaca = new AnimalServiceImpl();
 
-        List<AnimalDTO> listaVacas = animalServiceVaca.listar(tipoAnimal);
+        List<AnimalDTO> listaVacas = animalServiceVaca.listar(idUsuario, tipoAnimal);
 
         DefaultTableModel dfmVacas = (DefaultTableModel) vacasjTable.getModel();
         int linhasVacas = dfmVacas.getRowCount();
@@ -144,11 +143,11 @@ public class InicioJFrame extends javax.swing.JFrame {
         }
     }
 
-    private void atualizarTabelaAbrigo(String tipoAbrigo) {
+    private void atualizarTabelaAbrigo(int idUsuario, String tipoAbrigo) {
 
         AbrigoService serviceAbrigo = new AbrigoServiceImpl();
 
-        List<AbrigoDTO> listaAbrigos = serviceAbrigo.listar(tipoAbrigo);
+        List<AbrigoDTO> listaAbrigos = serviceAbrigo.listar(idUsuario, tipoAbrigo);
 
         DefaultTableModel dfmAbrigoGalinheiro = (DefaultTableModel) galinheirosjTable.getModel();
         int linhasAbrigoGalinheiro = dfmAbrigoGalinheiro.getRowCount();
@@ -219,10 +218,10 @@ public class InicioJFrame extends javax.swing.JFrame {
         }
     }
 
-    private void atualizarTabelaProdutos() {
+    private void atualizarTabelaProdutos(int idUsuario) {
 
         ProdutoService produtoService = new ProdutoServiceImpl();
-        List<ProdutoDTO> listaProdutos = produtoService.listar();
+        List<ProdutoDTO> listaProdutos = produtoService.listar(idUsuario);
 
         DefaultTableModel dfmProduto = (DefaultTableModel) produtosjTable.getModel();
         int linhasProduto = dfmProduto.getRowCount();
@@ -241,10 +240,10 @@ public class InicioJFrame extends javax.swing.JFrame {
         }               
     }
     
-    private void atualizarTabelaSilos(){
+    private void atualizarTabelaSilos(int idUsuario){
         
         SiloService siloService = new SiloServiceImpl();
-        List<SiloDTO> listaSilos = siloService.listar();
+        List<SiloDTO> listaSilos = siloService.listar(idUsuario);
 
         DefaultTableModel dfmSilo = (DefaultTableModel) silosjTable.getModel();
         int linhasSilo = dfmSilo.getRowCount();
@@ -266,7 +265,7 @@ public class InicioJFrame extends javax.swing.JFrame {
     private void atualizarTabelaRacas(String tipoAnimal){
         
         AnimalService animalServiceGalinha = new AnimalServiceImpl();
-        List<AnimalDTO> listaGalinhas = animalServiceGalinha.listar(tipoAnimal);
+        List<AnimalDTO> listaGalinhas = animalServiceGalinha.listar(idUsuario, tipoAnimal);
 
         DefaultTableModel dfmGalinha = (DefaultTableModel) galinhasjTable.getModel();
         int linhasGalinha = dfmGalinha.getRowCount();
@@ -285,7 +284,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         }
         
         AnimalService animalServicePorco = new AnimalServiceImpl();
-        List<AnimalDTO> listaPorcos = animalServicePorco.listar(tipoAnimal);
+        List<AnimalDTO> listaPorcos = animalServicePorco.listar(idUsuario, tipoAnimal);
 
         DefaultTableModel dfmPorco = (DefaultTableModel) porcosjTable.getModel();
         int linhasPorco = dfmPorco.getRowCount();
@@ -304,7 +303,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         }
         
         AnimalService animalServiceOvelha = new AnimalServiceImpl();
-        List<AnimalDTO> listaOvelhas = animalServiceOvelha.listar(tipoAnimal);
+        List<AnimalDTO> listaOvelhas = animalServiceOvelha.listar(idUsuario, tipoAnimal);
 
         DefaultTableModel dfmOvelha = (DefaultTableModel) ovelhasjTable.getModel();
         int linhasOvelha = dfmOvelha.getRowCount();
@@ -323,7 +322,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         }
         
         AnimalService animalServiceVaca = new AnimalServiceImpl();
-        List<AnimalDTO> listaVacas = animalServiceVaca.listar(tipoAnimal);
+        List<AnimalDTO> listaVacas = animalServiceVaca.listar(idUsuario, tipoAnimal);
 
         DefaultTableModel dfmVaca = (DefaultTableModel) vacasjTable.getModel();
         int linhasVaca = dfmVaca.getRowCount();
@@ -343,10 +342,58 @@ public class InicioJFrame extends javax.swing.JFrame {
         
     }
     
+    private void atualizarTabelaHistorico(int idUsuario){
+        
+        BancoDeDados bd = new BancoDeDados();
+        
+        
+        List<String[]> listaHistorico = new ArrayList();
+        String sqlTbHistorico = "SELECT * FROM tb_historico_transacoes WHERE idusuario = '" + idUsuario + "';";
+        System.out.println(sqlTbHistorico);
+        ResultSet rs = bd.executarQuery(sqlTbHistorico);
+
+        try {  
+            while(rs.next()){
+                
+                String id = rs.getString("id");
+                String entradaSaida = rs.getString("entrada_saida");
+                String entidade = rs.getString("entidade");
+                String tipoEntidade = rs.getString("tipo_entidade");
+                String quantidade = rs.getString("quanditdade");
+                String idArmazenamento = rs.getString("id_armazenamento");
+                
+                System.out.println(id);
+                
+                DefaultTableModel dfmHistorico = (DefaultTableModel) historicojTable.getModel();
+                int linhasHistorico = dfmHistorico.getRowCount();
+                for (int i = 0; i < linhasHistorico; i++) {
+                    dfmHistorico.removeRow(0);
+                }
+
+                for (int i = 0; i < listaHistorico.size(); i++) {
+                    Object[] linhaHistorico= new Object[6];
+                    linhaHistorico[0] = id;
+                    linhaHistorico[1] = entradaSaida;
+                    linhaHistorico[2] = entidade;
+                    linhaHistorico[3] = tipoEntidade;
+                    linhaHistorico[4] = quantidade;
+                    linhaHistorico[5] = idArmazenamento;
+
+                    dfmHistorico.addRow(linhaHistorico);
+                }
+
+            }
+            
+        } catch (Exception erro){
+            
+        }
+        
+    }
+    
     private void carregarComboBoxProdutos(){
         
         ProdutoService produtoService = new ProdutoServiceImpl();
-        List<ProdutoDTO> listaProdutos = produtoService.listar();
+        List<ProdutoDTO> listaProdutos = produtoService.listar(idUsuario);
         produtojComboBox.removeAllItems();
 
         for (ProdutoDTO produtoDTO : listaProdutos) {
@@ -357,7 +404,7 @@ public class InicioJFrame extends javax.swing.JFrame {
     private void carregarComboBoxIdSilos(){
         
     SiloService siloService = new SiloServiceImpl();
-        List<SiloDTO> listaSilos = siloService.listar();
+        List<SiloDTO> listaSilos = siloService.listar(idUsuario);
         IDsilojComboBox.removeAllItems();
 
         for (SiloDTO siloDTO : listaSilos) {
@@ -368,7 +415,7 @@ public class InicioJFrame extends javax.swing.JFrame {
     private void carregarComboBoxRacas() {
               
         AnimalService animalServiceGalinha = new AnimalServiceImpl();
-        List<AnimalDTO> listaGalinhas = animalServiceGalinha.listar("Galinha");
+        List<AnimalDTO> listaGalinhas = animalServiceGalinha.listar(idUsuario, "Galinha");
         racaGalinhajComboBox.removeAllItems();
         
         for (AnimalDTO animalDTO : listaGalinhas){
@@ -379,7 +426,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                 
         
         AnimalService animalServicePorco = new AnimalServiceImpl();
-        List<AnimalDTO> listaPorcos = animalServicePorco.listar("Porco");   
+        List<AnimalDTO> listaPorcos = animalServicePorco.listar(idUsuario, "Porco");   
         racaPorcojComboBox.removeAllItems();
         
         for (AnimalDTO animalDTO : listaPorcos){
@@ -388,7 +435,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         }
         
         AnimalService animalServiceOvelha = new AnimalServiceImpl();
-        List<AnimalDTO> listaOvelhas = animalServiceOvelha.listar("Ovelha");
+        List<AnimalDTO> listaOvelhas = animalServiceOvelha.listar(idUsuario, "Ovelha");
         corEntradaOvelhajComboBox.removeAllItems();
         
         for (AnimalDTO animalDTO : listaOvelhas){
@@ -397,7 +444,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         }
         
         AnimalService animalServiceVaca = new AnimalServiceImpl();
-        List<AnimalDTO> listaVacas = animalServiceVaca.listar("Vaca");
+        List<AnimalDTO> listaVacas = animalServiceVaca.listar(idUsuario, "Vaca");
         racaVacajComboBox.removeAllItems();
         
         for (AnimalDTO animalDTO : listaVacas){
@@ -407,10 +454,10 @@ public class InicioJFrame extends javax.swing.JFrame {
         
     }
     
-    private void carregarComboBoxIdAbrigos(){
+    private void carregarComboBoxIdAbrigos(int idUsuario){
         
         AbrigoService abrigoServiceGalinheiro = new AbrigoServiceImpl();
-        List<AbrigoDTO> listaAbrigoGalinheiro = abrigoServiceGalinheiro.listar("Galinheiro");
+        List<AbrigoDTO> listaAbrigoGalinheiro = abrigoServiceGalinheiro.listar(idUsuario, "Galinheiro");
         idGalinheirojComboBox.removeAllItems();
 
         for (AbrigoDTO abrigoDTO : listaAbrigoGalinheiro) {
@@ -418,7 +465,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         }
         
         AbrigoService abrigoServiceAprisco = new AbrigoServiceImpl();
-        List<AbrigoDTO> listaAbrigoAprisco = abrigoServiceAprisco.listar("Aprisco");
+        List<AbrigoDTO> listaAbrigoAprisco = abrigoServiceAprisco.listar(idUsuario, "Aprisco");
         idApriscojComboBox.removeAllItems();
 
         for (AbrigoDTO abrigoDTO : listaAbrigoAprisco) {
@@ -426,7 +473,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         }             
         
         AbrigoService abrigoServiceChiqueiro = new AbrigoServiceImpl();
-        List<AbrigoDTO> listaAbrigoChiqueiro = abrigoServiceChiqueiro.listar("Chiqueiro");
+        List<AbrigoDTO> listaAbrigoChiqueiro = abrigoServiceChiqueiro.listar(idUsuario, "Chiqueiro");
         idChiqueirojComboBox.removeAllItems();
 
         for (AbrigoDTO abrigoDTO : listaAbrigoChiqueiro) {
@@ -434,7 +481,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         }
         
         AbrigoService abrigoServiceCurral = new AbrigoServiceImpl();
-        List<AbrigoDTO> listaAbrigoCurral = abrigoServiceCurral.listar("Curral");
+        List<AbrigoDTO> listaAbrigoCurral = abrigoServiceCurral.listar(idUsuario, "Curral");
         idCurraljComboBox.removeAllItems();
 
         for (AbrigoDTO abrigoDTO : listaAbrigoCurral) {
@@ -665,9 +712,24 @@ public class InicioJFrame extends javax.swing.JFrame {
         cadastroSenhajLabel = new javax.swing.JLabel();
         confirmarjButton = new javax.swing.JButton();
         voltarjButton = new javax.swing.JButton();
-        DDDjFormattedTextField = new javax.swing.JFormattedTextField();
         idUsuariojLabel = new javax.swing.JLabel();
         idUsuariojTextField = new javax.swing.JTextField();
+        historicojPanel = new javax.swing.JPanel();
+        historicojScrollPane = new javax.swing.JScrollPane();
+        historicojTable = new javax.swing.JTable();
+        filtrosjLabel = new javax.swing.JLabel();
+        entradaSaidajComboBox = new javax.swing.JComboBox<>();
+        entidadejComboBox = new javax.swing.JComboBox<>();
+        tipoEntidadejComboBox = new javax.swing.JComboBox<>();
+        idArmazenamentojComboBox = new javax.swing.JComboBox<>();
+        diajComboBox = new javax.swing.JComboBox<>();
+        entradaSaidajLabel = new javax.swing.JLabel();
+        entidadejLabel = new javax.swing.JLabel();
+        tipoEntidadejLabel = new javax.swing.JLabel();
+        idArmazenamentojLabel = new javax.swing.JLabel();
+        diajLabel = new javax.swing.JLabel();
+        voltarHistoricojButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -753,7 +815,7 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
-        plantacoesjButton.setText("Plantações");
+        plantacoesjButton.setText("Histórico de transações");
         plantacoesjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 plantacoesjButtonActionPerformed(evt);
@@ -772,27 +834,26 @@ public class InicioJFrame extends javax.swing.JFrame {
         menuPrincipaljPanelLayout.setHorizontalGroup(
             menuPrincipaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPrincipaljPanelLayout.createSequentialGroup()
-                .addGap(290, 290, 290)
-                .addGroup(menuPrincipaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, menuPrincipaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(plantacoesjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(produtosjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(animaisjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(sairjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(340, Short.MAX_VALUE))
+                .addGap(294, 294, 294)
+                .addGroup(menuPrincipaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sairjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(produtosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(plantacoesjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(animaisjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(293, Short.MAX_VALUE))
         );
         menuPrincipaljPanelLayout.setVerticalGroup(
             menuPrincipaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPrincipaljPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(animaisjButton)
-                .addGap(42, 42, 42)
-                .addComponent(plantacoesjButton)
-                .addGap(43, 43, 43)
+                .addGap(37, 37, 37)
                 .addComponent(produtosjButton)
-                .addGap(51, 51, 51)
+                .addGap(46, 46, 46)
+                .addComponent(plantacoesjButton)
+                .addGap(40, 40, 40)
                 .addComponent(sairjButton)
-                .addGap(109, 109, 109))
+                .addGap(122, 122, 122))
         );
 
         controlejPanel.add(menuPrincipaljPanel, "card3");
@@ -2346,7 +2407,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         tituloCadastroSilosjLabel.setText("Novo silo");
 
         tituloCadastroSilosjLabel1.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
-        tituloCadastroSilosjLabel1.setText("Registrar entrada de estoque");
+        tituloCadastroSilosjLabel1.setText("Registrar entrada de produtos");
 
         produtojLabel.setText("Produto:");
 
@@ -2558,6 +2619,12 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
+        valorProdutojTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                valorProdutojTextFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout produtosjPanelLayout = new javax.swing.GroupLayout(produtosjPanel);
         produtosjPanel.setLayout(produtosjPanelLayout);
         produtosjPanelLayout.setHorizontalGroup(
@@ -2644,7 +2711,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         nomejLabel.setText("Nome completo:");
 
         try {
-            telefonejFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-####")));
+            telefonejFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -2671,12 +2738,6 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
-        try {
-            DDDjFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         idUsuariojLabel.setText("ID:");
 
         idUsuariojTextField.setEditable(false);
@@ -2685,45 +2746,45 @@ public class InicioJFrame extends javax.swing.JFrame {
         cadastrojPanel.setLayout(cadastrojPanelLayout);
         cadastrojPanelLayout.setHorizontalGroup(
             cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cadastrojPanelLayout.createSequentialGroup()
+            .addGroup(cadastrojPanelLayout.createSequentialGroup()
                 .addContainerGap(250, Short.MAX_VALUE)
                 .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cadastrojPanelLayout.createSequentialGroup()
-                        .addComponent(cadastrojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, cadastrojPanelLayout.createSequentialGroup()
-                            .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(CPFjLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(cadastroUsuariojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(cadastroSenhajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(cadastrojPanelLayout.createSequentialGroup()
-                                    .addComponent(telefonejLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(DDDjFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(nomejLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(idUsuariojLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(CPFjFormattedTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(telefonejFormattedTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(nomejTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cadastroUsuariojTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cadastroSenhajTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(idUsuariojTextField, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addComponent(voltarjButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(confirmarjButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(208, 208, 208))
+                        .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(voltarjButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+                                .addComponent(confirmarjButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cadastrojPanelLayout.createSequentialGroup()
+                                .addComponent(cadastrojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)))
+                        .addGap(208, 208, 208))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cadastrojPanelLayout.createSequentialGroup()
+                        .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(telefonejLabel)
+                            .addComponent(CPFjLabel)
+                            .addComponent(cadastroUsuariojLabel)
+                            .addComponent(cadastroSenhajLabel)
+                            .addComponent(nomejLabel)
+                            .addComponent(idUsuariojLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(CPFjFormattedTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(telefonejFormattedTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nomejTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cadastroUsuariojTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cadastroSenhajTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(idUsuariojTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(232, 232, 232))))
         );
         cadastrojPanelLayout.setVerticalGroup(
             cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cadastrojPanelLayout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(cadastrojLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idUsuariojLabel)
-                    .addComponent(idUsuariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idUsuariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(idUsuariojLabel))
                 .addGap(18, 18, 18)
                 .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2731,8 +2792,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(telefonejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(telefonejLabel)
-                    .addComponent(DDDjFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(telefonejLabel))
                 .addGap(18, 18, 18)
                 .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CPFjFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2745,7 +2805,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                 .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastroSenhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cadastroSenhajLabel))
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(confirmarjButton)
                 .addGap(18, 18, 18)
                 .addComponent(voltarjButton)
@@ -2753,6 +2813,140 @@ public class InicioJFrame extends javax.swing.JFrame {
         );
 
         controlejPanel.add(cadastrojPanel, "card12");
+
+        historicojPanel.setBackground(new java.awt.Color(0, 255, 153));
+
+        historicojTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Entrada/saída", "Entidade", "Tipo_entidade", "Quantidade", "ID_armazenamento", "Data_hora"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        historicojScrollPane.setViewportView(historicojTable);
+
+        filtrosjLabel.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
+        filtrosjLabel.setText("Filtros");
+
+        entradaSaidajComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Nenhum>", "entrada", "saida" }));
+
+        entidadejComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Nenhum>", "Galinha", "Porco", "Ovelha", "Vaca" }));
+
+        tipoEntidadejComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        idArmazenamentojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        diajComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        entradaSaidajLabel.setText("Entrada/saída:");
+
+        entidadejLabel.setText("Entidade:");
+
+        tipoEntidadejLabel.setText("Tipo_entidade:");
+
+        idArmazenamentojLabel.setText("ID_armazenamento:");
+
+        diajLabel.setText("Dia");
+
+        voltarHistoricojButton.setText("<<<");
+        voltarHistoricojButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarHistoricojButtonActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Remover filtros");
+
+        javax.swing.GroupLayout historicojPanelLayout = new javax.swing.GroupLayout(historicojPanel);
+        historicojPanel.setLayout(historicojPanelLayout);
+        historicojPanelLayout.setHorizontalGroup(
+            historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, historicojPanelLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(historicojPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(voltarHistoricojButton))
+                    .addGroup(historicojPanelLayout.createSequentialGroup()
+                        .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(historicojPanelLayout.createSequentialGroup()
+                                .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(entradaSaidajComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(entidadejComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(historicojPanelLayout.createSequentialGroup()
+                                        .addComponent(filtrosjLabel)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(tipoEntidadejComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(idArmazenamentojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(diajComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                                .addGap(18, 18, 18))
+                            .addGroup(historicojPanelLayout.createSequentialGroup()
+                                .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(entradaSaidajLabel)
+                                    .addComponent(entidadejLabel)
+                                    .addComponent(tipoEntidadejLabel)
+                                    .addComponent(idArmazenamentojLabel)
+                                    .addComponent(diajLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(historicojScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27))
+        );
+        historicojPanelLayout.setVerticalGroup(
+            historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(historicojPanelLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(historicojPanelLayout.createSequentialGroup()
+                        .addComponent(filtrosjLabel)
+                        .addGap(22, 22, 22)
+                        .addComponent(entradaSaidajLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(entradaSaidajComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(entidadejLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(entidadejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tipoEntidadejLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tipoEntidadejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(idArmazenamentojLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(idArmazenamentojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(diajLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(diajComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(historicojScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(voltarHistoricojButton)
+                    .addComponent(jButton1))
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+
+        controlejPanel.add(historicojPanel, "card16");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -2790,7 +2984,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         ovelhasjPanel.setVisible(true);
 
         String tipoAnimal = "Ovelha";
-        atualizarTabelaAnimais(tipoAnimal);
+        atualizarTabelaAnimais(idUsuario, tipoAnimal);
     }//GEN-LAST:event_ovelhasjButtonActionPerformed
 
     private void vacasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vacasjButtonActionPerformed
@@ -2800,7 +2994,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         vacasjPanel.setVisible(false);
 
         String tipoAnimal = "Vaca";
-        atualizarTabelaAnimais(tipoAnimal);
+        atualizarTabelaAnimais(idUsuario, tipoAnimal);
     }//GEN-LAST:event_vacasjButtonActionPerformed
 
     private void porcosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porcosjButtonActionPerformed
@@ -2810,7 +3004,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         porcosjPanel.setVisible(true);
 
         String tipoAnimal = "Porco";
-        atualizarTabelaAnimais(tipoAnimal);
+        atualizarTabelaAnimais(idUsuario, tipoAnimal);
     }//GEN-LAST:event_porcosjButtonActionPerformed
 
     private void galinhasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_galinhasjButtonActionPerformed
@@ -2820,7 +3014,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         galinhasjPanel.setVisible(true);
 
         String tipoAnimal = "Galinha";
-        atualizarTabelaAnimais(tipoAnimal);
+        atualizarTabelaAnimais(idUsuario, tipoAnimal);
 
     }//GEN-LAST:event_galinhasjButtonActionPerformed
 
@@ -2839,7 +3033,11 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_animaisjButtonActionPerformed
 
     private void plantacoesjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plantacoesjButtonActionPerformed
-        // TODO add your handling code here:
+        controlejPanel.removeAll();
+        controlejPanel.add(historicojPanel);
+        historicojPanel.setVisible(false);
+        historicojPanel.setVisible(true);
+        atualizarTabelaHistorico(idUsuario);  
     }//GEN-LAST:event_plantacoesjButtonActionPerformed
 
     private void produtosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtosjButtonActionPerformed
@@ -2847,6 +3045,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(produtosjPanel);
         produtosjPanel.setVisible(false);
         produtosjPanel.setVisible(true);
+        atualizarTabelaProdutos(idUsuario);       
 
     }//GEN-LAST:event_produtosjButtonActionPerformed
 
@@ -2863,7 +3062,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         String valorVenda = valorGalinhajTextField.getText();
                
 
-        AnimalDTO animalDTO = new AnimalDTO(id, tipo, nomeRaca, quantidade, valorVenda);
+        AnimalDTO animalDTO = new AnimalDTO(id, idUsuario + "", tipo, nomeRaca, quantidade, valorVenda);
 
         AnimalService animalService = new AnimalServiceImpl();
 
@@ -2906,7 +3105,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         String quantidade = "0";
         String valorVenda = valorPorcojTextField.getText();
 
-        AnimalDTO animalDTO = new AnimalDTO(id, tipo, nomeRaca, quantidade, valorVenda);
+        AnimalDTO animalDTO = new AnimalDTO(id, idUsuario + "", tipo, nomeRaca, quantidade, valorVenda);
 
         AnimalService animalService = new AnimalServiceImpl();
 
@@ -2947,7 +3146,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         String quantidade = "0";
         String valor = valorOvelhajTextField.getText();
 
-        AnimalDTO animalDTO = new AnimalDTO(id, tipo, cor, quantidade, valor);
+        AnimalDTO animalDTO = new AnimalDTO(id, idUsuario + "", tipo, cor, quantidade, valor);
 
         AnimalService animalService = new AnimalServiceImpl();
 
@@ -2990,7 +3189,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         String quantidade = "0";
         String valor = valorVacajTextField.getText();
 
-        AnimalDTO animalDTO = new AnimalDTO(id, tipo, raca, quantidade, valor);
+        AnimalDTO animalDTO = new AnimalDTO(id, idUsuario + "", tipo, raca, quantidade, valor);
 
         AnimalService animalService = new AnimalServiceImpl();
 
@@ -3028,14 +3227,17 @@ public class InicioJFrame extends javax.swing.JFrame {
         String id = idSilojTextField.getText();
         String qtdProdutos = "0";
         String capacidade = capacidadeSilojSpinner.getValue().toString();
-
-        SiloDTO silo = new SiloDTO(id, qtdProdutos, capacidade);
-
+        
+        System.out.println(idUsuario);
+        
+        SiloDTO silo = new SiloDTO(id, idUsuario + "", qtdProdutos, capacidade);
+        
         SiloService siloService = new SiloServiceImpl();
-
+        
+        
         try {
             siloService.salvar(silo);
-            atualizarTabelaSilos();
+            atualizarTabelaSilos(idUsuario);
             carregarComboBoxIdSilos();
             JOptionPane.showMessageDialog(this, "Silo salvo com sucesso!");
             capacidadeSilojSpinner.setValue(0);
@@ -3069,16 +3271,20 @@ public class InicioJFrame extends javax.swing.JFrame {
         String nome = nomeProdutojTextField.getText();
         String quantidade = "0";
         String valor = valorProdutojTextField.getText();
+        
+        System.out.println(nome);
+        System.out.println(valor);
 
-        ProdutoDTO produto = new ProdutoDTO(id, nome, quantidade, valor);
+        ProdutoDTO produto = new ProdutoDTO(id, idUsuario + "", nome, quantidade, valor);
 
         ProdutoService produtoService = new ProdutoServiceImpl();
 
         try {
             produtoService.salvar(produto);
-            atualizarTabelaProdutos();
+            atualizarTabelaProdutos(idUsuario);
             JOptionPane.showMessageDialog(this, "Produto salvo com sucesso!");
         } catch (Exception erro) {
+            erro.printStackTrace();
             JOptionPane.showMessageDialog(this, erro.getMessage());
         }
 
@@ -3098,6 +3304,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         
         carregarComboBoxIdSilos();
         carregarComboBoxProdutos();
+        atualizarTabelaSilos(idUsuario);
 
     }//GEN-LAST:event_consultarArmazenamentojButtonActionPerformed
 
@@ -3107,15 +3314,18 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         UsuarioPersistencia persistencia = new UsuarioPersistenciaImpl();
 
-        boolean login = persistencia.login(usuario, senha);
-
+        int idAcesso = persistencia.login(usuario, senha);
+        
+        
         try {
 
-            if (login) {
+            if (idAcesso != 0) {
                 controlejPanel.removeAll();
                 controlejPanel.add(menuPrincipaljPanel);
                 menuPrincipaljPanel.setVisible(false);
                 menuPrincipaljPanel.setVisible(true);
+                
+                idUsuario = idAcesso;                        
             }
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro);
@@ -3125,25 +3335,32 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_entrarjButtonActionPerformed
 
     private void confirmarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarjButtonActionPerformed
-
+        
+        String telefone = telefonejFormattedTextField.getText();
         String id = idUsuariojTextField.getText();
         String nome = nomejTextField.getText();
-        String telefone = DDDjFormattedTextField.getText() + telefonejFormattedTextField.getText();
         String cpf = CPFjFormattedTextField.getText();
-        String usuarioAcesso = cadastroUsuariojTextField.getText();
+        String usuario = cadastroUsuariojTextField.getText();
         String senha = cadastroSenhajTextField.getText();
-
-        UsuarioDTO usuario = new UsuarioDTO(id, nome, telefone, cpf, usuarioAcesso, senha);
-
+        
+        if(usuario.length() > 40){
+            JOptionPane.showMessageDialog(this, "Nome de usuário muito grande!");
+            throw new RuntimeException("Nome de usuário muito grande!");
+        } else if (senha.length() > 20){
+            JOptionPane.showMessageDialog(this, "Senha muito grande!");
+            throw new RuntimeException("Senha muito grande!");
+        }
+        
+        UsuarioDTO usuariodto = new UsuarioDTO(id, nome, telefone, cpf, usuario, senha);
         UsuarioService usuarioService = new UsuarioServiceImpl();
-
-        try {
-            usuarioService.salvar(usuario);
+        
+        try{
+            usuarioService.salvar(usuariodto);
             JOptionPane.showMessageDialog(this, "Cadastro completo! Volte à tela de login e acesse agora");
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(this, erro.getMessage());
+            JOptionPane.showMessageDialog(this, "Por favor preencha todos os campos para finalizar seu cadastro");
         }
-
+      
     }//GEN-LAST:event_confirmarjButtonActionPerformed
 
     private void voltarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarjButtonActionPerformed
@@ -3160,21 +3377,45 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastrarContajButtonActionPerformed
 
     private void registrarEntradajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradajButtonActionPerformed
-
-        String NomeProduto = produtojComboBox.getSelectedItem().toString();
-        int quantidade = Integer.parseInt(quantidadeEntradaProdutojSpinner.getValue().toString());
-        int siloId = Integer.parseInt(IDsilojComboBox.getSelectedItem().toString());
-
-        SiloPersistencia siloPersistencia = new SiloPersistenciaImpl();
-
-        siloPersistencia.entradaEstoque(siloId, quantidade);
-
-        ProdutoPersistencia produtoPersistencia = new ProdutoPersistenciaImpl();
-
-        produtoPersistencia.atualizarEstoque(NomeProduto, quantidade);
         
-        atualizarTabelaSilos();
-        atualizarTabelaProdutos();
+        try {
+            if(produtojComboBox.getItemCount() != 0 && IDsilojComboBox.getItemCount() != 0){
+                String nomeProduto = produtojComboBox.getSelectedItem().toString();
+                int quantidade = Integer.parseInt(quantidadeEntradaProdutojSpinner.getValue().toString());
+                int siloId = Integer.parseInt(IDsilojComboBox.getSelectedItem().toString());
+
+                SiloPersistencia siloPersistencia = new SiloPersistenciaImpl();
+                boolean entrou = siloPersistencia.entradaEstoque(siloId, quantidade);
+                
+                if(entrou){
+                    ProdutoPersistencia produtoPersistencia = new ProdutoPersistenciaImpl();
+                    produtoPersistencia.atualizarEstoque(nomeProduto, quantidade);
+                    
+                    BancoDeDados bd = new BancoDeDados();
+                    
+                    try{
+                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                        + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', 'Produto', '"
+                        + nomeProduto + "', '" + quantidade + "', '" + siloId + "');";
+                        bd.executarQuery(sqlHistTransacao);
+                    } catch(Exception erro) {
+                        
+                    }
+                }    
+            } else {
+                throw new RuntimeException("Por favor, verifique se você cadastrou pelo menos um tipo de produto"
+                + "e silo antes de registrar uma entrada de produtos!");
+            }
+            
+            atualizarTabelaSilos(idUsuario);
+            atualizarTabelaProdutos(idUsuario);
+            
+        } catch(Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(this, erro);
+        }
+        
+        
 
     }//GEN-LAST:event_registrarEntradajButtonActionPerformed
 
@@ -3188,10 +3429,10 @@ public class InicioJFrame extends javax.swing.JFrame {
         valorGalinhajTextField.setText("");
         
         carregarComboBoxRacas();
-        carregarComboBoxIdAbrigos();
+        carregarComboBoxIdAbrigos(idUsuario);
         
         String tipoAbrigo = "Galinheiro";
-        atualizarTabelaAbrigo(tipoAbrigo);
+        atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
 
 
     }//GEN-LAST:event_consultarGalinheirosjButtonActionPerformed
@@ -3217,14 +3458,14 @@ public class InicioJFrame extends javax.swing.JFrame {
         String qtdAnimais = "0";
         String capacidade = capacidadeGalinheirojSpinner.getValue().toString();
 
-        AbrigoDTO abrigoDTO = new AbrigoDTO(id, tipo, qtdAnimais, capacidade);
+        AbrigoDTO abrigoDTO = new AbrigoDTO(id, idUsuario + "", tipo, qtdAnimais, capacidade);
 
         //enviando para a service
         AbrigoService service = new AbrigoServiceImpl();
         try {
             service.salvar(abrigoDTO);
-            atualizarTabelaAbrigo(tipo);
-            carregarComboBoxIdAbrigos();            
+            atualizarTabelaAbrigo(idUsuario, tipo);
+            carregarComboBoxIdAbrigos(idUsuario);            
             JOptionPane.showMessageDialog(this, "Novo " + tipo + " salvo com sucesso!");
             cancelarGalinheirosjButtonActionPerformed(evt);
         } catch (Exception erro) {
@@ -3239,19 +3480,48 @@ public class InicioJFrame extends javax.swing.JFrame {
 
     private void registrarEntradaGalinhasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradaGalinhasjButtonActionPerformed
         
-        String racaAnimal = racaGalinhajComboBox.getSelectedItem().toString();
-        int quantidade = Integer.parseInt(quantidadeEntradaGalinhasjSpinner.getValue().toString());
-        int idGalinheiro = Integer.parseInt(idGalinheirojComboBox.getSelectedItem().toString());
+        try {
+            
+            String tipoAnimal = "Galinha";
+            int quantidade = Integer.parseInt(quantidadeEntradaGalinhasjSpinner.getValue().toString());
+            String tipoAbrigo = "Galinheiro";
+            
+            if(racaGalinhajComboBox.getItemCount() != 0 && idGalinheirojComboBox.getItemCount() != 0){
+                
+                int idGalinheiro = Integer.parseInt(idGalinheirojComboBox.getSelectedItem().toString());
+                String racaAnimal = racaGalinhajComboBox.getSelectedItem().toString();
+                
+                AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
+                boolean entrou = abrigoPersistencia.entradaAnimais(idGalinheiro, quantidade);
+              
+                if(entrou){
+                    AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();        
+                    animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade);
+                    
+                    BancoDeDados bd = new BancoDeDados();
+                    
+                    try{
+                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                        + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', '" + tipoAnimal + "', '"
+                        + racaAnimal + "', '" + quantidade + "', '" + idGalinheiro + "');";
+                        bd.executarQuery(sqlHistTransacao);
+                    } catch(Exception erro) {
 
-        AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
-        abrigoPersistencia.entradaAnimais(idGalinheiro, quantidade);
-        
-        AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();        
-        animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade);
-        
-        atualizarTabelaRacas("Galinha");
-        atualizarTabelaAbrigo("Galinheiro");
-        
+                    }        
+                }
+
+            } else {
+                throw new RuntimeException("Antes de registrar uma entrada, verifique se você selecionou um abrigo e uma raça de animal");
+            }
+            
+                       
+            atualizarTabelaRacas(tipoAnimal);
+            atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+            
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+        } 
     }//GEN-LAST:event_registrarEntradaGalinhasjButtonActionPerformed
 
     private void consultarChiqueirosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarChiqueirosjButtonActionPerformed
@@ -3265,10 +3535,10 @@ public class InicioJFrame extends javax.swing.JFrame {
         racaPorcojTextField.setText("");
         
         carregarComboBoxRacas();
-        carregarComboBoxIdAbrigos();
+        carregarComboBoxIdAbrigos(idUsuario);
   
         String tipoAbrigo = "Chiqueiro";
-        atualizarTabelaAbrigo(tipoAbrigo);
+        atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
         
         
     }//GEN-LAST:event_consultarChiqueirosjButtonActionPerformed
@@ -3283,10 +3553,10 @@ public class InicioJFrame extends javax.swing.JFrame {
         corOvelhajTextField.setText("");
         
         carregarComboBoxRacas();
-        carregarComboBoxIdAbrigos();
+        carregarComboBoxIdAbrigos(idUsuario);
   
         String tipoAbrigo = "Aprisco";
-        atualizarTabelaAbrigo(tipoAbrigo);
+        atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
     }//GEN-LAST:event_consultarApriscosjButtonActionPerformed
 
     private void valorOvelhajTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorOvelhajTextFieldActionPerformed
@@ -3303,10 +3573,10 @@ public class InicioJFrame extends javax.swing.JFrame {
         racaVacajTextField.setText("");
         
         carregarComboBoxRacas();
-        carregarComboBoxIdAbrigos();
+        carregarComboBoxIdAbrigos(idUsuario);
         
         String tipoAbrigo = "Curral";
-        atualizarTabelaAbrigo(tipoAbrigo);
+        atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
      }//GEN-LAST:event_consultarCurraisjButtonActionPerformed
 
     private void chiqueirosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chiqueirosjTableMouseClicked
@@ -3329,14 +3599,14 @@ public class InicioJFrame extends javax.swing.JFrame {
         String qtdAnimais = "0";
         String capacidade = capacidadeChiqueirojSpinner.getValue().toString();
 
-        AbrigoDTO abrigoDTO = new AbrigoDTO(id, tipo, qtdAnimais, capacidade);
+        AbrigoDTO abrigoDTO = new AbrigoDTO(id, idUsuario + "", tipo, qtdAnimais, capacidade);
 
         //enviando para a service
         AbrigoService service = new AbrigoServiceImpl();
         try {
             service.salvar(abrigoDTO);
-            atualizarTabelaAbrigo(tipo);
-            carregarComboBoxIdAbrigos();            
+            atualizarTabelaAbrigo(idUsuario, tipo);
+            carregarComboBoxIdAbrigos(idUsuario);            
             JOptionPane.showMessageDialog(this, "Novo " + tipo + " salvo com sucesso!");
             cancelarChiqueirojButtonActionPerformed(evt);
         } catch (Exception erro) {
@@ -3349,18 +3619,49 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarChiqueirojButtonActionPerformed
 
     private void registrarEntradaPorcosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradaPorcosjButtonActionPerformed
-        String racaAnimal = racaPorcojComboBox.getSelectedItem().toString();
-        int quantidade = Integer.parseInt(quantidadeEntradaPorcosjSpinner.getValue().toString());
-        int idChiqueiro = Integer.parseInt(idChiqueirojComboBox.getSelectedItem().toString());
+        
+        try {
+            
+            String tipoAnimal = "Porco";
+            int quantidade = Integer.parseInt(quantidadeEntradaPorcosjSpinner.getValue().toString());
+            String tipoAbrigo = "Chiqueiro";
+            
+            if(racaPorcojComboBox.getItemCount() != 0 && idChiqueirojComboBox.getItemCount() != 0){
+                
+                int idChiqueiro = Integer.parseInt(idChiqueirojComboBox.getSelectedItem().toString());
+                String racaAnimal = racaPorcojComboBox.getSelectedItem().toString();
+                
+                AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
+                boolean entrou = abrigoPersistencia.entradaAnimais(idChiqueiro, quantidade);
+              
+                if(entrou){
+                    AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();        
+                    animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade);
+                    
+                    BancoDeDados bd = new BancoDeDados();
+                    
+                    try{
+                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                        + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', '" + tipoAnimal + "', '"
+                        + racaAnimal + "', '" + quantidade + "', '" + idChiqueiro + "');";
+                        bd.executarQuery(sqlHistTransacao);
+                    } catch(Exception erro) {
 
-        AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
-        abrigoPersistencia.entradaAnimais(idChiqueiro, quantidade);
-        
-        AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();        
-        animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade);
-        
-        atualizarTabelaRacas("Porco");
-        atualizarTabelaAbrigo("Chiqueiro");
+                    } 
+                }
+
+            } else {
+                throw new RuntimeException("Antes de registrar uma entrada, verifique se você selecionou um abrigo e uma raça de animal");
+            }
+            
+                       
+            atualizarTabelaRacas(tipoAnimal);
+            atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+            
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+        }            
     }//GEN-LAST:event_registrarEntradaPorcosjButtonActionPerformed
 
     private void apriscosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_apriscosjTableMouseClicked
@@ -3383,14 +3684,14 @@ public class InicioJFrame extends javax.swing.JFrame {
         String qtdAnimais = "0";
         String capacidade = capacidadeApriscojSpinner.getValue().toString();
 
-        AbrigoDTO abrigoDTO = new AbrigoDTO(id, tipo, qtdAnimais, capacidade);
+        AbrigoDTO abrigoDTO = new AbrigoDTO(id, idUsuario + "", tipo, qtdAnimais, capacidade);
 
         //enviando para a service
         AbrigoService service = new AbrigoServiceImpl();
         try {
             service.salvar(abrigoDTO);
-            atualizarTabelaAbrigo(tipo);
-            carregarComboBoxIdAbrigos();            
+            atualizarTabelaAbrigo(idUsuario, tipo);
+            carregarComboBoxIdAbrigos(idUsuario);            
             JOptionPane.showMessageDialog(this, "Novo " + tipo + " salvo com sucesso!");
             cancelarApriscojButtonActionPerformed(evt);
         } catch (Exception erro) {
@@ -3403,18 +3704,49 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarApriscojButtonActionPerformed
 
     private void registrarEntradaOvelhasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradaOvelhasjButtonActionPerformed
-        String racaAnimal = corEntradaOvelhajComboBox.getSelectedItem().toString();
-        int quantidade = Integer.parseInt(quantidadeEntradaOvelhasjSpinner.getValue().toString());
-        int idAprisco = Integer.parseInt(idApriscojComboBox.getSelectedItem().toString());
+        
+        try {
+            
+            String tipoAnimal = "Ovelha";
+            int quantidade = Integer.parseInt(quantidadeEntradaOvelhasjSpinner.getValue().toString());
+            String tipoAbrigo = "Aprisco";
+            
+            if(corEntradaOvelhajComboBox.getItemCount() != 0 && idApriscojComboBox.getItemCount() != 0){
+                
+                int idAprisco = Integer.parseInt(idApriscojComboBox.getSelectedItem().toString());
+                String racaAnimal = corEntradaOvelhajComboBox.getSelectedItem().toString();
+                
+                AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
+                boolean entrou = abrigoPersistencia.entradaAnimais(idAprisco, quantidade);
+              
+                if(entrou){
+                    AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();        
+                    animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade);
+                    
+                    BancoDeDados bd = new BancoDeDados();
+                    
+                    try{
+                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                        + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', '" + tipoAnimal + "', '"
+                        + racaAnimal + "', '" + quantidade + "', '" + idAprisco + "');";
+                        bd.executarQuery(sqlHistTransacao);
+                    } catch(Exception erro) {
 
-        AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
-        abrigoPersistencia.entradaAnimais(idAprisco, quantidade);
-        
-        AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();        
-        animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade);
-        
-        atualizarTabelaRacas("Ovelha");
-        atualizarTabelaAbrigo("Aprisco");
+                    } 
+                }
+
+            } else {
+                throw new RuntimeException("Antes de registrar uma entrada, verifique se você selecionou um abrigo e uma cor de ovelha!");
+            }
+            
+                       
+            atualizarTabelaRacas(tipoAnimal);
+            atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+            
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+        } 
     }//GEN-LAST:event_registrarEntradaOvelhasjButtonActionPerformed
 
     private void curraisjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_curraisjTableMouseClicked
@@ -3436,18 +3768,49 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarCurraljButtonActionPerformed
 
     private void registrarEntradaVacasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradaVacasjButtonActionPerformed
-        String racaAnimal = racaVacajComboBox.getSelectedItem().toString();
-        int quantidade = Integer.parseInt(quantidadeEntradaVacasjSpinner.getValue().toString());
-        int idCurral = Integer.parseInt(idCurraljComboBox.getSelectedItem().toString());
+        
+        try {
+            
+            String tipoAnimal = "Vaca";
+            int quantidade = Integer.parseInt(quantidadeEntradaVacasjSpinner.getValue().toString());
+            String tipoAbrigo = "Curral";
+            
+            if(racaVacajComboBox.getItemCount() != 0 && idCurraljComboBox.getItemCount() != 0){
+                
+                int idCurral = Integer.parseInt(idCurraljComboBox.getSelectedItem().toString());
+                String racaAnimal = racaVacajComboBox.getSelectedItem().toString();
+                
+                AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
+                boolean entrou = abrigoPersistencia.entradaAnimais(idCurral, quantidade);
+              
+                if(entrou){
+                    AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();        
+                    animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade);
+                    
+                    BancoDeDados bd = new BancoDeDados();
+                    
+                    try{
+                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                        + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', '" + tipoAnimal + "', '"
+                        + racaAnimal + "', '" + quantidade + "', '" + idCurral + "');";
+                        bd.executarQuery(sqlHistTransacao);
+                    } catch(Exception erro) {
 
-        AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
-        abrigoPersistencia.entradaAnimais(idCurral, quantidade);
-        
-        AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();        
-        animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade);
-        
-        atualizarTabelaRacas("Vaca");
-        atualizarTabelaAbrigo("Curral");
+                    } 
+                }
+
+            } else {
+                throw new RuntimeException("Antes de registrar uma entrada, verifique se você selecionou um abrigo e uma raça de animal!");
+            }
+            
+                       
+            atualizarTabelaRacas(tipoAnimal);
+            atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+            
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+        } 
     }//GEN-LAST:event_registrarEntradaVacasjButtonActionPerformed
 
     private void salvarCurraljButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarCurraljButtonActionPerformed
@@ -3456,14 +3819,14 @@ public class InicioJFrame extends javax.swing.JFrame {
         String qtdAnimais = "0";
         String capacidade = capacidadeCurraljSpinner.getValue().toString();
 
-        AbrigoDTO abrigoDTO = new AbrigoDTO(id, tipo, qtdAnimais, capacidade);
+        AbrigoDTO abrigoDTO = new AbrigoDTO(id, idUsuario + "", tipo, qtdAnimais, capacidade);
 
         //enviando para a service
         AbrigoService service = new AbrigoServiceImpl();
         try {
             service.salvar(abrigoDTO);
-            atualizarTabelaAbrigo(tipo);
-            carregarComboBoxIdAbrigos();            
+            atualizarTabelaAbrigo(idUsuario, tipo);
+            carregarComboBoxIdAbrigos(idUsuario);            
             JOptionPane.showMessageDialog(this, "Novo " + tipo + " salvo com sucesso!");
             cancelarApriscojButtonActionPerformed(evt);
         } catch (Exception erro) {
@@ -3498,6 +3861,17 @@ public class InicioJFrame extends javax.swing.JFrame {
     private void cancelarEntradajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarEntradajButtonActionPerformed
         quantidadeEntradaProdutojSpinner.setValue(0);
     }//GEN-LAST:event_cancelarEntradajButtonActionPerformed
+
+    private void valorProdutojTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorProdutojTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_valorProdutojTextFieldActionPerformed
+
+    private void voltarHistoricojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarHistoricojButtonActionPerformed
+        controlejPanel.remove(historicojPanel);
+        controlejPanel.add(menuPrincipaljPanel);
+        menuPrincipaljPanel.setVisible(false);
+        menuPrincipaljPanel.setVisible(true);
+    }//GEN-LAST:event_voltarHistoricojButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -3538,7 +3912,6 @@ public class InicioJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField CPFjFormattedTextField;
     private javax.swing.JLabel CPFjLabel;
-    private javax.swing.JFormattedTextField DDDjFormattedTextField;
     private javax.swing.JComboBox<String> IDsilojComboBox;
     private javax.swing.JLabel abrigosGalinhasjLabel;
     private javax.swing.JLabel abrigosOvelhasjLabel;
@@ -3592,7 +3965,14 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField corOvelhajTextField;
     private javax.swing.JScrollPane curraisjScrollPane;
     private javax.swing.JTable curraisjTable;
+    private javax.swing.JComboBox<String> diajComboBox;
+    private javax.swing.JLabel diajLabel;
+    private javax.swing.JComboBox<String> entidadejComboBox;
+    private javax.swing.JLabel entidadejLabel;
+    private javax.swing.JComboBox<String> entradaSaidajComboBox;
+    private javax.swing.JLabel entradaSaidajLabel;
     private javax.swing.JButton entrarjButton;
+    private javax.swing.JLabel filtrosjLabel;
     private javax.swing.JPanel galinhasArmazenamentojPanel;
     private javax.swing.JButton galinhasjButton;
     private javax.swing.JPanel galinhasjPanel;
@@ -3600,10 +3980,15 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JTable galinhasjTable;
     private javax.swing.JScrollPane galinheirosjScrollPane;
     private javax.swing.JTable galinheirosjTable;
+    private javax.swing.JPanel historicojPanel;
+    private javax.swing.JScrollPane historicojScrollPane;
+    private javax.swing.JTable historicojTable;
     private javax.swing.JLabel iDsilojLabel;
     private javax.swing.JComboBox<String> idApriscojComboBox;
     private javax.swing.JLabel idApriscojLabel;
     private javax.swing.JTextField idApriscojTextField;
+    private javax.swing.JComboBox<String> idArmazenamentojComboBox;
+    private javax.swing.JLabel idArmazenamentojLabel;
     private javax.swing.JComboBox<String> idChiqueirojComboBox;
     private javax.swing.JLabel idChiqueirojLabel;
     private javax.swing.JTextField idChiqueirojTextField;
@@ -3631,6 +4016,7 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField idUsuariojTextField;
     private javax.swing.JLabel idVacajLabel;
     private javax.swing.JTextField idVacajTextField;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel loginjPanel;
     private javax.swing.JPanel menuAnimaisjPanel;
     private javax.swing.JPanel menuPrincipaljPanel;
@@ -3708,6 +4094,8 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel tabelaSilosjLabel;
     private javax.swing.JFormattedTextField telefonejFormattedTextField;
     private javax.swing.JLabel telefonejLabel;
+    private javax.swing.JComboBox<String> tipoEntidadejComboBox;
+    private javax.swing.JLabel tipoEntidadejLabel;
     private javax.swing.JLabel tituloCadastroApriscosjLabel;
     private javax.swing.JLabel tituloCadastroChiqueirosjLabel;
     private javax.swing.JLabel tituloCadastroCurraisjLabel;
@@ -3746,6 +4134,7 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JButton voltarCurraisjButton;
     private javax.swing.JButton voltarGalinhajButton;
     private javax.swing.JButton voltarGalinheirosjButton;
+    private javax.swing.JButton voltarHistoricojButton;
     private javax.swing.JButton voltarMenuAnimaisjButton;
     private javax.swing.JButton voltarOvelhasjButton;
     private javax.swing.JButton voltarPorcosjButton;

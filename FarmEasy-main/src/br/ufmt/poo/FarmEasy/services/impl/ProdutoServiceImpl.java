@@ -21,26 +21,39 @@ public class ProdutoServiceImpl implements ProdutoService{
     @Override
     public void salvar(ProdutoDTO dto) {
         if(dto.getNome().equals("")){
-            throw new RuntimeException("O campo nome não pode estar vazio!"); 
-        }
-        
-        int id = 0;
-        int estoque = Integer.parseInt(dto.getEstoque());
-        double valor = Double.parseDouble(dto.getValor());
-        
-        if(!dto.getId().equals("")){
+            throw new RuntimeException("O campo nome não pode ser vazio!");        
+        } else if(dto.getValor().equals("") || Double.parseDouble(dto.getValor()) <= 0){ 
             
-            id = Integer.parseInt(dto.getId());            
-        }
+            throw new RuntimeException("O campo valor não pode ser vazio e nem menor ou igual a zero!");        
+              
+        } else { 
         
-        Produto produto = new Produto (id, dto.getNome(), estoque, valor);
-        
-        ProdutoPersistencia persistencia = new ProdutoPersistenciaImpl();
-        
-        if(id == 0){
-            persistencia.executar(produto);
-        } else {
-            persistencia.atualizar(produto);
+            int id = 0;
+            int usuarioId = 0;
+            int estoque = Integer.parseInt(dto.getEstoque());
+            double valor = Double.parseDouble(dto.getValor());
+
+            if(!dto.getId().equals("")){
+
+                id = Integer.parseInt(dto.getId());    
+                
+            }
+            
+            if(!dto.getUsuarioId().equals("")){
+
+                usuarioId = Integer.parseInt(dto.getUsuarioId());    
+                
+            }
+
+            Produto produto = new Produto (id, usuarioId, dto.getNome(), estoque, valor);
+
+            ProdutoPersistencia persistencia = new ProdutoPersistenciaImpl();
+
+            if(id == 0){
+                persistencia.executar(produto);
+            } else {
+                persistencia.atualizar(produto);
+            }
         }
     }
 
@@ -50,18 +63,19 @@ public class ProdutoServiceImpl implements ProdutoService{
     }
 
     @Override
-    public List<ProdutoDTO> listar() {
+    public List<ProdutoDTO> listar(int idUsuario) {
         
         ProdutoPersistencia persistencia = new ProdutoPersistenciaImpl();
         
         List<ProdutoDTO> lista = new ArrayList<>();
-        List<Produto> produtos = persistencia.buscar();
+        List<Produto> produtos = persistencia.buscar(idUsuario);
         for (Produto produto : produtos) {
             String id = produto.getId() + "";
+            String usuarioId = produto.getUsuarioId() + "";
             String nome = produto.getNome();
             String estoque = produto.getEstoque() + "";
             String valor = produto.getValor() + "";
-            ProdutoDTO dto = new ProdutoDTO(id, nome, estoque, valor);
+            ProdutoDTO dto = new ProdutoDTO(id, usuarioId, nome, estoque, valor);
             lista.add(dto);
             
         }

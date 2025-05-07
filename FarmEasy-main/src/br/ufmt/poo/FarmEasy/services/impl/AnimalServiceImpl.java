@@ -21,24 +21,38 @@ public class AnimalServiceImpl implements AnimalService {
     @Override
     public void salvar(AnimalDTO dto) {
         
-        int id = 0;
-        int quantidade = Integer.parseInt(dto.getQuantidade());
-        double valor = Double.parseDouble(dto.getValor());
-        
-        if(!dto.getId().equals("")){
+        if(dto.getRaca().equals("")){
+            throw new RuntimeException("O campo nome da raça não pode ser vazio!");        
+        } else if(dto.getValor().equals("") || Double.parseDouble(dto.getValor()) <= 0){ 
             
-            id = Integer.parseInt(dto.getId());            
+            throw new RuntimeException("O campo valor não pode ser vazio e nem menor ou igual a zero!");        
+              
+        } else { 
+            int id = 0;
+            int usuarioId = 0;
+            int quantidade = Integer.parseInt(dto.getQuantidade());
+            double valor = Double.parseDouble(dto.getValor());
+
+            if(!dto.getId().equals("")){
+
+                id = Integer.parseInt(dto.getId());            
+            }
+            
+            if(!dto.getUsuarioId().equals("")){
+
+                usuarioId = Integer.parseInt(dto.getUsuarioId());            
+            }
+
+            Animal animal = new Animal (id, usuarioId, dto.getTipo(), dto.getRaca(), quantidade, valor);
+
+            AnimalPersistencia persistencia = new AnimalPersistenciaImpl();
+
+            if(id == 0){
+                persistencia.executar(animal);
+            } else {
+                persistencia.atualizar(animal);
+            }    
         }
-        
-        Animal animal = new Animal (id, dto.getTipo(), dto.getRaca(), quantidade, valor);
-        
-        AnimalPersistencia persistencia = new AnimalPersistenciaImpl();
-        
-        if(id == 0){
-            persistencia.executar(animal);
-        } else {
-            persistencia.atualizar(animal);
-        }    
     }
 
     @Override
@@ -47,20 +61,21 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public List<AnimalDTO> listar(String tipoAnimal) {
+    public List<AnimalDTO> listar(int idUsuario, String tipoAnimal) {
         
         AnimalPersistencia persistencia = new AnimalPersistenciaImpl();
         
         List<AnimalDTO> lista = new ArrayList<>();
-        List<Animal> animais = persistencia.buscar(tipoAnimal);
+        List<Animal> animais = persistencia.buscar(idUsuario, tipoAnimal);
         for (Animal animal : animais) {
             
             String id = animal.getId() + "";
+            String usuarioId = animal.getUsuarioId() + "";
             String tipo = animal.getTipo();
             String raca = animal.getRaca();
             String quantidade = animal.getQuantidade() + "";
             String valor = animal.getValor() + "";
-            AnimalDTO dto = new AnimalDTO(id, tipo, raca, quantidade, valor);
+            AnimalDTO dto = new AnimalDTO(id, usuarioId, tipo, raca, quantidade, valor);
             lista.add(dto);
             
             

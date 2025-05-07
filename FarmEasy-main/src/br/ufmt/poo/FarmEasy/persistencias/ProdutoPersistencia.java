@@ -19,7 +19,7 @@ public interface ProdutoPersistencia {
     
     public void atualizar(Produto produto);
     
-    public List<Produto> buscar();
+    public List<Produto> buscar(int idUsuario);
     
     public void atualizarEstoque(String nomeProduto, int quantidade);
 }
