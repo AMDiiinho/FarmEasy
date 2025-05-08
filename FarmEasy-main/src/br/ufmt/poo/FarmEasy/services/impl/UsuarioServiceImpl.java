@@ -23,11 +23,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         
         if(dto.getNome().equals("") || dto.getCpf().equals("") || dto.getSenha().equals("") 
         || dto.getTelefone().equals("") || dto.getUsuario().equals("")){
-            System.out.println(dto.getUsuario());
-            throw new RuntimeException("Por favor preencha todos os campos para finalizar seu cadastro");     
-            
-        } else if(dto.getUsuario().length() > 40){
-            throw new RuntimeException("Nome de usuario grande demais!");
+            throw new RuntimeException("Por favor preencha todos os campos para finalizar seu cadastro");                 
         }
         
         int id = 0;
