@@ -46,7 +46,7 @@ public class AbrigoServiceImpl implements AbrigoService {
         AbrigoPersistencia persistencia = new AbrigoPersistenciaImpl();
         
         if(id == 0){
-            persistencia.executar(abrigo);
+            persistencia.inserir(abrigo);
         } else {
             persistencia.atualizar(abrigo);
         }
@@ -54,7 +54,9 @@ public class AbrigoServiceImpl implements AbrigoService {
 
     @Override
     public void remover(AbrigoDTO dto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        AbrigoPersistencia persistencia = new AbrigoPersistenciaImpl();
+        int id = Integer.parseInt(dto.getId());
+        persistencia.remover(id);        
     }
 
     @Override

@@ -16,6 +16,7 @@ import br.ufmt.poo.FarmEasy.UI.DTOs.SiloDTO;
 import br.ufmt.poo.FarmEasy.UI.DTOs.ProdutoDTO;
 import br.ufmt.poo.FarmEasy.UI.DTOs.AbrigoDTO;
 import br.ufmt.poo.FarmEasy.UI.DTOs.AnimalDTO;
+import br.ufmt.poo.FarmEasy.UI.DTOs.TransacaoDTO;
 import br.ufmt.poo.FarmEasy.UI.DTOs.UsuarioDTO;
 import br.ufmt.poo.FarmEasy.persistencias.AbrigoPersistencia;
 import br.ufmt.poo.FarmEasy.persistencias.AnimalPersistencia;
@@ -29,11 +30,12 @@ import br.ufmt.poo.FarmEasy.persistencias.impl.ProdutoPersistenciaImpl;
 import br.ufmt.poo.FarmEasy.persistencias.impl.SiloPersistenciaImpl;
 import br.ufmt.poo.FarmEasy.persistencias.impl.UsuarioPersistenciaImpl;
 import br.ufmt.poo.FarmEasy.services.AnimalService;
+import br.ufmt.poo.FarmEasy.services.TransacaoService;
 import br.ufmt.poo.FarmEasy.services.UsuarioService;
 import br.ufmt.poo.FarmEasy.services.impl.AnimalServiceImpl;
 import br.ufmt.poo.FarmEasy.services.impl.SiloServiceImpl;
+import br.ufmt.poo.FarmEasy.services.impl.TransacaoServiceImpl;
 import br.ufmt.poo.FarmEasy.services.impl.UsuarioServiceImpl;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
@@ -148,73 +150,88 @@ public class InicioJFrame extends javax.swing.JFrame {
         AbrigoService serviceAbrigo = new AbrigoServiceImpl();
 
         List<AbrigoDTO> listaAbrigos = serviceAbrigo.listar(idUsuario, tipoAbrigo);
+        
+        switch(tipoAbrigo){
+            
+            case ("Galinheiro"):
 
-        DefaultTableModel dfmAbrigoGalinheiro = (DefaultTableModel) galinheirosjTable.getModel();
-        int linhasAbrigoGalinheiro = dfmAbrigoGalinheiro.getRowCount();
-        for (int i = 0; i < linhasAbrigoGalinheiro; i++) {
-            dfmAbrigoGalinheiro.removeRow(0);
+                DefaultTableModel dfmAbrigoGalinheiro = (DefaultTableModel) galinheirosjTable.getModel();
+                int linhasAbrigoGalinheiro = dfmAbrigoGalinheiro.getRowCount();
+                for (int i = 0; i < linhasAbrigoGalinheiro; i++) {
+                    dfmAbrigoGalinheiro.removeRow(0);
 
-        }
+                }
 
-        for (AbrigoDTO abrigoDTO : listaAbrigos) {
-            Object[] linhaAbrigo = new Object[3];
-            linhaAbrigo[0] = abrigoDTO.getId();
-            linhaAbrigo[1] = abrigoDTO.getQtdAnimais();
-            linhaAbrigo[2] = abrigoDTO.getCapacidade();
+                for (AbrigoDTO abrigoDTO : listaAbrigos) {
+                    Object[] linhaAbrigo = new Object[3];
+                    linhaAbrigo[0] = abrigoDTO.getId();
+                    linhaAbrigo[1] = abrigoDTO.getQtdAnimais();
+                    linhaAbrigo[2] = abrigoDTO.getCapacidade();
 
-            dfmAbrigoGalinheiro.addRow(linhaAbrigo);
+                    dfmAbrigoGalinheiro.addRow(linhaAbrigo);
 
-        }
+                }
+            break;
+            
+            case("Chiqueiro"):
+            
+                DefaultTableModel dfmAbrigoChiqueiro = (DefaultTableModel) chiqueirosjTable.getModel();
+                int linhasAbrigoChiqueiro = dfmAbrigoChiqueiro.getRowCount();
+                for (int i = 0; i < linhasAbrigoChiqueiro; i++) {
+                    dfmAbrigoChiqueiro.removeRow(0);
 
-        DefaultTableModel dfmAbrigoChiqueiro = (DefaultTableModel) chiqueirosjTable.getModel();
-        int linhasAbrigoChiqueiro = dfmAbrigoChiqueiro.getRowCount();
-        for (int i = 0; i < linhasAbrigoChiqueiro; i++) {
-            dfmAbrigoChiqueiro.removeRow(0);
+                }
 
-        }
+                for (AbrigoDTO abrigoDTO : listaAbrigos) {
+                    Object[] linhaAbrigo = new Object[3];
+                    linhaAbrigo[0] = abrigoDTO.getId();
+                    linhaAbrigo[1] = abrigoDTO.getQtdAnimais();
+                    linhaAbrigo[2] = abrigoDTO.getCapacidade();
 
-        for (AbrigoDTO abrigoDTO : listaAbrigos) {
-            Object[] linhaAbrigo = new Object[3];
-            linhaAbrigo[0] = abrigoDTO.getId();
-            linhaAbrigo[1] = abrigoDTO.getQtdAnimais();
-            linhaAbrigo[2] = abrigoDTO.getCapacidade();
+                    dfmAbrigoChiqueiro.addRow(linhaAbrigo);
 
-            dfmAbrigoChiqueiro.addRow(linhaAbrigo);
+                }
+            break;
+            
+            case("Aprisco"):
+                DefaultTableModel dfmAbrigoAprisco = (DefaultTableModel) apriscosjTable.getModel();
+                int linhasAbrigoAprisco = dfmAbrigoAprisco.getRowCount();
+                for (int i = 0; i < linhasAbrigoAprisco; i++) {
+                    dfmAbrigoAprisco.removeRow(0);
 
-        }
+                }
 
-        DefaultTableModel dfmAbrigoAprisco = (DefaultTableModel) apriscosjTable.getModel();
-        int linhasAbrigoAprisco = dfmAbrigoAprisco.getRowCount();
-        for (int i = 0; i < linhasAbrigoAprisco; i++) {
-            dfmAbrigoAprisco.removeRow(0);
+                for (AbrigoDTO abrigoDTO : listaAbrigos) {
+                    Object[] linhaAbrigo = new Object[3];
+                    linhaAbrigo[0] = abrigoDTO.getId();
+                    linhaAbrigo[1] = abrigoDTO.getQtdAnimais();
+                    linhaAbrigo[2] = abrigoDTO.getCapacidade();
 
-        }
+                    dfmAbrigoAprisco.addRow(linhaAbrigo);
 
-        for (AbrigoDTO abrigoDTO : listaAbrigos) {
-            Object[] linhaAbrigo = new Object[3];
-            linhaAbrigo[0] = abrigoDTO.getId();
-            linhaAbrigo[1] = abrigoDTO.getQtdAnimais();
-            linhaAbrigo[2] = abrigoDTO.getCapacidade();
+                }
+            break;
 
-            dfmAbrigoAprisco.addRow(linhaAbrigo);
+            case("Curral"):
+                
+                DefaultTableModel dfmAbrigoCurral = (DefaultTableModel) curraisjTable.getModel();
+                int linhasAbrigoCurral = dfmAbrigoCurral.getRowCount();
+                for (int i = 0; i < linhasAbrigoCurral; i++) {
+                    dfmAbrigoCurral.removeRow(0);
 
-        }
+                }
 
-        DefaultTableModel dfmAbrigoCurral = (DefaultTableModel) curraisjTable.getModel();
-        int linhasAbrigoCurral = dfmAbrigoCurral.getRowCount();
-        for (int i = 0; i < linhasAbrigoCurral; i++) {
-            dfmAbrigoCurral.removeRow(0);
+                for (AbrigoDTO abrigoDTO : listaAbrigos) {
+                    Object[] linhaAbrigo = new Object[3];
+                    linhaAbrigo[0] = abrigoDTO.getId();
+                    linhaAbrigo[1] = abrigoDTO.getQtdAnimais();
+                    linhaAbrigo[2] = abrigoDTO.getCapacidade();
 
-        }
+                    dfmAbrigoCurral.addRow(linhaAbrigo);
 
-        for (AbrigoDTO abrigoDTO : listaAbrigos) {
-            Object[] linhaAbrigo = new Object[3];
-            linhaAbrigo[0] = abrigoDTO.getId();
-            linhaAbrigo[1] = abrigoDTO.getQtdAnimais();
-            linhaAbrigo[2] = abrigoDTO.getCapacidade();
-
-            dfmAbrigoCurral.addRow(linhaAbrigo);
-
+                }
+                
+            break;
         }
     }
 
@@ -343,50 +360,28 @@ public class InicioJFrame extends javax.swing.JFrame {
     }
     
     private void atualizarTabelaHistorico(int idUsuario){
-        
-        BancoDeDados bd = new BancoDeDados();
-        
-        
-        List<String[]> listaHistorico = new ArrayList();
-        String sqlTbHistorico = "SELECT * FROM tb_historico_transacoes WHERE idusuario = '" + idUsuario + "';";
-        System.out.println(sqlTbHistorico);
-        ResultSet rs = bd.executarQuery(sqlTbHistorico);
+               
+        TransacaoService transacaoService = new TransacaoServiceImpl();
+        List<TransacaoDTO> listaTransacoes = transacaoService.listar(idUsuario);
 
-        try {  
-            while(rs.next()){
-                
-                String id = rs.getString("id");
-                String entradaSaida = rs.getString("entrada_saida");
-                String entidade = rs.getString("entidade");
-                String tipoEntidade = rs.getString("tipo_entidade");
-                String quantidade = rs.getString("quanditdade");
-                String idArmazenamento = rs.getString("id_armazenamento");
-                
-                System.out.println(id);
-                
-                DefaultTableModel dfmHistorico = (DefaultTableModel) historicojTable.getModel();
-                int linhasHistorico = dfmHistorico.getRowCount();
-                for (int i = 0; i < linhasHistorico; i++) {
-                    dfmHistorico.removeRow(0);
-                }
-
-                for (int i = 0; i < listaHistorico.size(); i++) {
-                    Object[] linhaHistorico= new Object[6];
-                    linhaHistorico[0] = id;
-                    linhaHistorico[1] = entradaSaida;
-                    linhaHistorico[2] = entidade;
-                    linhaHistorico[3] = tipoEntidade;
-                    linhaHistorico[4] = quantidade;
-                    linhaHistorico[5] = idArmazenamento;
-
-                    dfmHistorico.addRow(linhaHistorico);
-                }
-
-            }
-            
-        } catch (Exception erro){
-            
+        DefaultTableModel dfmTransacao = (DefaultTableModel) historicojTable.getModel();
+        int linhasTransacao = dfmTransacao.getRowCount();
+        for (int i = 0; i < linhasTransacao; i++) {
+            dfmTransacao.removeRow(0);
         }
+
+        for (TransacaoDTO transacaoDTO : listaTransacoes) {
+            Object[] linhaTransacao = new Object[7];
+            linhaTransacao[0] = transacaoDTO.getId();
+            linhaTransacao[1] = transacaoDTO.getEntradaSaida();
+            linhaTransacao[2] = transacaoDTO.getEntidade();
+            linhaTransacao[3] = transacaoDTO.getTipoEntidade();
+            linhaTransacao[4] = transacaoDTO.getQuantidade();
+            linhaTransacao[5] = transacaoDTO.getIdArmazenamento();
+            linhaTransacao[6] = transacaoDTO.getData();
+
+            dfmTransacao.addRow(linhaTransacao);
+        } 
         
     }
     
@@ -488,7 +483,146 @@ public class InicioJFrame extends javax.swing.JFrame {
             idCurraljComboBox.addItem(abrigoDTO.getId());
         }
     }
+    
+    private void carregarComboBoxFiltroAbrigos(int idUsuario){
+        
+        AbrigoService abrigoServiceGalinheiro = new AbrigoServiceImpl();
+        List<AbrigoDTO> listaAbrigoGalinheiro = abrigoServiceGalinheiro.listar(idUsuario, "Galinheiro");
+        idArmazenamentojComboBox.removeAllItems();
+        
+        idArmazenamentojComboBox.addItem("<Nenhum>");
+        
+        for (AbrigoDTO abrigoDTO : listaAbrigoGalinheiro) {
+            idArmazenamentojComboBox.addItem(abrigoDTO.getId());
+        }
+        
+        AbrigoService abrigoServiceAprisco = new AbrigoServiceImpl();
+        List<AbrigoDTO> listaAbrigoAprisco = abrigoServiceAprisco.listar(idUsuario, "Aprisco");
+  
+        for (AbrigoDTO abrigoDTO : listaAbrigoAprisco) {
+            idArmazenamentojComboBox.addItem(abrigoDTO.getId());
+        }
+        
+        AbrigoService abrigoServiceChiqueiro = new AbrigoServiceImpl();
+        List<AbrigoDTO> listaAbrigoChiqueiro = abrigoServiceChiqueiro.listar(idUsuario, "Chiqueiro");
 
+        for (AbrigoDTO abrigoDTO : listaAbrigoChiqueiro) {
+            idArmazenamentojComboBox.addItem(abrigoDTO.getId());
+        }
+        
+        AbrigoService abrigoServiceCurral = new AbrigoServiceImpl();
+        List<AbrigoDTO> listaAbrigoCurral = abrigoServiceCurral.listar(idUsuario, "Curral");
+
+        for (AbrigoDTO abrigoDTO : listaAbrigoCurral) {
+            idArmazenamentojComboBox.addItem(abrigoDTO.getId());
+        }
+        
+    }
+    
+    private void carregarComboBoxFiltroTipoEntidade(int idUsuario, String entidade){
+        
+        if(!entidade.equals("<Nenhum>")){
+            
+            switch(entidade){
+            
+                case("Produto"): 
+                    
+                    ProdutoService produtoService = new ProdutoServiceImpl();
+                    List<ProdutoDTO> listaProdutos = produtoService.listar(idUsuario);
+
+                    for (ProdutoDTO produtoDTO : listaProdutos) {
+                        tipoEntidadejComboBox.addItem(produtoDTO.getNome());
+                    }
+                    
+                break;
+
+                case("Galinha"):
+                    
+                    AnimalService animalServiceGalinha = new AnimalServiceImpl();
+                    List<AnimalDTO> listaGalinhas = animalServiceGalinha.listar(idUsuario, "Galinha");
+
+                    for (AnimalDTO animalDTO : listaGalinhas){
+
+                       tipoEntidadejComboBox.addItem(animalDTO.getRaca());
+
+                    }
+                    
+                break;
+                
+                case("Porco"):
+                    
+                    AnimalService animalServicePorco = new AnimalServiceImpl();
+                    List<AnimalDTO> listaPorcos = animalServicePorco.listar(idUsuario, "Porco");   
+
+                    for (AnimalDTO animalDTO : listaPorcos){
+
+                       tipoEntidadejComboBox.addItem(animalDTO.getRaca());
+                    }
+                    
+                break;
+                
+                case("Ovelha"):
+                    
+                    AnimalService animalServiceOvelha = new AnimalServiceImpl();
+                    List<AnimalDTO> listaOvelhas = animalServiceOvelha.listar(idUsuario, "Ovelha");
+
+                    for (AnimalDTO animalDTO : listaOvelhas){
+
+                       tipoEntidadejComboBox.addItem(animalDTO.getRaca());
+                    }
+                    
+                break;
+                
+                case("Vaca"):
+                    
+                    AnimalService animalServiceVaca = new AnimalServiceImpl();
+                    List<AnimalDTO> listaVacas = animalServiceVaca.listar(idUsuario, "Vaca");
+
+                    for (AnimalDTO animalDTO : listaVacas){
+
+                       tipoEntidadejComboBox.addItem(animalDTO.getRaca());
+                    }
+                    
+                break;              
+            }   
+        } else {
+            tipoEntidadejComboBox.addItem("<Nenhum>");
+        }
+    }
+    
+    private void aplicarFiltrosHistorico(int idUsuario){
+        
+        List<String> filtros = new ArrayList();
+        filtros.add(entradaSaidajComboBox.getSelectedItem().toString());
+        filtros.add(entidadejComboBox.getSelectedItem().toString());
+        filtros.add(tipoEntidadejComboBox.getSelectedItem().toString());
+        filtros.add(idArmazenamentojComboBox.getSelectedItem().toString());
+        filtros.add(diajComboBox.getSelectedItem().toString());
+
+        TransacaoService transacaoService = new TransacaoServiceImpl();
+        List<TransacaoDTO> listaTransacoes = transacaoService.listarFiltros(idUsuario, filtros);       
+        
+        DefaultTableModel dfmTransacao = (DefaultTableModel) historicojTable.getModel();
+        int linhasTransacao = dfmTransacao.getRowCount();
+        for (int i = 0; i < linhasTransacao; i++) {
+            dfmTransacao.removeRow(0);
+        }
+
+        for (TransacaoDTO transacaoDTO : listaTransacoes) {
+            Object[] linhaTransacao = new Object[7];
+            linhaTransacao[0] = transacaoDTO.getId();
+            linhaTransacao[1] = transacaoDTO.getEntradaSaida();
+            linhaTransacao[2] = transacaoDTO.getEntidade();
+            linhaTransacao[3] = transacaoDTO.getTipoEntidade();
+            linhaTransacao[4] = transacaoDTO.getQuantidade();
+            linhaTransacao[5] = transacaoDTO.getIdArmazenamento();
+            linhaTransacao[6] = transacaoDTO.getData();
+
+            dfmTransacao.addRow(linhaTransacao);
+        }
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -506,10 +640,11 @@ public class InicioJFrame extends javax.swing.JFrame {
         senhajLabel = new javax.swing.JLabel();
         entrarjButton = new javax.swing.JButton();
         cadastrarContajButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         menuPrincipaljPanel = new javax.swing.JPanel();
         sairjButton = new javax.swing.JButton();
         produtosjButton = new javax.swing.JButton();
-        plantacoesjButton = new javax.swing.JButton();
+        historicojButton = new javax.swing.JButton();
         animaisjButton = new javax.swing.JButton();
         menuAnimaisjPanel = new javax.swing.JPanel();
         voltarMenuAnimaisjButton = new javax.swing.JButton();
@@ -533,6 +668,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         tituloCadastroGalinhasjLabel1 = new javax.swing.JLabel();
         racaGalinhajTextField = new javax.swing.JTextField();
         consultarGalinheirosjButton = new javax.swing.JButton();
+        removerRacaGalinhajButton = new javax.swing.JButton();
         galinhasArmazenamentojPanel = new javax.swing.JPanel();
         galinheirosjScrollPane = new javax.swing.JScrollPane();
         galinheirosjTable = new javax.swing.JTable();
@@ -554,6 +690,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         cancelarEntradaGalinhasjButton = new javax.swing.JButton();
         registrarEntradaGalinhasjButton = new javax.swing.JButton();
         tabelaGalinheirosjLabel = new javax.swing.JLabel();
+        removerGalinheirojButton = new javax.swing.JButton();
         porcosjPanel = new javax.swing.JPanel();
         porcosjScrollPane = new javax.swing.JScrollPane();
         porcosjTable = new javax.swing.JTable();
@@ -569,6 +706,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         valorPorcojLabel = new javax.swing.JLabel();
         valorPorcojTextField = new javax.swing.JTextField();
         consultarChiqueirosjButton = new javax.swing.JButton();
+        removerRacaPorcojButton = new javax.swing.JButton();
         porcosArmazenamentojPanel = new javax.swing.JPanel();
         chiqueirosjScrollPane = new javax.swing.JScrollPane();
         chiqueirosjTable = new javax.swing.JTable();
@@ -590,6 +728,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         cancelarEntradaPorcosjButton = new javax.swing.JButton();
         registrarEntradaPorcosjButton = new javax.swing.JButton();
         tabelaPorcosjLabel = new javax.swing.JLabel();
+        removerChiqueirojButton = new javax.swing.JButton();
         ovelhasjPanel = new javax.swing.JPanel();
         ovelhasjScrollPane = new javax.swing.JScrollPane();
         ovelhasjTable = new javax.swing.JTable();
@@ -605,6 +744,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         valorOvelhajTextField = new javax.swing.JTextField();
         consultarApriscosjButton = new javax.swing.JButton();
         corOvelhajTextField = new javax.swing.JTextField();
+        removerRacaOvelhajButton = new javax.swing.JButton();
         ovelhasArmazenamentojPanel = new javax.swing.JPanel();
         apriscosjScrollPane = new javax.swing.JScrollPane();
         apriscosjTable = new javax.swing.JTable();
@@ -626,6 +766,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         cancelarEntradaOvelhasjButton = new javax.swing.JButton();
         registrarEntradaOvelhasjButton = new javax.swing.JButton();
         tabelaOvelhasjLabel = new javax.swing.JLabel();
+        removerApriscojButton = new javax.swing.JButton();
         vacasjPanel = new javax.swing.JPanel();
         vacasjScrollPane = new javax.swing.JScrollPane();
         vacasjTable = new javax.swing.JTable();
@@ -641,6 +782,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         valorVacajTextField = new javax.swing.JTextField();
         valorVacajLabel = new javax.swing.JLabel();
         consultarCurraisjButton = new javax.swing.JButton();
+        removerRacaVacajButton = new javax.swing.JButton();
         vacasArmazenamentojPanel = new javax.swing.JPanel();
         curraisjScrollPane = new javax.swing.JScrollPane();
         curraisjTable = new javax.swing.JTable();
@@ -662,6 +804,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         cancelarEntradaVacasjButton = new javax.swing.JButton();
         registrarEntradaVacasjButton = new javax.swing.JButton();
         tabelaCurraisjLabel = new javax.swing.JLabel();
+        removerCurraljButton = new javax.swing.JButton();
         silosjPanel = new javax.swing.JPanel();
         silosjScrollPane = new javax.swing.JScrollPane();
         silosjTable = new javax.swing.JTable();
@@ -683,6 +826,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         cancelarEntradajButton = new javax.swing.JButton();
         registrarEntradajButton = new javax.swing.JButton();
         tabelaSilosjLabel = new javax.swing.JLabel();
+        removerSilojButton = new javax.swing.JButton();
         produtosjPanel = new javax.swing.JPanel();
         produtosjScrollPane = new javax.swing.JScrollPane();
         produtosjTable = new javax.swing.JTable();
@@ -698,6 +842,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         valorProdutojLabel = new javax.swing.JLabel();
         consultarArmazenamentojButton = new javax.swing.JButton();
         valorProdutojTextField = new javax.swing.JTextField();
+        removerProdutojButton = new javax.swing.JButton();
         cadastrojPanel = new javax.swing.JPanel();
         cadastrojLabel = new javax.swing.JLabel();
         nomejTextField = new javax.swing.JTextField();
@@ -720,7 +865,6 @@ public class InicioJFrame extends javax.swing.JFrame {
         filtrosjLabel = new javax.swing.JLabel();
         entradaSaidajComboBox = new javax.swing.JComboBox<>();
         entidadejComboBox = new javax.swing.JComboBox<>();
-        tipoEntidadejComboBox = new javax.swing.JComboBox<>();
         idArmazenamentojComboBox = new javax.swing.JComboBox<>();
         diajComboBox = new javax.swing.JComboBox<>();
         entradaSaidajLabel = new javax.swing.JLabel();
@@ -729,7 +873,8 @@ public class InicioJFrame extends javax.swing.JFrame {
         idArmazenamentojLabel = new javax.swing.JLabel();
         diajLabel = new javax.swing.JLabel();
         voltarHistoricojButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        aplicarFiltrosjButton = new javax.swing.JButton();
+        tipoEntidadejComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -756,6 +901,9 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Liberation Sans", 0, 36)); // NOI18N
+        jLabel1.setText("Farm Easy");
+
         javax.swing.GroupLayout loginjPanelLayout = new javax.swing.GroupLayout(loginjPanel);
         loginjPanel.setLayout(loginjPanelLayout);
         loginjPanelLayout.setHorizontalGroup(
@@ -763,26 +911,33 @@ public class InicioJFrame extends javax.swing.JFrame {
             .addGroup(loginjPanelLayout.createSequentialGroup()
                 .addGroup(loginjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(loginjPanelLayout.createSequentialGroup()
-                        .addGap(257, 257, 257)
-                        .addGroup(loginjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(senhajLabel)
-                            .addComponent(usuariojLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(loginjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(senhajTextField)
-                            .addComponent(usuariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(333, 333, 333)
+                        .addGroup(loginjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(loginjPanelLayout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(entrarjButton))
+                            .addGroup(loginjPanelLayout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(cadastrarContajButton))
+                            .addGroup(loginjPanelLayout.createSequentialGroup()
+                                .addGroup(loginjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(senhajLabel)
+                                    .addComponent(usuariojLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(loginjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(senhajTextField)
+                                    .addComponent(usuariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(loginjPanelLayout.createSequentialGroup()
-                        .addGap(312, 312, 312)
-                        .addComponent(entrarjButton))
-                    .addGroup(loginjPanelLayout.createSequentialGroup()
-                        .addGap(290, 290, 290)
-                        .addComponent(cadastrarContajButton)))
-                .addContainerGap(342, Short.MAX_VALUE))
+                        .addGap(337, 337, 337)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(343, Short.MAX_VALUE))
         );
         loginjPanelLayout.setVerticalGroup(
             loginjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginjPanelLayout.createSequentialGroup()
-                .addGap(182, 182, 182)
+                .addGap(73, 73, 73)
+                .addComponent(jLabel1)
+                .addGap(81, 81, 81)
                 .addGroup(loginjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usuariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(usuariojLabel))
@@ -792,9 +947,9 @@ public class InicioJFrame extends javax.swing.JFrame {
                     .addComponent(senhajLabel))
                 .addGap(22, 22, 22)
                 .addComponent(entrarjButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(cadastrarContajButton)
-                .addGap(47, 47, 47))
+                .addGap(60, 60, 60))
         );
 
         controlejPanel.add(loginjPanel, "card11");
@@ -815,10 +970,10 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
-        plantacoesjButton.setText("Histórico de transações");
-        plantacoesjButton.addActionListener(new java.awt.event.ActionListener() {
+        historicojButton.setText("Histórico de transações");
+        historicojButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                plantacoesjButtonActionPerformed(evt);
+                historicojButtonActionPerformed(evt);
             }
         });
 
@@ -834,26 +989,26 @@ public class InicioJFrame extends javax.swing.JFrame {
         menuPrincipaljPanelLayout.setHorizontalGroup(
             menuPrincipaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPrincipaljPanelLayout.createSequentialGroup()
-                .addGap(294, 294, 294)
-                .addGroup(menuPrincipaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(321, 321, 321)
+                .addGroup(menuPrincipaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(animaisjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sairjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(produtosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(plantacoesjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(animaisjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(293, Short.MAX_VALUE))
+                    .addComponent(historicojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(326, Short.MAX_VALUE))
         );
         menuPrincipaljPanelLayout.setVerticalGroup(
             menuPrincipaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPrincipaljPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(menuPrincipaljPanelLayout.createSequentialGroup()
+                .addGap(138, 138, 138)
                 .addComponent(animaisjButton)
                 .addGap(37, 37, 37)
                 .addComponent(produtosjButton)
-                .addGap(46, 46, 46)
-                .addComponent(plantacoesjButton)
+                .addGap(37, 37, 37)
+                .addComponent(historicojButton)
                 .addGap(40, 40, 40)
                 .addComponent(sairjButton)
-                .addGap(122, 122, 122))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         controlejPanel.add(menuPrincipaljPanel, "card3");
@@ -903,38 +1058,38 @@ public class InicioJFrame extends javax.swing.JFrame {
         menuAnimaisjPanelLayout.setHorizontalGroup(
             menuAnimaisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuAnimaisjPanelLayout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
-                .addGroup(menuAnimaisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(menuAnimaisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(menuAnimaisjPanelLayout.createSequentialGroup()
+                        .addContainerGap(741, Short.MAX_VALUE)
+                        .addComponent(voltarMenuAnimaisjButton))
+                    .addGroup(menuAnimaisjPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(abrigosjLabel)
-                        .addGap(234, 234, 234))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuAnimaisjPanelLayout.createSequentialGroup()
-                        .addGroup(menuAnimaisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(menuAnimaisjPanelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(voltarMenuAnimaisjButton))
-                            .addGroup(menuAnimaisjPanelLayout.createSequentialGroup()
-                                .addComponent(galinhasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)
-                                .addComponent(porcosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(70, 70, 70)
-                                .addComponent(ovelhasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                                .addComponent(vacasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(49, 49, 49))))
+                        .addGap(592, 592, 592)))
+                .addGap(49, 49, 49))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuAnimaisjPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(galinhasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68)
+                .addComponent(porcosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addComponent(ovelhasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(vacasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88))
         );
         menuAnimaisjPanelLayout.setVerticalGroup(
             menuAnimaisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuAnimaisjPanelLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(47, 47, 47)
                 .addComponent(abrigosjLabel)
-                .addGap(111, 111, 111)
+                .addGap(128, 128, 128)
                 .addGroup(menuAnimaisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(porcosjButton)
                     .addComponent(galinhasjButton)
                     .addComponent(ovelhasjButton)
                     .addComponent(vacasjButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
                 .addComponent(voltarMenuAnimaisjButton)
                 .addGap(37, 37, 37))
         );
@@ -1019,21 +1174,27 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
+        removerRacaGalinhajButton.setText("Remover raça");
+        removerRacaGalinhajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerRacaGalinhajButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout galinhasjPanelLayout = new javax.swing.GroupLayout(galinhasjPanel);
         galinhasjPanel.setLayout(galinhasjPanelLayout);
         galinhasjPanelLayout.setHorizontalGroup(
             galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(galinhasjPanelLayout.createSequentialGroup()
+                .addContainerGap(83, Short.MAX_VALUE)
                 .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(voltarGalinhajButton, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, galinhasjPanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(voltarGalinhajButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, galinhasjPanelLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(abrigosGalinhasjLabel)
-                            .addComponent(galinhasjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                            .addComponent(galinhasjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                            .addComponent(removerRacaGalinhajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(69, 69, 69)
                         .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tituloCadastroGalinhasjLabel1)
                             .addGroup(galinhasjPanelLayout.createSequentialGroup()
@@ -1052,12 +1213,12 @@ public class InicioJFrame extends javax.swing.JFrame {
                                             .addComponent(salvarGalinhajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addComponent(racaGalinhajTextField)
                                         .addComponent(valorGalinhajTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addGap(66, 66, 66))
+                .addGap(95, 95, 95))
         );
         galinhasjPanelLayout.setVerticalGroup(
             galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(galinhasjPanelLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addGroup(galinhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(abrigosGalinhasjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tituloCadastroGalinhasjLabel1))
@@ -1082,7 +1243,9 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(consultarGalinheirosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(galinhasjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(removerRacaGalinhajButton)
+                .addGap(20, 20, 20)
                 .addComponent(voltarGalinhajButton)
                 .addGap(58, 58, 58))
         );
@@ -1185,6 +1348,13 @@ public class InicioJFrame extends javax.swing.JFrame {
         tabelaGalinheirosjLabel.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
         tabelaGalinheirosjLabel.setText("Galinheiros");
 
+        removerGalinheirojButton.setText("Remover abrigo");
+        removerGalinheirojButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerGalinheirojButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout galinhasArmazenamentojPanelLayout = new javax.swing.GroupLayout(galinhasArmazenamentojPanel);
         galinhasArmazenamentojPanel.setLayout(galinhasArmazenamentojPanelLayout);
         galinhasArmazenamentojPanelLayout.setHorizontalGroup(
@@ -1224,13 +1394,13 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(salvarGalinheirojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tituloCadastroGalinheirosjLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
-                .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(galinhasArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(voltarGalinheirosjButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tabelaGalinheirosjLabel)
-                    .addComponent(galinheirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(galinheirosjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                    .addComponent(removerGalinheirojButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(voltarGalinheirosjButton)
                 .addGap(47, 47, 47))
         );
         galinhasArmazenamentojPanelLayout.setVerticalGroup(
@@ -1241,7 +1411,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                     .addComponent(tituloCadastroGalinheirosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tabelaGalinheirosjLabel))
                 .addGap(21, 21, 21)
-                .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(galinhasArmazenamentojPanelLayout.createSequentialGroup()
                         .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idGalinheirojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1268,18 +1438,14 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idGalinheirojLabel1)
                             .addComponent(idGalinheirojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(galinheirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(galinhasArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(registrarEntradaGalinhasjButton)
-                            .addComponent(cancelarEntradaGalinhasjButton))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, galinhasArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(voltarGalinheirosjButton)
-                        .addGap(38, 38, 38))))
+                    .addComponent(galinheirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(registrarEntradaGalinhasjButton)
+                    .addComponent(cancelarEntradaGalinhasjButton)
+                    .addComponent(removerGalinheirojButton)
+                    .addComponent(voltarGalinheirosjButton))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         controlejPanel.add(galinhasArmazenamentojPanel, "card5");
@@ -1362,51 +1528,54 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
+        removerRacaPorcojButton.setText("removerRaça");
+        removerRacaPorcojButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerRacaPorcojButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout porcosjPanelLayout = new javax.swing.GroupLayout(porcosjPanel);
         porcosjPanel.setLayout(porcosjPanelLayout);
         porcosjPanelLayout.setHorizontalGroup(
             porcosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(porcosjPanelLayout.createSequentialGroup()
-                .addGroup(porcosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, porcosjPanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(voltarPorcosjButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(voltarPorcosjButton)
+                .addGap(32, 32, 32))
+            .addGroup(porcosjPanelLayout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addGroup(porcosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(removerRacaPorcojButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(porcosjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                    .addComponent(racasPorcosjLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addGroup(porcosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(porcosjPanelLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addGroup(porcosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(idPorcojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nomePorcojLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(porcosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(idPorcojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(racaPorcojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(tituloCadastroPorcojLabel)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, porcosjPanelLayout.createSequentialGroup()
+                        .addComponent(valorPorcojLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(porcosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(porcosjPanelLayout.createSequentialGroup()
-                                .addComponent(racasPorcosjLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE))
-                            .addGroup(porcosjPanelLayout.createSequentialGroup()
-                                .addComponent(porcosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addGap(63, 63, 63)))
-                        .addGroup(porcosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(porcosjPanelLayout.createSequentialGroup()
-                                .addGroup(porcosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(idPorcojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(nomePorcojLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(cancelarPorcojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(porcosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(idPorcojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(racaPorcojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(tituloCadastroPorcojLabel)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, porcosjPanelLayout.createSequentialGroup()
-                                .addComponent(valorPorcojLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(porcosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(porcosjPanelLayout.createSequentialGroup()
-                                        .addComponent(cancelarPorcojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(salvarPorcojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(valorPorcojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(consultarChiqueirosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(47, 47, 47)))
-                .addGap(32, 32, 32))
+                                .addComponent(salvarPorcojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(valorPorcojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(consultarChiqueirosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(80, 80, 80))
         );
         porcosjPanelLayout.setVerticalGroup(
             porcosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(porcosjPanelLayout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addGroup(porcosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(racasPorcosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tituloCadastroPorcojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1431,7 +1600,9 @@ public class InicioJFrame extends javax.swing.JFrame {
                             .addComponent(salvarPorcojButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(consultarChiqueirosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(removerRacaPorcojButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(voltarPorcosjButton)
                 .addGap(27, 27, 27))
         );
@@ -1534,12 +1705,19 @@ public class InicioJFrame extends javax.swing.JFrame {
         tabelaPorcosjLabel.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
         tabelaPorcosjLabel.setText("Chiqueiros");
 
+        removerChiqueirojButton.setText("Remover chiqueiro");
+        removerChiqueirojButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerChiqueirojButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout porcosArmazenamentojPanelLayout = new javax.swing.GroupLayout(porcosArmazenamentojPanel);
         porcosArmazenamentojPanel.setLayout(porcosArmazenamentojPanelLayout);
         porcosArmazenamentojPanelLayout.setHorizontalGroup(
             porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, porcosArmazenamentojPanelLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+            .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
                 .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
@@ -1550,7 +1728,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(capacidadeChiqueirojSpinner)
                             .addComponent(idChiqueirojTextField))
-                        .addGap(200, 200, 200))
+                        .addGap(101, 101, 101))
                     .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
                         .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tituloEntradaChiqueirosjLabel)
@@ -1572,27 +1750,29 @@ public class InicioJFrame extends javax.swing.JFrame {
                                             .addComponent(racaPorcojLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(racaPorcojComboBox, 0, 152, Short.MAX_VALUE)
+                                        .addComponent(racaPorcojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(quantidadeEntradaPorcosjSpinner)
-                                        .addComponent(idChiqueirojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGap(164, 164, 164)))
+                                        .addComponent(idChiqueirojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(65, 65, 65)))
                 .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(voltarChiqueirosjButton1))
                     .addComponent(tabelaPorcosjLabel)
-                    .addComponent(chiqueirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47))
+                    .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
+                        .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(removerChiqueirojButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(chiqueirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addComponent(voltarChiqueirosjButton1)))
+                .addGap(40, 40, 40))
         );
         porcosArmazenamentojPanelLayout.setVerticalGroup(
             porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(50, 50, 50)
                 .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tituloCadastroChiqueirosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tabelaPorcosjLabel))
                 .addGap(21, 21, 21)
-                .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
                         .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idChiqueirojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1619,17 +1799,14 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idEntradaChiqueirojLabel)
                             .addComponent(idChiqueirojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(chiqueirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(voltarChiqueirosjButton1))
-                    .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cancelarEntradaPorcosjButton)
-                            .addComponent(registrarEntradaPorcosjButton))))
-                .addGap(38, 38, 38))
+                    .addComponent(chiqueirosjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelarEntradaPorcosjButton)
+                    .addComponent(registrarEntradaPorcosjButton)
+                    .addComponent(removerChiqueirojButton)
+                    .addComponent(voltarChiqueirosjButton1))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         controlejPanel.add(porcosArmazenamentojPanel, "card5");
@@ -1724,48 +1901,52 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
+        removerRacaOvelhajButton.setText("Remover ovelha");
+        removerRacaOvelhajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerRacaOvelhajButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ovelhasjPanelLayout = new javax.swing.GroupLayout(ovelhasjPanel);
         ovelhasjPanel.setLayout(ovelhasjPanelLayout);
         ovelhasjPanelLayout.setHorizontalGroup(
             ovelhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ovelhasjPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap(100, Short.MAX_VALUE)
                 .addGroup(ovelhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(abrigosOvelhasjLabel)
-                    .addComponent(ovelhasjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(ovelhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ovelhasjPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                        .addComponent(idOvelhajLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(ovelhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idOvelhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tituloCadastroOvelhasjLabel))
-                        .addGap(103, 103, 103))
-                    .addGroup(ovelhasjPanelLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addGroup(ovelhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(corOvelhajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(valorOvelhajLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ovelhasjPanelLayout.createSequentialGroup()
                         .addGroup(ovelhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(valorOvelhajTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                            .addComponent(consultarApriscosjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                            .addComponent(abrigosOvelhasjLabel)
+                            .addComponent(ovelhasjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                            .addComponent(removerRacaOvelhajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(85, 85, 85)
+                        .addGroup(ovelhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tituloCadastroOvelhasjLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ovelhasjPanelLayout.createSequentialGroup()
-                                .addComponent(cancelarOvelhajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(ovelhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(idOvelhajLabel)
+                                    .addComponent(corOvelhajLabel)
+                                    .addComponent(valorOvelhajLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(salvarOvelhajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(corOvelhajTextField))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ovelhasjPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(voltarOvelhasjButton)
-                .addGap(52, 52, 52))
+                                .addGroup(ovelhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(valorOvelhajTextField)
+                                    .addComponent(consultarApriscosjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ovelhasjPanelLayout.createSequentialGroup()
+                                        .addComponent(cancelarOvelhajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(salvarOvelhajButton, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+                                    .addComponent(corOvelhajTextField)
+                                    .addComponent(idOvelhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(106, 106, 106))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ovelhasjPanelLayout.createSequentialGroup()
+                        .addComponent(voltarOvelhasjButton)
+                        .addGap(52, 52, 52))))
         );
         ovelhasjPanelLayout.setVerticalGroup(
             ovelhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ovelhasjPanelLayout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addGroup(ovelhasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(abrigosOvelhasjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tituloCadastroOvelhasjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1790,7 +1971,9 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(consultarApriscosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(ovelhasjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
+                .addGap(18, 18, 18)
+                .addComponent(removerRacaOvelhajButton)
+                .addGap(11, 11, 11)
                 .addComponent(voltarOvelhasjButton)
                 .addGap(54, 54, 54))
         );
@@ -1897,6 +2080,13 @@ public class InicioJFrame extends javax.swing.JFrame {
         tabelaOvelhasjLabel.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
         tabelaOvelhasjLabel.setText("Apriscos");
 
+        removerApriscojButton.setText("Remover aprisco");
+        removerApriscojButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerApriscojButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ovelhasArmazenamentojPanelLayout = new javax.swing.GroupLayout(ovelhasArmazenamentojPanel);
         ovelhasArmazenamentojPanel.setLayout(ovelhasArmazenamentojPanelLayout);
         ovelhasArmazenamentojPanelLayout.setHorizontalGroup(
@@ -1919,10 +2109,6 @@ public class InicioJFrame extends javax.swing.JFrame {
                             .addComponent(idApriscojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(tituloCadastroApriscosjLabel)
                     .addGroup(ovelhasArmazenamentojPanelLayout.createSequentialGroup()
-                        .addComponent(cancelarEntradaOvelhasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(registrarEntradaOvelhasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(ovelhasArmazenamentojPanelLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(capacidadeApriscojLabel)
@@ -1936,15 +2122,23 @@ public class InicioJFrame extends javax.swing.JFrame {
                     .addGroup(ovelhasArmazenamentojPanelLayout.createSequentialGroup()
                         .addComponent(cancelarApriscojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(salvarApriscojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                        .addComponent(salvarApriscojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ovelhasArmazenamentojPanelLayout.createSequentialGroup()
+                        .addComponent(cancelarEntradaOvelhasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(registrarEntradaOvelhasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ovelhasArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(voltarApriscosjButton))
-                    .addComponent(tabelaOvelhasjLabel)
-                    .addComponent(apriscosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47))
+                        .addComponent(tabelaOvelhasjLabel)
+                        .addGap(179, 179, 179))
+                    .addGroup(ovelhasArmazenamentojPanelLayout.createSequentialGroup()
+                        .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(removerApriscojButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(apriscosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addComponent(voltarApriscosjButton)
+                        .addGap(45, 45, 45))))
         );
         ovelhasArmazenamentojPanelLayout.setVerticalGroup(
             ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1955,6 +2149,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                     .addComponent(tabelaOvelhasjLabel))
                 .addGap(18, 18, 18)
                 .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(apriscosjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(ovelhasArmazenamentojPanelLayout.createSequentialGroup()
                         .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idApriscojLabel)
@@ -1980,19 +2175,14 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idEntradaApriscojLabel)
-                            .addComponent(idApriscojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(apriscosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(ovelhasArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cancelarEntradaOvelhasjButton)
-                            .addComponent(registrarEntradaOvelhasjButton))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ovelhasArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(voltarApriscosjButton)
-                        .addGap(38, 38, 38))))
+                            .addComponent(idApriscojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelarEntradaOvelhasjButton)
+                    .addComponent(registrarEntradaOvelhasjButton)
+                    .addComponent(removerApriscojButton)
+                    .addComponent(voltarApriscosjButton))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         controlejPanel.add(ovelhasArmazenamentojPanel, "card5");
@@ -2075,47 +2265,54 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
+        removerRacaVacajButton.setText("Remover raça");
+        removerRacaVacajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerRacaVacajButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout vacasjPanelLayout = new javax.swing.GroupLayout(vacasjPanel);
         vacasjPanel.setLayout(vacasjPanelLayout);
         vacasjPanelLayout.setHorizontalGroup(
             vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(vacasjPanelLayout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
+                .addContainerGap(758, Short.MAX_VALUE)
+                .addComponent(voltarVacasjButton)
+                .addGap(32, 32, 32))
+            .addGroup(vacasjPanelLayout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addGroup(vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(removerRacaVacajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vacasjLabel)
+                    .addComponent(vacasjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
                 .addGroup(vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vacasjPanelLayout.createSequentialGroup()
-                        .addComponent(voltarVacasjButton)
-                        .addGap(32, 32, 32))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vacasjPanelLayout.createSequentialGroup()
-                        .addGroup(vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(vacasjLabel)
-                            .addComponent(vacasjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
-                        .addGroup(vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(vacasjPanelLayout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(tituloCadastroVacasjLabel))
-                            .addGroup(vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(consultarCurraisjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(vacasjPanelLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(tituloCadastroVacasjLabel))
+                    .addGroup(vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(consultarCurraisjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(vacasjPanelLayout.createSequentialGroup()
+                            .addGroup(vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(idVacajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(nomeVacajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(valorVacajLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(idVacajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(racaVacajTextField)
                                 .addGroup(vacasjPanelLayout.createSequentialGroup()
-                                    .addGroup(vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(idVacajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(nomeVacajLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(valorVacajLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(cancelarVacajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(idVacajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(racaVacajTextField)
-                                        .addGroup(vacasjPanelLayout.createSequentialGroup()
-                                            .addComponent(cancelarVacajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(salvarVacajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addComponent(valorVacajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(64, 64, 64))))
+                                    .addComponent(salvarVacajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(valorVacajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         vacasjPanelLayout.setVerticalGroup(
             vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(vacasjPanelLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(51, 51, 51)
                 .addGroup(vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vacasjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tituloCadastroVacasjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2137,10 +2334,12 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(vacasjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cancelarVacajButton)
                             .addComponent(salvarVacajButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                         .addComponent(consultarCurraisjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(vacasjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(64, 64, 64)
+                .addGap(18, 18, 18)
+                .addComponent(removerRacaVacajButton)
+                .addGap(4, 4, 4)
                 .addComponent(voltarVacasjButton)
                 .addGap(27, 27, 27))
         );
@@ -2243,12 +2442,19 @@ public class InicioJFrame extends javax.swing.JFrame {
         tabelaCurraisjLabel.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
         tabelaCurraisjLabel.setText("Currais");
 
+        removerCurraljButton.setText("Remover curral");
+        removerCurraljButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerCurraljButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout vacasArmazenamentojPanelLayout = new javax.swing.GroupLayout(vacasArmazenamentojPanel);
         vacasArmazenamentojPanel.setLayout(vacasArmazenamentojPanelLayout);
         vacasArmazenamentojPanelLayout.setHorizontalGroup(
             vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(41, 41, 41)
                 .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tituloEntradaCurraisjLabel)
                     .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
@@ -2260,14 +2466,10 @@ public class InicioJFrame extends javax.swing.JFrame {
                                 .addComponent(racaVacajLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(racaVacajComboBox, 0, 154, Short.MAX_VALUE)
+                            .addComponent(racaVacajComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(quantidadeEntradaVacasjSpinner)
-                            .addComponent(idCurraljComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(idCurraljComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(tituloCadastroCurraisjLabel)
-                    .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
-                        .addComponent(cancelarEntradaVacasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(registrarEntradaVacasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
                         .addComponent(cancelarCurraljButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -2279,26 +2481,34 @@ public class InicioJFrame extends javax.swing.JFrame {
                             .addComponent(capacidadeCurraljLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(capacidadeCurraljSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                            .addComponent(idCurraljTextField))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                            .addComponent(capacidadeCurraljSpinner)
+                            .addComponent(idCurraljTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
+                        .addComponent(cancelarEntradaVacasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(registrarEntradaVacasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(voltarCurraisjButton))
-                    .addComponent(tabelaCurraisjLabel)
-                    .addComponent(curraisjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47))
+                        .addComponent(tabelaCurraisjLabel)
+                        .addGap(200, 200, 200))
+                    .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
+                        .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(removerCurraljButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(curraisjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                        .addComponent(voltarCurraisjButton)))
+                .addGap(44, 44, 44))
         );
         vacasArmazenamentojPanelLayout.setVerticalGroup(
             vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(41, 41, 41)
                 .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tituloCadastroCurraisjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tabelaCurraisjLabel))
                 .addGap(21, 21, 21)
-                .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
                         .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idCurraljTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2325,17 +2535,14 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idChiqueirojLabel)
                             .addComponent(idCurraljComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(curraisjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cancelarEntradaVacasjButton)
-                            .addComponent(registrarEntradaVacasjButton)))
-                    .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(voltarCurraisjButton)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                    .addComponent(curraisjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelarEntradaVacasjButton)
+                    .addComponent(registrarEntradaVacasjButton)
+                    .addComponent(removerCurraljButton)
+                    .addComponent(voltarCurraisjButton))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         controlejPanel.add(vacasArmazenamentojPanel, "card5");
@@ -2436,68 +2643,71 @@ public class InicioJFrame extends javax.swing.JFrame {
         tabelaSilosjLabel.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
         tabelaSilosjLabel.setText("Silos");
 
+        removerSilojButton.setText("Remover silo");
+        removerSilojButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerSilojButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout silosjPanelLayout = new javax.swing.GroupLayout(silosjPanel);
         silosjPanel.setLayout(silosjPanelLayout);
         silosjPanelLayout.setHorizontalGroup(
             silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, silosjPanelLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+            .addGroup(silosjPanelLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(silosjPanelLayout.createSequentialGroup()
-                        .addComponent(tituloCadastroSilosjLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(silosjPanelLayout.createSequentialGroup()
-                        .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cancelarSilojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(silosjPanelLayout.createSequentialGroup()
-                                        .addComponent(capacidadeSilojLabel)
-                                        .addGap(12, 12, 12)
-                                        .addComponent(capacidadeSilojSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(silosjPanelLayout.createSequentialGroup()
-                                        .addGap(125, 125, 125)
-                                        .addComponent(salvarSilojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(silosjPanelLayout.createSequentialGroup()
-                                    .addGap(80, 80, 80)
-                                    .addComponent(idSilojLabel)
-                                    .addGap(12, 12, 12)
-                                    .addComponent(idSilojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(tituloCadastroSilosjLabel1)
-                            .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(iDsilojLabel)
-                                .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(quantidadeEntradajLabel)
-                                    .addComponent(produtojLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(tituloCadastroSilosjLabel)
+                    .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cancelarSilojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(silosjPanelLayout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(cancelarEntradajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, silosjPanelLayout.createSequentialGroup()
-                                    .addGap(150, 150, 150)
-                                    .addComponent(registrarEntradajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(produtojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(quantidadeEntradaProdutojSpinner)
-                                    .addComponent(IDsilojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)))
-                .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(capacidadeSilojLabel)
+                                .addGap(12, 12, 12)
+                                .addComponent(capacidadeSilojSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(silosjPanelLayout.createSequentialGroup()
+                                .addGap(125, 125, 125)
+                                .addComponent(salvarSilojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(silosjPanelLayout.createSequentialGroup()
+                            .addGap(80, 80, 80)
+                            .addComponent(idSilojLabel)
+                            .addGap(12, 12, 12)
+                            .addComponent(idSilojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(tituloCadastroSilosjLabel1)
+                    .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(iDsilojLabel)
+                        .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(quantidadeEntradajLabel)
+                            .addComponent(produtojLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(silosjPanelLayout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(voltarSilosjButton))
+                        .addGap(28, 28, 28)
+                        .addComponent(cancelarEntradajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, silosjPanelLayout.createSequentialGroup()
+                            .addGap(150, 150, 150)
+                            .addComponent(registrarEntradajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(produtojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(quantidadeEntradaProdutojSpinner)
+                            .addComponent(IDsilojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tabelaSilosjLabel)
-                    .addComponent(silosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47))
+                    .addComponent(silosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(removerSilojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(67, 67, 67)
+                .addComponent(voltarSilosjButton)
+                .addGap(34, 34, 34))
         );
         silosjPanelLayout.setVerticalGroup(
             silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(silosjPanelLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(42, 42, 42)
                 .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tituloCadastroSilosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tabelaSilosjLabel))
                 .addGap(21, 21, 21)
-                .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(silosjPanelLayout.createSequentialGroup()
                         .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idSilojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2524,18 +2734,14 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(iDsilojLabel)
                             .addComponent(IDsilojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(silosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(silosjPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(registrarEntradajButton)
-                            .addComponent(cancelarEntradajButton))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, silosjPanelLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(voltarSilosjButton)
-                        .addGap(38, 38, 38))))
+                    .addComponent(silosjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(registrarEntradajButton)
+                    .addComponent(cancelarEntradajButton)
+                    .addComponent(removerSilojButton)
+                    .addComponent(voltarSilosjButton))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         controlejPanel.add(silosjPanel, "card5");
@@ -2625,52 +2831,64 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
+        removerProdutojButton.setText("Remover produto");
+        removerProdutojButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerProdutojButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout produtosjPanelLayout = new javax.swing.GroupLayout(produtosjPanel);
         produtosjPanel.setLayout(produtosjPanelLayout);
         produtosjPanelLayout.setHorizontalGroup(
             produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, produtosjPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(758, Short.MAX_VALUE)
                 .addComponent(voltarProdutosjButton)
                 .addGap(32, 32, 32))
             .addGroup(produtosjPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(104, 104, 104)
                 .addGroup(produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(removerProdutojButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(produtosjLabel)
-                    .addComponent(produtosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(consultarArmazenamentojButton, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(produtosjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tituloCadastroProdutosjLabel)
-                    .addGroup(produtosjPanelLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, produtosjPanelLayout.createSequentialGroup()
                         .addGroup(produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(valorProdutojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(nomeProdutojLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tituloCadastroProdutosjLabel)
                             .addGroup(produtosjPanelLayout.createSequentialGroup()
-                                .addComponent(cancelarProdutojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)
+                                .addGroup(produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(valorProdutojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(nomeProdutojLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(salvarProdutojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(nomeProdutojTextField)
-                            .addComponent(valorProdutojTextField)))
-                    .addGroup(produtosjPanelLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(idProdutojLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(idProdutojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(194, Short.MAX_VALUE))
+                                .addGroup(produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(produtosjPanelLayout.createSequentialGroup()
+                                        .addComponent(cancelarProdutojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(salvarProdutojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(nomeProdutojTextField)
+                                    .addComponent(valorProdutojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(produtosjPanelLayout.createSequentialGroup()
+                                .addGap(76, 76, 76)
+                                .addComponent(idProdutojLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(idProdutojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(129, 129, 129))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, produtosjPanelLayout.createSequentialGroup()
+                        .addComponent(consultarArmazenamentojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(109, 109, 109))))
         );
         produtosjPanelLayout.setVerticalGroup(
             produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(produtosjPanelLayout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(70, Short.MAX_VALUE)
                 .addGroup(produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(produtosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tituloCadastroProdutosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
-                .addGroup(produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(produtosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(produtosjPanelLayout.createSequentialGroup()
                         .addGroup(produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2687,10 +2905,12 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(produtosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cancelarProdutojButton)
-                            .addComponent(salvarProdutojButton))))
+                            .addComponent(salvarProdutojButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(consultarArmazenamentojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(consultarArmazenamentojButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(removerProdutojButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(voltarProdutosjButton)
                 .addGap(27, 27, 27))
         );
@@ -2747,17 +2967,14 @@ public class InicioJFrame extends javax.swing.JFrame {
         cadastrojPanelLayout.setHorizontalGroup(
             cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cadastrojPanelLayout.createSequentialGroup()
-                .addContainerGap(250, Short.MAX_VALUE)
+                .addGap(268, 268, 268)
                 .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(voltarjButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(confirmarjButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cadastrojPanelLayout.createSequentialGroup()
-                        .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(voltarjButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                                .addComponent(confirmarjButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cadastrojPanelLayout.createSequentialGroup()
-                                .addComponent(cadastrojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(8, 8, 8)))
-                        .addGap(208, 208, 208))
+                        .addComponent(cadastrojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cadastrojPanelLayout.createSequentialGroup()
                         .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(telefonejLabel)
@@ -2774,12 +2991,13 @@ public class InicioJFrame extends javax.swing.JFrame {
                             .addComponent(cadastroUsuariojTextField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cadastroSenhajTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(idUsuariojTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(232, 232, 232))))
+                        .addGap(24, 24, 24)))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
         cadastrojPanelLayout.setVerticalGroup(
             cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cadastrojPanelLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(43, 43, 43)
                 .addComponent(cadastrojLabel)
                 .addGap(30, 30, 30)
                 .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2805,11 +3023,11 @@ public class InicioJFrame extends javax.swing.JFrame {
                 .addGroup(cadastrojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastroSenhajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cadastroSenhajLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(confirmarjButton)
                 .addGap(18, 18, 18)
                 .addComponent(voltarjButton)
-                .addGap(41, 41, 41))
+                .addGap(49, 49, 49))
         );
 
         controlejPanel.add(cadastrojPanel, "card12");
@@ -2818,20 +3036,20 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         historicojTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Entrada/saída", "Entidade", "Tipo_entidade", "Quantidade", "ID_armazenamento", "Data_hora"
+                "ID", "Entrada/saída", "Entidade", "Tipo_entidade", "Quantidade", "ID_armazenamento", "Data_hora"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -2849,13 +3067,15 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         entradaSaidajComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Nenhum>", "entrada", "saida" }));
 
-        entidadejComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Nenhum>", "Galinha", "Porco", "Ovelha", "Vaca" }));
-
-        tipoEntidadejComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        entidadejComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                entidadejComboBoxActionPerformed(evt);
+            }
+        });
 
         idArmazenamentojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        diajComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        diajComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Nenhum>", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
         entradaSaidajLabel.setText("Entrada/saída:");
 
@@ -2874,7 +3094,12 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Remover filtros");
+        aplicarFiltrosjButton.setText("Aplicar filtros");
+        aplicarFiltrosjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aplicarFiltrosjButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout historicojPanelLayout = new javax.swing.GroupLayout(historicojPanel);
         historicojPanel.setLayout(historicojPanelLayout);
@@ -2882,33 +3107,26 @@ public class InicioJFrame extends javax.swing.JFrame {
             historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, historicojPanelLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(historicojPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(voltarHistoricojButton))
+                        .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(entradaSaidajComboBox, 0, 144, Short.MAX_VALUE)
+                            .addComponent(entidadejComboBox, 0, 144, Short.MAX_VALUE)
+                            .addComponent(filtrosjLabel)
+                            .addComponent(idArmazenamentojComboBox, 0, 144, Short.MAX_VALUE)
+                            .addComponent(diajComboBox, 0, 144, Short.MAX_VALUE)
+                            .addComponent(entradaSaidajLabel)
+                            .addComponent(entidadejLabel)
+                            .addComponent(tipoEntidadejLabel)
+                            .addComponent(idArmazenamentojLabel)
+                            .addComponent(diajLabel)
+                            .addComponent(tipoEntidadejComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addComponent(historicojScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(historicojPanelLayout.createSequentialGroup()
-                        .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(historicojPanelLayout.createSequentialGroup()
-                                .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(entradaSaidajComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(entidadejComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(historicojPanelLayout.createSequentialGroup()
-                                        .addComponent(filtrosjLabel)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(tipoEntidadejComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(idArmazenamentojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(diajComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
-                                .addGap(18, 18, 18))
-                            .addGroup(historicojPanelLayout.createSequentialGroup()
-                                .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(entradaSaidajLabel)
-                                    .addComponent(entidadejLabel)
-                                    .addComponent(tipoEntidadejLabel)
-                                    .addComponent(idArmazenamentojLabel)
-                                    .addComponent(diajLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(historicojScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(aplicarFiltrosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(voltarHistoricojButton)))
                 .addGap(27, 27, 27))
         );
         historicojPanelLayout.setVerticalGroup(
@@ -2942,8 +3160,8 @@ public class InicioJFrame extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(voltarHistoricojButton)
-                    .addComponent(jButton1))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(aplicarFiltrosjButton))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         controlejPanel.add(historicojPanel, "card16");
@@ -3032,13 +3250,26 @@ public class InicioJFrame extends javax.swing.JFrame {
         menuAnimaisjPanel.setVisible(true);
     }//GEN-LAST:event_animaisjButtonActionPerformed
 
-    private void plantacoesjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plantacoesjButtonActionPerformed
+    private void historicojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historicojButtonActionPerformed
         controlejPanel.removeAll();
         controlejPanel.add(historicojPanel);
         historicojPanel.setVisible(false);
         historicojPanel.setVisible(true);
         atualizarTabelaHistorico(idUsuario);  
-    }//GEN-LAST:event_plantacoesjButtonActionPerformed
+        carregarComboBoxFiltroAbrigos(idUsuario);
+          
+        
+        entidadejComboBox.addItem("<Nenhum>");
+        entidadejComboBox.addItem("Produto");
+        entidadejComboBox.addItem("Galinha");
+        entidadejComboBox.addItem("Porco");
+        entidadejComboBox.addItem("Ovelha");
+        entidadejComboBox.addItem("Vaca");
+        String entidade = entidadejComboBox.getSelectedItem().toString();
+        tipoEntidadejComboBox.removeAllItems();
+        carregarComboBoxFiltroTipoEntidade(idUsuario, entidade);            
+        
+    }//GEN-LAST:event_historicojButtonActionPerformed
 
     private void produtosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtosjButtonActionPerformed
         controlejPanel.removeAll();
@@ -3281,6 +3512,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         try {
             produtoService.salvar(produto);
+            cancelarProdutojButtonActionPerformed(evt);
             atualizarTabelaProdutos(idUsuario);
             JOptionPane.showMessageDialog(this, "Produto salvo com sucesso!");
         } catch (Exception erro) {
@@ -3434,7 +3666,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         String tipoAbrigo = "Galinheiro";
         atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
 
-
+        
     }//GEN-LAST:event_consultarGalinheirosjButtonActionPerformed
 
     private void galinheirosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_galinheirosjTableMouseClicked
@@ -3493,7 +3725,8 @@ public class InicioJFrame extends javax.swing.JFrame {
                 
                 AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
                 boolean entrou = abrigoPersistencia.entradaAnimais(idGalinheiro, quantidade);
-              
+                
+                
                 if(entrou){
                     AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();        
                     animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade);
@@ -3871,7 +4104,265 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(menuPrincipaljPanel);
         menuPrincipaljPanel.setVisible(false);
         menuPrincipaljPanel.setVisible(true);
+        entidadejComboBox.removeAllItems();
+        tipoEntidadejComboBox.removeAllItems();
     }//GEN-LAST:event_voltarHistoricojButtonActionPerformed
+
+    private void aplicarFiltrosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarFiltrosjButtonActionPerformed
+        aplicarFiltrosHistorico(idUsuario);
+    }//GEN-LAST:event_aplicarFiltrosjButtonActionPerformed
+
+    private void entidadejComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entidadejComboBoxActionPerformed
+        
+        try{
+            String entidade = entidadejComboBox.getSelectedItem().toString();
+            tipoEntidadejComboBox.removeAllItems();
+            carregarComboBoxFiltroTipoEntidade(idUsuario, entidade);
+        } catch(Exception erro){
+            
+        }
+        
+    }//GEN-LAST:event_entidadejComboBoxActionPerformed
+
+    private void removerGalinheirojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerGalinheirojButtonActionPerformed
+                
+        int total = galinheirosjTable.getSelectedRowCount();
+        if(total <= 0){
+            JOptionPane.showMessageDialog(galinheirosjTable, "Por favor selecione as linhas a serem removidas!");
+            return;
+        }
+        try {
+            int[] linhas = galinheirosjTable.getSelectedRows();
+            AbrigoService service = new AbrigoServiceImpl();
+            for (int linha : linhas) {
+                String id = (String) galinheirosjTable.getValueAt(linha, 0);
+                AbrigoDTO dto = new AbrigoDTO(id, null, null, null, null);
+                service.remover(dto);
+            }
+            JOptionPane.showMessageDialog(galinheirosjTable, "Registros removidos com sucesso!");
+            String tipoAbrigo = "Galinheiro";
+            atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(galinheirosjTable, erro.getMessage());
+        }
+    }//GEN-LAST:event_removerGalinheirojButtonActionPerformed
+
+    private void removerChiqueirojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerChiqueirojButtonActionPerformed
+        
+        int total = chiqueirosjTable.getSelectedRowCount();
+        if(total <= 0){
+            JOptionPane.showMessageDialog(chiqueirosjTable, "Por favor selecione as linhas a serem removidas!");
+            return;
+        }
+        try {
+            int[] linhas = chiqueirosjTable.getSelectedRows();
+            AbrigoService service = new AbrigoServiceImpl();
+            for (int linha : linhas) {
+                String id = (String) chiqueirosjTable.getValueAt(linha, 0);
+                AbrigoDTO dto = new AbrigoDTO(id, null, null, null, null);
+                service.remover(dto);
+            }
+            JOptionPane.showMessageDialog(chiqueirosjTable, "Registros removidos com sucesso!");
+            String tipoAbrigo = "Chiqueiro";
+            atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(chiqueirosjTable, erro.getMessage());
+        }
+        
+    }//GEN-LAST:event_removerChiqueirojButtonActionPerformed
+
+    private void removerApriscojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerApriscojButtonActionPerformed
+        
+        int total = apriscosjTable.getSelectedRowCount();
+        if(total <= 0){
+            JOptionPane.showMessageDialog(apriscosjTable, "Por favor selecione as linhas a serem removidas!");
+            return;
+        }
+        try {
+            int[] linhas = apriscosjTable.getSelectedRows();
+            AbrigoService service = new AbrigoServiceImpl();
+            for (int linha : linhas) {
+                String id = (String) apriscosjTable.getValueAt(linha, 0);
+                AbrigoDTO dto = new AbrigoDTO(id, null, null, null, null);
+                service.remover(dto);
+            }
+            JOptionPane.showMessageDialog(apriscosjTable, "Registros removidos com sucesso!");
+            String tipoAbrigo = "Aprisco";
+            atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(apriscosjTable, erro.getMessage());
+        }
+            }//GEN-LAST:event_removerApriscojButtonActionPerformed
+
+    private void removerCurraljButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerCurraljButtonActionPerformed
+        
+        int total = curraisjTable.getSelectedRowCount();
+        if(total <= 0){
+            JOptionPane.showMessageDialog(curraisjTable, "Por favor selecione as linhas a serem removidas!");
+            return;
+        }
+        try {
+            int[] linhas = curraisjTable.getSelectedRows();
+            AbrigoService service = new AbrigoServiceImpl();
+            for (int linha : linhas) {
+                String id = (String) curraisjTable.getValueAt(linha, 0);
+                AbrigoDTO dto = new AbrigoDTO(id, null, null, null, null);
+                service.remover(dto);
+            }
+            JOptionPane.showMessageDialog(curraisjTable, "Registros removidos com sucesso!");
+            String tipoAbrigo = "Curral";
+            atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(curraisjTable, erro.getMessage());
+        }
+        
+    }//GEN-LAST:event_removerCurraljButtonActionPerformed
+
+    private void removerSilojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerSilojButtonActionPerformed
+        int total = silosjTable.getSelectedRowCount();
+        if(total <= 0){
+            JOptionPane.showMessageDialog(silosjTable, "Por favor selecione as linhas a serem removidas!");
+            return;
+        }
+        try {
+            int[] linhas = silosjTable.getSelectedRows();
+            SiloService service = new SiloServiceImpl();
+            for (int linha : linhas) {
+                String id = (String) silosjTable.getValueAt(linha, 0);
+                SiloDTO dto = new SiloDTO(id, null, null, null);
+                service.remover(dto);
+            }
+            JOptionPane.showMessageDialog(silosjTable, "Registros removidos com sucesso!");
+            atualizarTabelaSilos(idUsuario);
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(silosjTable, erro.getMessage());
+        }
+    }//GEN-LAST:event_removerSilojButtonActionPerformed
+
+    private void removerRacaGalinhajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerRacaGalinhajButtonActionPerformed
+        
+        int total = galinhasjTable.getSelectedRowCount();
+        if(total <= 0){
+            JOptionPane.showMessageDialog(galinhasjTable, "Por favor selecione as linhas a serem removidas!");
+            return;
+        }
+        try {
+            int[] linhas = galinhasjTable.getSelectedRows();
+            AnimalService service = new AnimalServiceImpl();
+            for (int linha : linhas) {
+                String id = (String) galinhasjTable.getValueAt(linha, 0);
+                AnimalDTO dto = new AnimalDTO(id, null, null, null, null, null);
+                service.remover(dto);
+            }
+            JOptionPane.showMessageDialog(galinhasjTable, "Registros removidos com sucesso!");
+            
+            String tipoAnimal = "Galinha";
+            atualizarTabelaRacas(tipoAnimal);
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(galinhasjTable, erro.getMessage());
+        }
+    }//GEN-LAST:event_removerRacaGalinhajButtonActionPerformed
+
+    private void removerRacaPorcojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerRacaPorcojButtonActionPerformed
+        int total = porcosjTable.getSelectedRowCount();
+        if(total <= 0){
+            JOptionPane.showMessageDialog(porcosjTable, "Por favor selecione as linhas a serem removidas!");
+            return;
+        }
+        try {
+            int[] linhas = porcosjTable.getSelectedRows();
+            AnimalService service = new AnimalServiceImpl();
+            for (int linha : linhas) {
+                String id = (String) porcosjTable.getValueAt(linha, 0);
+                AnimalDTO dto = new AnimalDTO(id, null, null, null, null, null);
+                service.remover(dto);
+            }
+            JOptionPane.showMessageDialog(porcosjTable, "Registros removidos com sucesso!");
+            
+            String tipoAnimal = "Porco";
+            atualizarTabelaRacas(tipoAnimal);
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(porcosjTable, erro.getMessage());
+        }
+    }//GEN-LAST:event_removerRacaPorcojButtonActionPerformed
+
+    private void removerRacaOvelhajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerRacaOvelhajButtonActionPerformed
+        int total = ovelhasjTable.getSelectedRowCount();
+        if(total <= 0){
+            JOptionPane.showMessageDialog(ovelhasjTable, "Por favor selecione as linhas a serem removidas!");
+            return;
+        }
+        try {
+            int[] linhas = ovelhasjTable.getSelectedRows();
+            AnimalService service = new AnimalServiceImpl();
+            for (int linha : linhas) {
+                String id = (String) ovelhasjTable.getValueAt(linha, 0);
+                AnimalDTO dto = new AnimalDTO(id, null, null, null, null, null);
+                service.remover(dto);
+            }
+            JOptionPane.showMessageDialog(ovelhasjTable, "Registros removidos com sucesso!");
+            
+            String tipoAnimal = "Ovelha";
+            atualizarTabelaRacas(tipoAnimal);
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(ovelhasjTable, erro.getMessage());
+        }
+    }//GEN-LAST:event_removerRacaOvelhajButtonActionPerformed
+
+    private void removerRacaVacajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerRacaVacajButtonActionPerformed
+        int total = vacasjTable.getSelectedRowCount();
+        if(total <= 0){
+            JOptionPane.showMessageDialog(vacasjTable, "Por favor selecione as linhas a serem removidas!");
+            return;
+        }
+        try {
+            int[] linhas = vacasjTable.getSelectedRows();
+            AnimalService service = new AnimalServiceImpl();
+            for (int linha : linhas) {
+                String id = (String) vacasjTable.getValueAt(linha, 0);
+                AnimalDTO dto = new AnimalDTO(id, null, null, null, null, null);
+                service.remover(dto);
+            }
+            JOptionPane.showMessageDialog(vacasjTable, "Registros removidos com sucesso!");
+            
+            String tipoAnimal = "Vaca";
+            atualizarTabelaRacas(tipoAnimal);
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(vacasjTable, erro.getMessage());
+        }
+    }//GEN-LAST:event_removerRacaVacajButtonActionPerformed
+
+    private void removerProdutojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerProdutojButtonActionPerformed
+        int total = produtosjTable.getSelectedRowCount();
+        if(total <= 0){
+            JOptionPane.showMessageDialog(produtosjTable, "Por favor selecione as linhas a serem removidas!");
+            return;
+        }
+        try {
+            int[] linhas = produtosjTable.getSelectedRows();
+            ProdutoService service = new ProdutoServiceImpl();
+            for (int linha : linhas) {
+                String id = (String) produtosjTable.getValueAt(linha, 0);
+                ProdutoDTO dto = new ProdutoDTO(id, null, null, null, null);
+                service.remover(dto);
+            }
+            JOptionPane.showMessageDialog(produtosjTable, "Registros removidos com sucesso!");
+            
+            atualizarTabelaProdutos(idUsuario);
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(produtosjTable, erro.getMessage());
+        }
+    }//GEN-LAST:event_removerProdutojButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -3917,6 +4408,7 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel abrigosOvelhasjLabel;
     private javax.swing.JLabel abrigosjLabel;
     private javax.swing.JButton animaisjButton;
+    private javax.swing.JButton aplicarFiltrosjButton;
     private javax.swing.JScrollPane apriscosjScrollPane;
     private javax.swing.JTable apriscosjTable;
     private javax.swing.JButton cadastrarContajButton;
@@ -3980,6 +4472,7 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JTable galinhasjTable;
     private javax.swing.JScrollPane galinheirosjScrollPane;
     private javax.swing.JTable galinheirosjTable;
+    private javax.swing.JButton historicojButton;
     private javax.swing.JPanel historicojPanel;
     private javax.swing.JScrollPane historicojScrollPane;
     private javax.swing.JTable historicojTable;
@@ -4016,7 +4509,7 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField idUsuariojTextField;
     private javax.swing.JLabel idVacajLabel;
     private javax.swing.JTextField idVacajTextField;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel loginjPanel;
     private javax.swing.JPanel menuAnimaisjPanel;
     private javax.swing.JPanel menuPrincipaljPanel;
@@ -4032,7 +4525,6 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel ovelhasjPanel;
     private javax.swing.JScrollPane ovelhasjScrollPane;
     private javax.swing.JTable ovelhasjTable;
-    private javax.swing.JButton plantacoesjButton;
     private javax.swing.JPanel porcosArmazenamentojPanel;
     private javax.swing.JButton porcosjButton;
     private javax.swing.JPanel porcosjPanel;
@@ -4071,6 +4563,16 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JButton registrarEntradaPorcosjButton;
     private javax.swing.JButton registrarEntradaVacasjButton;
     private javax.swing.JButton registrarEntradajButton;
+    private javax.swing.JButton removerApriscojButton;
+    private javax.swing.JButton removerChiqueirojButton;
+    private javax.swing.JButton removerCurraljButton;
+    private javax.swing.JButton removerGalinheirojButton;
+    private javax.swing.JButton removerProdutojButton;
+    private javax.swing.JButton removerRacaGalinhajButton;
+    private javax.swing.JButton removerRacaOvelhajButton;
+    private javax.swing.JButton removerRacaPorcojButton;
+    private javax.swing.JButton removerRacaVacajButton;
+    private javax.swing.JButton removerSilojButton;
     private javax.swing.JButton sairjButton;
     private javax.swing.JButton salvarApriscojButton;
     private javax.swing.JButton salvarChiqueirosjButton;

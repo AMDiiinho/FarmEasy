@@ -28,12 +28,15 @@ public class AnimalPersistenciaImpl implements AnimalPersistencia {
         parametros.add(animal.getTipo());
         parametros.add(animal.getRaca());
         parametros.add(animal.getValor());
-        bd.inserir(sql, parametros);    
+        bd.executar(sql, parametros);    
     }
 
     @Override
     public void remover(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE FROM tb_animais WHERE id = ?;";
+        List parametros = new ArrayList();
+        parametros.add(id);
+        bd.executar(sql, parametros);      
     }
 
     @Override
@@ -41,7 +44,7 @@ public class AnimalPersistenciaImpl implements AnimalPersistencia {
         String sql = "UPDATE tb_animais valor = ? WHERE id = ?;";
         List parametros = new ArrayList();
         parametros.add(animal.getValor());
-        bd.inserir(sql, parametros);    
+        bd.executar(sql, parametros);    
     }
 
     @Override

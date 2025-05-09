@@ -59,7 +59,9 @@ public class ProdutoServiceImpl implements ProdutoService{
 
     @Override
     public void remover(ProdutoDTO dto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ProdutoPersistencia persistencia = new ProdutoPersistenciaImpl();
+        int id = Integer.parseInt(dto.getId());
+        persistencia.remover(id);    
     }
 
     @Override

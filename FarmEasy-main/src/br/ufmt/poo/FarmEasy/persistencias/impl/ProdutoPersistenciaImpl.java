@@ -28,12 +28,15 @@ public class ProdutoPersistenciaImpl implements ProdutoPersistencia{
         parametros.add(produto.getUsuarioId());
         parametros.add(produto.getEstoque());
         parametros.add(produto.getValor());
-        bd.inserir(sql, parametros);
+        bd.executar(sql, parametros);
     }
 
     @Override
     public void remover(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE FROM tb_produtos WHERE id = ?;";
+        List parametros = new ArrayList();
+        parametros.add(id);
+        bd.executar(sql, parametros);      
     }
 
     @Override
@@ -43,7 +46,7 @@ public class ProdutoPersistenciaImpl implements ProdutoPersistencia{
         parametros.add(produto.getNome());
         parametros.add(produto.getEstoque());
         parametros.add(produto.getValor());
-        bd.inserir(sql, parametros);
+        bd.executar(sql, parametros);
     }
 
     @Override

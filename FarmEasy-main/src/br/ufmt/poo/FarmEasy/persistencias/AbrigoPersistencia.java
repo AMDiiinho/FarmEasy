@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface AbrigoPersistencia {
     
-    public void executar(Abrigo abrigo);
+    public void inserir(Abrigo abrigo);
     
     public void remover(int id);
     

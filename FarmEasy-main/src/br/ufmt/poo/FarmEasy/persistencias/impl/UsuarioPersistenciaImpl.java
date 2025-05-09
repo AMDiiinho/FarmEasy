@@ -30,7 +30,7 @@ public class UsuarioPersistenciaImpl extends javax.swing.JFrame implements Usuar
         parametros.add(usuario.getCpf());
         parametros.add(usuario.getUsuario());
         parametros.add(usuario.getSenha());
-        bd.inserir(sql, parametros);    
+        bd.executar(sql, parametros);    
         
     }
 
@@ -48,7 +48,7 @@ public class UsuarioPersistenciaImpl extends javax.swing.JFrame implements Usuar
         parametros.add(usuario.getTelefone());
         parametros.add(usuario.getUsuario());
         parametros.add(usuario.getSenha());
-        bd.inserir(sql, parametros);    
+        bd.executar(sql, parametros);    
     
     }
 

@@ -21,20 +21,23 @@ public class AbrigoPersistenciaImpl extends javax.swing.JFrame implements Abrigo
     private BancoDeDados bd = new BancoDeDados();
     
     @Override
-    public void executar(Abrigo abrigo) {               
+    public void inserir(Abrigo abrigo) {               
         
         String sql = "INSERT INTO tb_abrigos (usuarioId, tipo, capacidade) VALUES (?,?,?);";
         List parametros = new ArrayList();
         parametros.add(abrigo.getUsuarioId());
         parametros.add(abrigo.getTipo());
         parametros.add(abrigo.getCapacidade());
-        bd.inserir(sql, parametros);  
+        bd.executar(sql, parametros);  
         
     }
 
     @Override
     public void remover(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE FROM tb_abrigos WHERE id = ?;";
+        List parametros = new ArrayList();
+        parametros.add(id);
+        bd.executar(sql, parametros);    
     }
 
     @Override
@@ -45,7 +48,7 @@ public class AbrigoPersistenciaImpl extends javax.swing.JFrame implements Abrigo
         parametros.add(abrigo.getTipo());
         parametros.add(abrigo.getCapacidade());
         parametros.add(abrigo.getId());
-        bd.inserir(sql, parametros);    
+        bd.executar(sql, parametros);    
     
     }
 
@@ -84,6 +87,7 @@ public class AbrigoPersistenciaImpl extends javax.swing.JFrame implements Abrigo
                       
             if(qtdAnimais <= 0){
                 JOptionPane.showMessageDialog(rootPane, "O campo quantidade não pode zer menor ou igual a zero!");
+                return false;
             } else {
             
                 String sqlSelect  = "SELECT qtdAnimais, capacidade FROM tb_abrigos WHERE id = '" + idAbrigo + "';";

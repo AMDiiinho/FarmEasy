@@ -57,7 +57,9 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Override
     public void remover(AnimalDTO dto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        AnimalPersistencia persistencia = new AnimalPersistenciaImpl();
+        int id = Integer.parseInt(dto.getId());
+        persistencia.remover(id);     
     }
 
     @Override

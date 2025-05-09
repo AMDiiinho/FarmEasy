@@ -50,7 +50,9 @@ public class SiloServiceImpl implements SiloService {
         
     @Override
     public void remover(SiloDTO dto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        SiloPersistencia persistencia = new SiloPersistenciaImpl();
+        int id = Integer.parseInt(dto.getId());
+        persistencia.remover(id);    
     }
 
     @Override

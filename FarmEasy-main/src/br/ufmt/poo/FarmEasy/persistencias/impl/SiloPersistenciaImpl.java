@@ -27,22 +27,25 @@ public class SiloPersistenciaImpl extends javax.swing.JFrame implements SiloPers
         List parametros = new ArrayList();
         parametros.add(silo.getUsuarioId());
         parametros.add(silo.getCapacidade());
-        bd.inserir(sql, parametros);   
+        bd.executar(sql, parametros);   
     }
 
     @Override
     public void remover(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        String sql = "DELETE FROM tb_silos WHERE id = ?;";
+        List parametros = new ArrayList();
+        parametros.add(id);
+        bd.executar(sql, parametros);       
     }
 
     @Override
     public void atualizar(Silo silo) {
-            
+
         String sql = "UPDATE tb_silos qtdProdutos = ? WHERE id = ?;";
         List parametros = new ArrayList();
         parametros.add(silo.getQtdProdutos());
         parametros.add(silo.getId());
-        bd.inserir(sql, parametros);
+        bd.executar(sql, parametros);
         
     }
 

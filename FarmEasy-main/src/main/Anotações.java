@@ -59,36 +59,17 @@ public @interface Anotações {
         CREATE TABLE tb_historico_transacoes (
             id SERIAL PRIMARY KEY,
             idUsuario int NOT NULL,
-            entrada_saida VARCHAR(7) NOT NULL,
-            entidade VARCHAR(7) NOT NULL,
-            tipo_entidade VARCHAR(40) NOT NULL,
-            quantidade INT NOT NULL,
-            id_armazenamento INT NOT NULL,
-            data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+            entrada_saida varchar(7) NOT NULL,
+            entidade varchar(7) NOT NULL,
+            tipo_entidade varchar(40) NOT NULL,
+            quantidade int NOT NULL,
+            id_armazenamento int NOT NULL,
+            data DATE DEFAULT CURRENT_DATE 
         );
     
-
     
-    String sqlHistTransacao = "INSERT INTO log_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
-    + " id_armazenamento) VALUES ('entrada', '" + tipoAnimal + "', '"
-    + racaAnimal + "', '" + qtdAnimais + "', '" + idAbrigo + "');";
-    bd.executarQuery(sqlLogTransacao);
+    
         
-    CREATE TRIGGER trg_historico_transacoes
-    AFTER UPDATE ON tb_animais
-    FOR EACH ROW
-       
-        new.usuarioId
-        new.tipo
-        new.raca
-        new.quantidade
-        new.valor
-
-        INSERT INTO tb_historico_transacoes (
-            usuarioId, entrada_saida, entidade, tipo_entidade, id_armazenamento, quantidade
-        ) VALUES (
-            'new.usuarioId', 'new.tipo', 'new.raca', 'new.quantidade','0' 'new.valor'
-        );
-
+        
     */
 }
