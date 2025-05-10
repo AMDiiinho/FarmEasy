@@ -66,10 +66,259 @@ public @interface Anotações {
             id_armazenamento int NOT NULL,
             data DATE DEFAULT CURRENT_DATE 
         );
+
+
+        TRIGGERS E FUNCTIONS ANIMAIS/ABRIGOS
+    
+        CREATE OR REPLACE FUNCTION atualiza_qtd_animais()
+        RETURNS TRIGGER AS $$
+        DECLARE
+            registro RECORD;
+        BEGIN
+            UPDATE tb_animais t1
+            SET quantidade = t1.quantidade - t2.total
+            FROM (
+                SELECT tipo_entidade, SUM(quantidade) as total
+                FROM tb_historico_transacoes
+                WHERE id_armazenamento = OLD.id
+                GROUP BY tipo_entidade
+            ) t2
+            WHERE t1.raca = t2.tipo_entidade;
+        RETURN NEW;
+        END;
+        $$ LANGUAGE plpgsql;
+
+        CREATE TRIGGER trg_atualiza_quantidade
+        AFTER DELETE ON tb_abrigos        
+        FOR EACH ROW       
+        EXECUTE FUNCTION atualiza_qtd_animais();
+
+        CREATE OR REPLACE FUNCTION atualiza_tb_abrigos()
+        RETURNS TRIGGER AS $$
+        BEGIN
+
+            UPDATE tb_abrigos
+            SET qtdAnimais = tb_abrigos.qtdAnimais - tb_animais.quantidade
+            FROM tb_animais
+            WHERE raca = OLD.raca;
+
+            RETURN OLD;
+        END;
+        $$ LANGUAGE plpgsql;
+
+        CREATE TRIGGER trg_atualiza_abrigos
+        BEFORE DELETE ON tb_animais
+        FOR EACH ROW
+        EXECUTE FUNCTION atualiza_tb_abrigos();
+    
+        CREATE OR REPLACE FUNCTION registra_saida_animais_por_exclusao_de_abrigo()
+        RETURNS TRIGGER AS $$
+        DECLARE 
+            registro RECORD;
+        BEGIN
+            FOR registro IN (
+                SELECT idusuario, entidade, tipo_entidade, SUM(quantidade) as quantidade_somada, id_armazenamento
+                FROM tb_historico_transacoes
+                WHERE id_armazenamento = OLD.id AND entrada_saida = 'entrada'
+                GROUP BY idusuario, entidade, tipo_entidade, id_armazenamento
+            ) LOOP
+                INSERT INTO tb_historico_transacoes(
+                    idUsuario, 
+                    entrada_saida, 
+                    entidade, 
+                    tipo_entidade, 
+                    quantidade,
+                    id_armazenamento                
+                )
+                VALUES (
+                    registro.idUsuario,
+                    'saida',
+                    registro.entidade,
+                    registro.tipo_entidade,
+                    registro.quantidade_somada,
+                    registro.id_armazenamento
+                );
+            END LOOP;
+            RETURN NEW;
+        END;
+        $$ LANGUAGE plpgsql;
+    
+        CREATE TRIGGER trg_registra_saida_ao_deletar_abrigo
+        AFTER DELETE ON tb_abrigos
+        FOR EACH ROW
+        EXECUTE FUNCTION registra_saida_animais_por_exclusao_de_abrigo();
+        
+    
+        CREATE OR REPLACE FUNCTION registra_saida_animais_por_exclusao_raca()
+        RETURNS TRIGGER AS $$
+        DECLARE 
+            registro RECORD;
+        BEGIN
+
+            FOR registro IN (
+                SELECT usuarioid, tipo, raca, quantidade
+                FROM tb_animais
+                WHERE raca = OLD.raca
+            ) LOOP
+                INSERT INTO tb_historico_transacoes(idUsuario, entrada_saida, 
+                    entidade, tipo_entidade, 
+                    quantidade, id_armazenamento                
+                )
+                VALUES (
+                    registro.usuarioid, 'saida',
+                    registro.tipo, registro.raca,
+                    registro.quantidade, '0'
+                );
+            END LOOP;
+            RETURN OLD;
+        END;
+        $$ LANGUAGE plpgsql;
+
+        CREATE TRIGGER trg_registra_saida_animais_ao_deletar_raca
+        BEFORE DELETE ON tb_animais
+        FOR EACH ROW
+        EXECUTE FUNCTION registra_saida_animais_por_exclusao_raca();
+        
+    
+
+    
+    
+    
     
     
     
         
+    
+        TRIGGERS E FUNCTIONS PRODUTOS/SILOS
+    
+        CREATE OR REPLACE FUNCTION atualiza_estoque_produtos_ao_deletar_silo()
+        RETURNS TRIGGER AS $$
+        DECLARE
+            registro RECORD;
+        BEGIN
+            UPDATE tb_produtos t1
+            SET estoque = t1.estoque - t2.total
+            FROM (
+                SELECT tipo_entidade, SUM(quantidade) as total
+                FROM tb_historico_transacoes
+                WHERE id_armazenamento = OLD.id
+                GROUP BY tipo_entidade
+            ) t2
+            WHERE t1.nome = t2.tipo_entidade;
+        RETURN NEW;
+        END;
+        $$ LANGUAGE plpgsql;
+            
+        CREATE TRIGGER trg_atualiza_estoque
+        AFTER DELETE ON tb_silos        
+        FOR EACH ROW       
+        EXECUTE FUNCTION atualiza_estoque_produtos_ao_deletar_silo();
+
+
+    
+        CREATE OR REPLACE FUNCTION registra_saida_produtos_por_exclusao_silo()
+        RETURNS TRIGGER AS $$
+        DECLARE 
+            registro RECORD;
+        BEGIN
+
+            FOR registro IN (
+                SELECT idusuario, entidade, tipo_entidade, SUM(quantidade) as quantidade_somada, id_armazenamento
+                FROM tb_historico_transacoes
+                WHERE id_armazenamento = OLD.id AND entrada_saida = 'entrada'
+                GROUP BY idusuario, entidade, tipo_entidade, id_armazenamento
+            ) LOOP
+                INSERT INTO tb_historico_transacoes(
+                    idUsuario, 
+                    entrada_saida, 
+                    entidade, 
+                    tipo_entidade, 
+                    quantidade,
+                    id_armazenamento                
+                )
+                VALUES (
+                    registro.usuarioid,
+                    'saida',
+                    'Produto',
+                    registro.nome,
+                    registro.estoque,
+                    '0'
+                );
+            END LOOP;
+            RETURN NEW;
+        END;
+        $$ LANGUAGE plpgsql;
+                
+        CREATE TRIGGER trg_registra_saida_produtos_ao_deletar_silo
+        AFTER DELETE ON tb_silos
+        FOR EACH ROW
+        EXECUTE FUNCTION registra_saida_produtos_por_exclusao_silo();
+
+    
+        
+    
+    
+        CREATE OR REPLACE FUNCTION atualiza_tb_silos_exclusao_tipo_produto()
+        RETURNS TRIGGER AS $$
+        BEGIN
+
+            UPDATE tb_silos
+            SET qtdProdutos = tb_silos.qtdProdutos - tb_produtos.estoque
+            FROM tb_produtos
+            WHERE nome = OLD.nome;
+            
+    
+
+            RETURN OLD;
+        END;
+        $$ LANGUAGE plpgsql;
+
+        CREATE TRIGGER trg_atualiza_silos_ao_excluir_produto
+        BEFORE DELETE ON tb_produtos
+        FOR EACH ROW
+        EXECUTE FUNCTION atualiza_tb_silos_exclusao_tipo_produto();
+        
+        
+    
+        
+        
+        CREATE OR REPLACE FUNCTION registra_saida_produtos_por_exclusao_de_produto()
+        RETURNS TRIGGER AS $$
+        DECLARE 
+            registro RECORD;
+        BEGIN
+            FOR registro IN (
+                SELECT usuarioid, nome, estoque
+                FROM tb_produtos
+                WHERE nome = OLD.nome
+            ) LOOP
+                INSERT INTO tb_historico_transacoes(
+                    idUsuario, 
+                    entrada_saida, 
+                    entidade, 
+                    tipo_entidade, 
+                    quantidade,
+                    id_armazenamento                
+                )
+                VALUES (
+                    registro.usuarioid,
+                    'saida',
+                    'Produto',
+                    registro.nome,
+                    registro.estoque,
+                    '0'
+                );
+            END LOOP;
+            RETURN OLD;
+        END;
+        $$ LANGUAGE plpgsql;
+    
+        CREATE TRIGGER trg_registra_saida_ao_deletar_silo
+        BEFORE DELETE ON tb_produtos
+        FOR EACH ROW
+        EXECUTE FUNCTION registra_saida_produtos_por_exclusao_de_produto();
+        
+    
         
     */
 }

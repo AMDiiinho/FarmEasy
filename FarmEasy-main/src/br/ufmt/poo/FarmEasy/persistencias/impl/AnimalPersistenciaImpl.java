@@ -32,8 +32,8 @@ public class AnimalPersistenciaImpl implements AnimalPersistencia {
     }
 
     @Override
-    public void remover(int id) {
-        String sql = "DELETE FROM tb_animais WHERE id = ?;";
+    public void remover(int id) {                
+        String sql = "DELETE FROM tb_animais WHERE id = ?;";       
         List parametros = new ArrayList();
         parametros.add(id);
         bd.executar(sql, parametros);      
@@ -76,7 +76,7 @@ public class AnimalPersistenciaImpl implements AnimalPersistencia {
     }
     
     @Override
-    public void atualizarQtdAnimais(String racaAnimal, int quantidade){
+    public void atualizarQtdAnimais(String racaAnimal, int quantidade, String operacao){
         
         String sqlSelect = "SELECT quantidade FROM tb_animais WHERE raca = '" + racaAnimal + "';";
         ResultSet rs = bd.executarQuery(sqlSelect);
@@ -87,11 +87,17 @@ public class AnimalPersistenciaImpl implements AnimalPersistencia {
                 
                 int qtdAtual = rs.getInt("quantidade");
                 
-                int qtdNova = qtdAtual + quantidade;
-                
-                String sqlUpdate = "UPDATE tb_animais SET quantidade = '" + qtdNova + "' WHERE raca = '" + racaAnimal + "';";
-                bd.executarQuery(sqlUpdate);
-                
+                if(operacao.equals("Entrou")){
+                    int qtdNova = qtdAtual + quantidade;
+
+                    String sqlUpdate = "UPDATE tb_animais SET quantidade = '" + qtdNova + "' WHERE raca = '" + racaAnimal + "';";
+                    bd.executarQuery(sqlUpdate);
+                } else {
+                    int qtdNova = qtdAtual - quantidade;
+
+                    String sqlUpdate = "UPDATE tb_animais SET quantidade = '" + qtdNova + "' WHERE raca = '" + racaAnimal + "';";
+                    bd.executarQuery(sqlUpdate);
+                }
             }
             
         } catch (Exception erro){

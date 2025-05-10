@@ -21,6 +21,6 @@ public interface SiloPersistencia {
     
     public List<Silo> buscar(int idUsuario);
     
-    public boolean entradaEstoque(int id, int qtdProdutos);
+    public String entradaSaidaEstoque(int idSilo, int qtdProdutos, String operacao);
     
 }

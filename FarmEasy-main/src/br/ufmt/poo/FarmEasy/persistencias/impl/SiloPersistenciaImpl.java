@@ -77,35 +77,58 @@ public class SiloPersistenciaImpl extends javax.swing.JFrame implements SiloPers
     }
     
     @Override
-    public boolean entradaEstoque(int idSilo, int qtdProdutos){
+    public String entradaSaidaEstoque(int idSilo, int qtdProdutos, String operacao){
         
+        String entrouSaiu = "";
                
         try {
             
-            String sqlSelect  = "SELECT qtdProdutos, capacidade FROM tb_silos WHERE id = '" + idSilo + "';";
-            ResultSet rs = bd.executarQuery(sqlSelect);
-            
-            while(rs.next()){
-                
-                int qtdProdutosAtual = rs.getInt("qtdProdutos");
-                int capacidade = rs.getInt("capacidade");
-                
-                int qtdProdutosNova = qtdProdutosAtual + qtdProdutos;
-                
-                if(qtdProdutosNova <= capacidade){
-                    String sqlUpdate = "UPDATE tb_silos SET qtdProdutos = '" + qtdProdutosNova + "' WHERE id = '" + idSilo + "';";
-                    JOptionPane.showMessageDialog(rootPane, "Entrada de produto registrada com sucesso!");
-                    bd.executarQuery(sqlUpdate);
-                                       
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Espaço insuficiente no silo!");
-                    return false;
+            if(qtdProdutos <= 0){
+                JOptionPane.showMessageDialog(rootPane, "O campo quantidade não pode zer menor ou igual a zero!");                
+            } else {
+                String sqlSelect  = "SELECT qtdProdutos, capacidade FROM tb_silos WHERE id = '" + idSilo + "';";
+                ResultSet rs = bd.executarQuery(sqlSelect);
+
+                while(rs.next()){
+
+                    int qtdProdutosAtual = rs.getInt("qtdProdutos");
+                    int capacidade = rs.getInt("capacidade");
+                    
+                    if(operacao.equals("Entrada")){
+
+                        int qtdProdutosNova = qtdProdutosAtual + qtdProdutos;
+
+                        if(qtdProdutosNova <= capacidade){
+                            String sqlUpdate = "UPDATE tb_silos SET qtdProdutos = '" + qtdProdutosNova + "' WHERE id = '" + idSilo + "';";
+                            JOptionPane.showMessageDialog(rootPane, "Entrada de produto registrada com sucesso!");
+                            entrouSaiu = "Entrou";
+                            bd.executarQuery(sqlUpdate);
+
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Espaço insuficiente no silo!");
+                        }
+                    } else {
+                        
+                        int qtdProdutosNova = qtdProdutosAtual - qtdProdutos;
+
+                        if(qtdProdutosNova >= 0){
+                            String sqlUpdate = "UPDATE tb_silos SET qtdProdutos = '" + qtdProdutosNova + "' WHERE id = '" + idSilo + "';";
+                            JOptionPane.showMessageDialog(rootPane, "Saída de produto registrada com sucesso!");
+                            entrouSaiu = "Saiu";
+                            bd.executarQuery(sqlUpdate);
+
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "A quantia de produtos a serem removidos"
+                            + " é maior que a quantia que existe no silo!");
+                        }
+                        
+                    }
                 }
             }
         } catch (Exception erro){
           
         }
-        return true;
+        return entrouSaiu;
     }
     
     

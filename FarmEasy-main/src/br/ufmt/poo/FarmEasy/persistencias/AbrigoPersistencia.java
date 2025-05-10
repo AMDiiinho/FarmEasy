@@ -21,6 +21,6 @@ public interface AbrigoPersistencia {
     
     public List<Abrigo> buscar(int idUsuario, String tipoAbrigo);
     
-    public boolean entradaAnimais(int idAbrigo, int qtdAnimais);
+    public String entradaSaidaAnimais(int idAbrigo, int qtdAnimais, String operacao);
     
 }

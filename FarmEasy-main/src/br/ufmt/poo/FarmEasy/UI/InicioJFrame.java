@@ -47,7 +47,6 @@ public class InicioJFrame extends javax.swing.JFrame {
     /**
      * Creates new form menuJFrame
      */
-    
     static int idUsuario;
 
     public InicioJFrame() {
@@ -150,9 +149,9 @@ public class InicioJFrame extends javax.swing.JFrame {
         AbrigoService serviceAbrigo = new AbrigoServiceImpl();
 
         List<AbrigoDTO> listaAbrigos = serviceAbrigo.listar(idUsuario, tipoAbrigo);
-        
-        switch(tipoAbrigo){
-            
+
+        switch (tipoAbrigo) {
+
             case ("Galinheiro"):
 
                 DefaultTableModel dfmAbrigoGalinheiro = (DefaultTableModel) galinheirosjTable.getModel();
@@ -171,10 +170,10 @@ public class InicioJFrame extends javax.swing.JFrame {
                     dfmAbrigoGalinheiro.addRow(linhaAbrigo);
 
                 }
-            break;
-            
-            case("Chiqueiro"):
-            
+                break;
+
+            case ("Chiqueiro"):
+
                 DefaultTableModel dfmAbrigoChiqueiro = (DefaultTableModel) chiqueirosjTable.getModel();
                 int linhasAbrigoChiqueiro = dfmAbrigoChiqueiro.getRowCount();
                 for (int i = 0; i < linhasAbrigoChiqueiro; i++) {
@@ -191,9 +190,9 @@ public class InicioJFrame extends javax.swing.JFrame {
                     dfmAbrigoChiqueiro.addRow(linhaAbrigo);
 
                 }
-            break;
-            
-            case("Aprisco"):
+                break;
+
+            case ("Aprisco"):
                 DefaultTableModel dfmAbrigoAprisco = (DefaultTableModel) apriscosjTable.getModel();
                 int linhasAbrigoAprisco = dfmAbrigoAprisco.getRowCount();
                 for (int i = 0; i < linhasAbrigoAprisco; i++) {
@@ -210,10 +209,10 @@ public class InicioJFrame extends javax.swing.JFrame {
                     dfmAbrigoAprisco.addRow(linhaAbrigo);
 
                 }
-            break;
+                break;
 
-            case("Curral"):
-                
+            case ("Curral"):
+
                 DefaultTableModel dfmAbrigoCurral = (DefaultTableModel) curraisjTable.getModel();
                 int linhasAbrigoCurral = dfmAbrigoCurral.getRowCount();
                 for (int i = 0; i < linhasAbrigoCurral; i++) {
@@ -230,8 +229,8 @@ public class InicioJFrame extends javax.swing.JFrame {
                     dfmAbrigoCurral.addRow(linhaAbrigo);
 
                 }
-                
-            break;
+
+                break;
         }
     }
 
@@ -254,11 +253,11 @@ public class InicioJFrame extends javax.swing.JFrame {
             linhaProduto[3] = produtoDTO.getValor();
 
             dfmProduto.addRow(linhaProduto);
-        }               
+        }
     }
-    
-    private void atualizarTabelaSilos(int idUsuario){
-        
+
+    private void atualizarTabelaSilos(int idUsuario) {
+
         SiloService siloService = new SiloServiceImpl();
         List<SiloDTO> listaSilos = siloService.listar(idUsuario);
 
@@ -275,12 +274,12 @@ public class InicioJFrame extends javax.swing.JFrame {
             linhaProduto[2] = siloDTO.getCapacidade();
 
             dfmSilo.addRow(linhaProduto);
-        } 
-        
+        }
+
     }
-    
-    private void atualizarTabelaRacas(String tipoAnimal){
-        
+
+    private void atualizarTabelaRacas(String tipoAnimal) {
+
         AnimalService animalServiceGalinha = new AnimalServiceImpl();
         List<AnimalDTO> listaGalinhas = animalServiceGalinha.listar(idUsuario, tipoAnimal);
 
@@ -296,10 +295,10 @@ public class InicioJFrame extends javax.swing.JFrame {
             linhaGalinha[1] = animalDTO.getRaca();
             linhaGalinha[2] = animalDTO.getQuantidade();
             linhaGalinha[3] = animalDTO.getValor();
-                    
+
             dfmGalinha.addRow(linhaGalinha);
         }
-        
+
         AnimalService animalServicePorco = new AnimalServiceImpl();
         List<AnimalDTO> listaPorcos = animalServicePorco.listar(idUsuario, tipoAnimal);
 
@@ -315,10 +314,10 @@ public class InicioJFrame extends javax.swing.JFrame {
             linhaPorco[1] = animalDTO.getRaca();
             linhaPorco[2] = animalDTO.getQuantidade();
             linhaPorco[3] = animalDTO.getValor();
-                    
+
             dfmPorco.addRow(linhaPorco);
         }
-        
+
         AnimalService animalServiceOvelha = new AnimalServiceImpl();
         List<AnimalDTO> listaOvelhas = animalServiceOvelha.listar(idUsuario, tipoAnimal);
 
@@ -334,10 +333,10 @@ public class InicioJFrame extends javax.swing.JFrame {
             linhaOvelha[1] = animalDTO.getRaca();
             linhaOvelha[2] = animalDTO.getQuantidade();
             linhaOvelha[3] = animalDTO.getValor();
-                    
+
             dfmOvelha.addRow(linhaOvelha);
         }
-        
+
         AnimalService animalServiceVaca = new AnimalServiceImpl();
         List<AnimalDTO> listaVacas = animalServiceVaca.listar(idUsuario, tipoAnimal);
 
@@ -353,14 +352,14 @@ public class InicioJFrame extends javax.swing.JFrame {
             linhaVaca[1] = animalDTO.getRaca();
             linhaVaca[2] = animalDTO.getQuantidade();
             linhaVaca[3] = animalDTO.getValor();
-                    
+
             dfmVaca.addRow(linhaVaca);
         }
-        
+
     }
-    
-    private void atualizarTabelaHistorico(int idUsuario){
-               
+
+    private void atualizarTabelaHistorico(int idUsuario) {
+
         TransacaoService transacaoService = new TransacaoServiceImpl();
         List<TransacaoDTO> listaTransacoes = transacaoService.listar(idUsuario);
 
@@ -381,12 +380,12 @@ public class InicioJFrame extends javax.swing.JFrame {
             linhaTransacao[6] = transacaoDTO.getData();
 
             dfmTransacao.addRow(linhaTransacao);
-        } 
-        
+        }
+
     }
-    
-    private void carregarComboBoxProdutos(){
-        
+
+    private void carregarComboBoxProdutos() {
+
         ProdutoService produtoService = new ProdutoServiceImpl();
         List<ProdutoDTO> listaProdutos = produtoService.listar(idUsuario);
         produtojComboBox.removeAllItems();
@@ -395,10 +394,10 @@ public class InicioJFrame extends javax.swing.JFrame {
             produtojComboBox.addItem(produtoDTO.getNome());
         }
     }
-    
-    private void carregarComboBoxIdSilos(){
-        
-    SiloService siloService = new SiloServiceImpl();
+
+    private void carregarComboBoxIdSilos() {
+
+        SiloService siloService = new SiloServiceImpl();
         List<SiloDTO> listaSilos = siloService.listar(idUsuario);
         IDsilojComboBox.removeAllItems();
 
@@ -406,51 +405,50 @@ public class InicioJFrame extends javax.swing.JFrame {
             IDsilojComboBox.addItem(siloDTO.getId());
         }
     }
-    
+
     private void carregarComboBoxRacas() {
-              
+
         AnimalService animalServiceGalinha = new AnimalServiceImpl();
         List<AnimalDTO> listaGalinhas = animalServiceGalinha.listar(idUsuario, "Galinha");
         racaGalinhajComboBox.removeAllItems();
-        
-        for (AnimalDTO animalDTO : listaGalinhas){
-            
-           racaGalinhajComboBox.addItem(animalDTO.getRaca());
-      
+
+        for (AnimalDTO animalDTO : listaGalinhas) {
+
+            racaGalinhajComboBox.addItem(animalDTO.getRaca());
+
         }
-                
-        
+
         AnimalService animalServicePorco = new AnimalServiceImpl();
-        List<AnimalDTO> listaPorcos = animalServicePorco.listar(idUsuario, "Porco");   
+        List<AnimalDTO> listaPorcos = animalServicePorco.listar(idUsuario, "Porco");
         racaPorcojComboBox.removeAllItems();
-        
-        for (AnimalDTO animalDTO : listaPorcos){
-            
-           racaPorcojComboBox.addItem(animalDTO.getRaca());
+
+        for (AnimalDTO animalDTO : listaPorcos) {
+
+            racaPorcojComboBox.addItem(animalDTO.getRaca());
         }
-        
+
         AnimalService animalServiceOvelha = new AnimalServiceImpl();
         List<AnimalDTO> listaOvelhas = animalServiceOvelha.listar(idUsuario, "Ovelha");
-        corEntradaOvelhajComboBox.removeAllItems();
-        
-        for (AnimalDTO animalDTO : listaOvelhas){
-            
-           corEntradaOvelhajComboBox.addItem(animalDTO.getRaca());
+        corOvelhajComboBox.removeAllItems();
+
+        for (AnimalDTO animalDTO : listaOvelhas) {
+
+            corOvelhajComboBox.addItem(animalDTO.getRaca());
         }
-        
+
         AnimalService animalServiceVaca = new AnimalServiceImpl();
         List<AnimalDTO> listaVacas = animalServiceVaca.listar(idUsuario, "Vaca");
         racaVacajComboBox.removeAllItems();
-        
-        for (AnimalDTO animalDTO : listaVacas){
-            
-           racaVacajComboBox.addItem(animalDTO.getRaca());
+
+        for (AnimalDTO animalDTO : listaVacas) {
+
+            racaVacajComboBox.addItem(animalDTO.getRaca());
         }
-        
+
     }
-    
-    private void carregarComboBoxIdAbrigos(int idUsuario){
-        
+
+    private void carregarComboBoxIdAbrigos(int idUsuario) {
+
         AbrigoService abrigoServiceGalinheiro = new AbrigoServiceImpl();
         List<AbrigoDTO> listaAbrigoGalinheiro = abrigoServiceGalinheiro.listar(idUsuario, "Galinheiro");
         idGalinheirojComboBox.removeAllItems();
@@ -458,15 +456,15 @@ public class InicioJFrame extends javax.swing.JFrame {
         for (AbrigoDTO abrigoDTO : listaAbrigoGalinheiro) {
             idGalinheirojComboBox.addItem(abrigoDTO.getId());
         }
-        
+
         AbrigoService abrigoServiceAprisco = new AbrigoServiceImpl();
         List<AbrigoDTO> listaAbrigoAprisco = abrigoServiceAprisco.listar(idUsuario, "Aprisco");
         idApriscojComboBox.removeAllItems();
 
         for (AbrigoDTO abrigoDTO : listaAbrigoAprisco) {
             idApriscojComboBox.addItem(abrigoDTO.getId());
-        }             
-        
+        }
+
         AbrigoService abrigoServiceChiqueiro = new AbrigoServiceImpl();
         List<AbrigoDTO> listaAbrigoChiqueiro = abrigoServiceChiqueiro.listar(idUsuario, "Chiqueiro");
         idChiqueirojComboBox.removeAllItems();
@@ -474,7 +472,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         for (AbrigoDTO abrigoDTO : listaAbrigoChiqueiro) {
             idChiqueirojComboBox.addItem(abrigoDTO.getId());
         }
-        
+
         AbrigoService abrigoServiceCurral = new AbrigoServiceImpl();
         List<AbrigoDTO> listaAbrigoCurral = abrigoServiceCurral.listar(idUsuario, "Curral");
         idCurraljComboBox.removeAllItems();
@@ -483,49 +481,80 @@ public class InicioJFrame extends javax.swing.JFrame {
             idCurraljComboBox.addItem(abrigoDTO.getId());
         }
     }
-    
-    private void carregarComboBoxFiltroAbrigos(int idUsuario){
-        
-        AbrigoService abrigoServiceGalinheiro = new AbrigoServiceImpl();
-        List<AbrigoDTO> listaAbrigoGalinheiro = abrigoServiceGalinheiro.listar(idUsuario, "Galinheiro");
-        idArmazenamentojComboBox.removeAllItems();
-        
-        idArmazenamentojComboBox.addItem("<Nenhum>");
-        
-        for (AbrigoDTO abrigoDTO : listaAbrigoGalinheiro) {
-            idArmazenamentojComboBox.addItem(abrigoDTO.getId());
-        }
-        
-        AbrigoService abrigoServiceAprisco = new AbrigoServiceImpl();
-        List<AbrigoDTO> listaAbrigoAprisco = abrigoServiceAprisco.listar(idUsuario, "Aprisco");
-  
-        for (AbrigoDTO abrigoDTO : listaAbrigoAprisco) {
-            idArmazenamentojComboBox.addItem(abrigoDTO.getId());
-        }
-        
-        AbrigoService abrigoServiceChiqueiro = new AbrigoServiceImpl();
-        List<AbrigoDTO> listaAbrigoChiqueiro = abrigoServiceChiqueiro.listar(idUsuario, "Chiqueiro");
 
-        for (AbrigoDTO abrigoDTO : listaAbrigoChiqueiro) {
-            idArmazenamentojComboBox.addItem(abrigoDTO.getId());
-        }
-        
-        AbrigoService abrigoServiceCurral = new AbrigoServiceImpl();
-        List<AbrigoDTO> listaAbrigoCurral = abrigoServiceCurral.listar(idUsuario, "Curral");
+    private void carregarComboBoxFiltroIdArmazenamentos(int idUsuario, String entidade) {
 
-        for (AbrigoDTO abrigoDTO : listaAbrigoCurral) {
-            idArmazenamentojComboBox.addItem(abrigoDTO.getId());
+        if (entidade.equals("Produto")) {
+
+            idArmazenamentojComboBox.removeAllItems();
+            idArmazenamentojComboBox.addItem("<Nenhum>");
+
+            SiloService siloService = new SiloServiceImpl();
+            List<SiloDTO> listaSilos = siloService.listar(idUsuario);
+
+            for (SiloDTO siloDTO : listaSilos) {
+                idArmazenamentojComboBox.addItem(siloDTO.getId());
+            }
+
+        } else if (entidade.equals("Galinha")) {
+
+            idArmazenamentojComboBox.removeAllItems();
+            idArmazenamentojComboBox.addItem("<Nenhum>");
+
+            AbrigoService abrigoServiceGalinheiro = new AbrigoServiceImpl();
+            List<AbrigoDTO> listaAbrigoGalinheiro = abrigoServiceGalinheiro.listar(idUsuario, "Galinheiro");
+
+            for (AbrigoDTO abrigoDTO : listaAbrigoGalinheiro) {
+                idArmazenamentojComboBox.addItem(abrigoDTO.getId());
+            }
+        } else if (entidade.equals("Ovelha")) {
+
+            idArmazenamentojComboBox.removeAllItems();
+            idArmazenamentojComboBox.addItem("<Nenhum>");
+
+            AbrigoService abrigoServiceAprisco = new AbrigoServiceImpl();
+            List<AbrigoDTO> listaAbrigoAprisco = abrigoServiceAprisco.listar(idUsuario, "Aprisco");
+
+            for (AbrigoDTO abrigoDTO : listaAbrigoAprisco) {
+                idArmazenamentojComboBox.addItem(abrigoDTO.getId());
+            }
+        } else if (entidade.equals("Porco")) {
+
+            idArmazenamentojComboBox.removeAllItems();
+            idArmazenamentojComboBox.addItem("<Nenhum>");
+
+            AbrigoService abrigoServiceChiqueiro = new AbrigoServiceImpl();
+            List<AbrigoDTO> listaAbrigoChiqueiro = abrigoServiceChiqueiro.listar(idUsuario, "Chiqueiro");
+
+            for (AbrigoDTO abrigoDTO : listaAbrigoChiqueiro) {
+                idArmazenamentojComboBox.addItem(abrigoDTO.getId());
+            }
+
+        } else if (entidade.equals("Vaca")) {
+
+            idArmazenamentojComboBox.removeAllItems();
+            idArmazenamentojComboBox.addItem("<Nenhum>");
+
+            AbrigoService abrigoServiceCurral = new AbrigoServiceImpl();
+            List<AbrigoDTO> listaAbrigoCurral = abrigoServiceCurral.listar(idUsuario, "Curral");
+
+            for (AbrigoDTO abrigoDTO : listaAbrigoCurral) {
+                idArmazenamentojComboBox.addItem(abrigoDTO.getId());
+            }
+
         }
-        
     }
-    
-    private void carregarComboBoxFiltroTipoEntidade(int idUsuario, String entidade){
-        
-        if(!entidade.equals("<Nenhum>")){
-            
-            switch(entidade){
-            
-                case("Produto"): 
+
+    private void carregarComboBoxFiltroTipoEntidade(int idUsuario, String entidade) {
+
+        if (!entidade.equals("<Nenhum>")) {
+
+            switch (entidade) {
+
+                case ("Produto"):
+                    
+                    tipoEntidadejComboBox.removeAllItems();
+                    tipoEntidadejComboBox.addItem("<Nenhum>");
                     
                     ProdutoService produtoService = new ProdutoServiceImpl();
                     List<ProdutoDTO> listaProdutos = produtoService.listar(idUsuario);
@@ -533,65 +562,75 @@ public class InicioJFrame extends javax.swing.JFrame {
                     for (ProdutoDTO produtoDTO : listaProdutos) {
                         tipoEntidadejComboBox.addItem(produtoDTO.getNome());
                     }
-                    
-                break;
 
-                case("Galinha"):
+                    break;
+
+                case ("Galinha"):
+                    
+                    tipoEntidadejComboBox.removeAllItems();
+                    tipoEntidadejComboBox.addItem("<Nenhum>");
                     
                     AnimalService animalServiceGalinha = new AnimalServiceImpl();
                     List<AnimalDTO> listaGalinhas = animalServiceGalinha.listar(idUsuario, "Galinha");
 
-                    for (AnimalDTO animalDTO : listaGalinhas){
+                    for (AnimalDTO animalDTO : listaGalinhas) {
 
-                       tipoEntidadejComboBox.addItem(animalDTO.getRaca());
+                        tipoEntidadejComboBox.addItem(animalDTO.getRaca());
 
                     }
+
+                    break;
+
+                case ("Porco"):
                     
-                break;
-                
-                case("Porco"):
+                    tipoEntidadejComboBox.removeAllItems();
+                    tipoEntidadejComboBox.addItem("<Nenhum>");
                     
                     AnimalService animalServicePorco = new AnimalServiceImpl();
-                    List<AnimalDTO> listaPorcos = animalServicePorco.listar(idUsuario, "Porco");   
+                    List<AnimalDTO> listaPorcos = animalServicePorco.listar(idUsuario, "Porco");
 
-                    for (AnimalDTO animalDTO : listaPorcos){
+                    for (AnimalDTO animalDTO : listaPorcos) {
 
-                       tipoEntidadejComboBox.addItem(animalDTO.getRaca());
+                        tipoEntidadejComboBox.addItem(animalDTO.getRaca());
                     }
+
+                    break;
+
+                case ("Ovelha"):
                     
-                break;
-                
-                case("Ovelha"):
+                    tipoEntidadejComboBox.removeAllItems();
+                    tipoEntidadejComboBox.addItem("<Nenhum>");
                     
                     AnimalService animalServiceOvelha = new AnimalServiceImpl();
                     List<AnimalDTO> listaOvelhas = animalServiceOvelha.listar(idUsuario, "Ovelha");
 
-                    for (AnimalDTO animalDTO : listaOvelhas){
+                    for (AnimalDTO animalDTO : listaOvelhas) {
 
-                       tipoEntidadejComboBox.addItem(animalDTO.getRaca());
+                        tipoEntidadejComboBox.addItem(animalDTO.getRaca());
                     }
+
+                    break;
+
+                case ("Vaca"):
                     
-                break;
-                
-                case("Vaca"):
+                    tipoEntidadejComboBox.removeAllItems();
+                    tipoEntidadejComboBox.addItem("<Nenhum>");
                     
                     AnimalService animalServiceVaca = new AnimalServiceImpl();
                     List<AnimalDTO> listaVacas = animalServiceVaca.listar(idUsuario, "Vaca");
 
-                    for (AnimalDTO animalDTO : listaVacas){
+                    for (AnimalDTO animalDTO : listaVacas) {
 
-                       tipoEntidadejComboBox.addItem(animalDTO.getRaca());
+                        tipoEntidadejComboBox.addItem(animalDTO.getRaca());
                     }
-                    
-                break;              
-            }   
-        } else {
-            tipoEntidadejComboBox.addItem("<Nenhum>");
+
+                    break;
+            }
         }
     }
-    
-    private void aplicarFiltrosHistorico(int idUsuario){
-        
+
+    private void aplicarFiltrosHistorico(int idUsuario) {
+
         List<String> filtros = new ArrayList();
         filtros.add(entradaSaidajComboBox.getSelectedItem().toString());
         filtros.add(entidadejComboBox.getSelectedItem().toString());
@@ -600,8 +639,8 @@ public class InicioJFrame extends javax.swing.JFrame {
         filtros.add(diajComboBox.getSelectedItem().toString());
 
         TransacaoService transacaoService = new TransacaoServiceImpl();
-        List<TransacaoDTO> listaTransacoes = transacaoService.listarFiltros(idUsuario, filtros);       
-        
+        List<TransacaoDTO> listaTransacoes = transacaoService.listarFiltros(idUsuario, filtros);
+
         DefaultTableModel dfmTransacao = (DefaultTableModel) historicojTable.getModel();
         int linhasTransacao = dfmTransacao.getRowCount();
         for (int i = 0; i < linhasTransacao; i++) {
@@ -620,9 +659,9 @@ public class InicioJFrame extends javax.swing.JFrame {
 
             dfmTransacao.addRow(linhaTransacao);
         }
-        
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -684,13 +723,15 @@ public class InicioJFrame extends javax.swing.JFrame {
         racajLabel = new javax.swing.JLabel();
         quantidadeEntradaGalinhajLabel = new javax.swing.JLabel();
         idGalinheirojComboBox = new javax.swing.JComboBox<>();
-        quantidadeEntradaGalinhasjSpinner = new javax.swing.JSpinner();
+        quantidadeGalinhasjSpinner = new javax.swing.JSpinner();
         idGalinheirojLabel1 = new javax.swing.JLabel();
         racaGalinhajComboBox = new javax.swing.JComboBox<>();
         cancelarEntradaGalinhasjButton = new javax.swing.JButton();
         registrarEntradaGalinhasjButton = new javax.swing.JButton();
         tabelaGalinheirosjLabel = new javax.swing.JLabel();
         removerGalinheirojButton = new javax.swing.JButton();
+        operacaoGalinhasjLabel = new javax.swing.JLabel();
+        operacaoGalinhajComboBox = new javax.swing.JComboBox<>();
         porcosjPanel = new javax.swing.JPanel();
         porcosjScrollPane = new javax.swing.JScrollPane();
         porcosjTable = new javax.swing.JTable();
@@ -722,13 +763,15 @@ public class InicioJFrame extends javax.swing.JFrame {
         racaPorcojLabel = new javax.swing.JLabel();
         quantidadeEntradaPorcojLabel = new javax.swing.JLabel();
         idChiqueirojComboBox = new javax.swing.JComboBox<>();
-        quantidadeEntradaPorcosjSpinner = new javax.swing.JSpinner();
+        quantidadePorcosjSpinner = new javax.swing.JSpinner();
         idEntradaChiqueirojLabel = new javax.swing.JLabel();
         racaPorcojComboBox = new javax.swing.JComboBox<>();
         cancelarEntradaPorcosjButton = new javax.swing.JButton();
         registrarEntradaPorcosjButton = new javax.swing.JButton();
         tabelaPorcosjLabel = new javax.swing.JLabel();
         removerChiqueirojButton = new javax.swing.JButton();
+        operacaoPorcosjComboBox = new javax.swing.JComboBox<>();
+        operacaoPorcosjLabel = new javax.swing.JLabel();
         ovelhasjPanel = new javax.swing.JPanel();
         ovelhasjScrollPane = new javax.swing.JScrollPane();
         ovelhasjTable = new javax.swing.JTable();
@@ -760,13 +803,15 @@ public class InicioJFrame extends javax.swing.JFrame {
         racaOvelhasjLabel = new javax.swing.JLabel();
         quantidadeEntradaOvelhajLabel = new javax.swing.JLabel();
         idApriscojComboBox = new javax.swing.JComboBox<>();
-        quantidadeEntradaOvelhasjSpinner = new javax.swing.JSpinner();
+        quantidadeOvelhasjSpinner = new javax.swing.JSpinner();
         idEntradaApriscojLabel = new javax.swing.JLabel();
-        corEntradaOvelhajComboBox = new javax.swing.JComboBox<>();
+        corOvelhajComboBox = new javax.swing.JComboBox<>();
         cancelarEntradaOvelhasjButton = new javax.swing.JButton();
         registrarEntradaOvelhasjButton = new javax.swing.JButton();
         tabelaOvelhasjLabel = new javax.swing.JLabel();
         removerApriscojButton = new javax.swing.JButton();
+        operacaoOvelhasjComboBox = new javax.swing.JComboBox<>();
+        operacaoOvelhasjLabel = new javax.swing.JLabel();
         vacasjPanel = new javax.swing.JPanel();
         vacasjScrollPane = new javax.swing.JScrollPane();
         vacasjTable = new javax.swing.JTable();
@@ -798,13 +843,15 @@ public class InicioJFrame extends javax.swing.JFrame {
         racaVacajLabel = new javax.swing.JLabel();
         quantidadeEntradaVacajLabel = new javax.swing.JLabel();
         idCurraljComboBox = new javax.swing.JComboBox<>();
-        quantidadeEntradaVacasjSpinner = new javax.swing.JSpinner();
+        quantidadeVacasjSpinner = new javax.swing.JSpinner();
         idChiqueirojLabel = new javax.swing.JLabel();
         racaVacajComboBox = new javax.swing.JComboBox<>();
         cancelarEntradaVacasjButton = new javax.swing.JButton();
         registrarEntradaVacasjButton = new javax.swing.JButton();
         tabelaCurraisjLabel = new javax.swing.JLabel();
         removerCurraljButton = new javax.swing.JButton();
+        operacaoVacasjLabel = new javax.swing.JLabel();
+        operacaoVacasjComboBox = new javax.swing.JComboBox<>();
         silosjPanel = new javax.swing.JPanel();
         silosjScrollPane = new javax.swing.JScrollPane();
         silosjTable = new javax.swing.JTable();
@@ -820,13 +867,15 @@ public class InicioJFrame extends javax.swing.JFrame {
         produtojLabel = new javax.swing.JLabel();
         quantidadeEntradajLabel = new javax.swing.JLabel();
         IDsilojComboBox = new javax.swing.JComboBox<>();
-        quantidadeEntradaProdutojSpinner = new javax.swing.JSpinner();
+        quantidadeProdutosjSpinner = new javax.swing.JSpinner();
         iDsilojLabel = new javax.swing.JLabel();
         produtojComboBox = new javax.swing.JComboBox<>();
         cancelarEntradajButton = new javax.swing.JButton();
         registrarEntradajButton = new javax.swing.JButton();
         tabelaSilosjLabel = new javax.swing.JLabel();
         removerSilojButton = new javax.swing.JButton();
+        operacaoProdutojComboBox = new javax.swing.JComboBox<>();
+        operacaoProdutojLabel = new javax.swing.JLabel();
         produtosjPanel = new javax.swing.JPanel();
         produtosjScrollPane = new javax.swing.JScrollPane();
         produtosjTable = new javax.swing.JTable();
@@ -1058,12 +1107,10 @@ public class InicioJFrame extends javax.swing.JFrame {
         menuAnimaisjPanelLayout.setHorizontalGroup(
             menuAnimaisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuAnimaisjPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(menuAnimaisjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(voltarMenuAnimaisjButton)
                     .addGroup(menuAnimaisjPanelLayout.createSequentialGroup()
-                        .addContainerGap(741, Short.MAX_VALUE)
-                        .addComponent(voltarMenuAnimaisjButton))
-                    .addGroup(menuAnimaisjPanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(abrigosjLabel)
                         .addGap(592, 592, 592)))
                 .addGap(49, 49, 49))
@@ -1319,7 +1366,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         tituloCadastroGalinheirosjLabel.setText("Novo galinheiro");
 
         tituloEntradaGalinhasjLabel.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
-        tituloEntradaGalinhasjLabel.setText("Registrar entrada de galinhas");
+        tituloEntradaGalinhasjLabel.setText("Registrar transacao de galinhas");
 
         racajLabel.setText("Raça:");
 
@@ -1355,6 +1402,10 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
+        operacaoGalinhasjLabel.setText("Operação");
+
+        operacaoGalinhajComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrada", "Saída" }));
+
         javax.swing.GroupLayout galinhasArmazenamentojPanelLayout = new javax.swing.GroupLayout(galinhasArmazenamentojPanel);
         galinhasArmazenamentojPanel.setLayout(galinhasArmazenamentojPanelLayout);
         galinhasArmazenamentojPanelLayout.setHorizontalGroup(
@@ -1372,29 +1423,30 @@ public class InicioJFrame extends javax.swing.JFrame {
                             .addComponent(capacidadeGalinheirojSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                             .addComponent(idGalinheirojTextField)))
                     .addComponent(tituloEntradaGalinhasjLabel)
+                    .addGroup(galinhasArmazenamentojPanelLayout.createSequentialGroup()
+                        .addComponent(cancelarGalinheirosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(salvarGalinheirojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tituloCadastroGalinheirosjLabel)
                     .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(galinhasArmazenamentojPanelLayout.createSequentialGroup()
                             .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(idGalinheirojLabel1)
                                 .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(quantidadeEntradaGalinhajLabel)
-                                    .addComponent(racajLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(racajLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(operacaoGalinhasjLabel))
+                            .addGap(14, 14, 14)
                             .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(racaGalinhajComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(quantidadeEntradaGalinhasjSpinner)
-                                .addComponent(idGalinheirojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(quantidadeGalinhasjSpinner)
+                                .addComponent(idGalinheirojComboBox, 0, 138, Short.MAX_VALUE)
+                                .addComponent(operacaoGalinhajComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, galinhasArmazenamentojPanelLayout.createSequentialGroup()
-                            .addGap(2, 2, 2)
                             .addComponent(cancelarEntradaGalinhasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(registrarEntradaGalinhasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(galinhasArmazenamentojPanelLayout.createSequentialGroup()
-                        .addComponent(cancelarGalinheirosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(salvarGalinheirojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tituloCadastroGalinheirosjLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                            .addComponent(registrarEntradaGalinhasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                 .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tabelaGalinheirosjLabel)
                     .addComponent(galinheirosjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
@@ -1413,6 +1465,12 @@ public class InicioJFrame extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(galinhasArmazenamentojPanelLayout.createSequentialGroup()
+                        .addComponent(galinheirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(removerGalinheirojButton)
+                            .addComponent(voltarGalinheirosjButton)))
+                    .addGroup(galinhasArmazenamentojPanelLayout.createSequentialGroup()
                         .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idGalinheirojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(idGalinheirojLabel))
@@ -1424,28 +1482,29 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(salvarGalinheirojButton)
                             .addComponent(cancelarGalinheirosjButton))
-                        .addGap(47, 47, 47)
+                        .addGap(32, 32, 32)
                         .addComponent(tituloEntradaGalinhasjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
+                        .addGap(18, 18, 18)
+                        .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(operacaoGalinhasjLabel)
+                            .addComponent(operacaoGalinhajComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(racajLabel)
                             .addComponent(racaGalinhajComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(quantidadeEntradaGalinhajLabel)
-                            .addComponent(quantidadeEntradaGalinhasjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(quantidadeGalinhasjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idGalinheirojLabel1)
-                            .addComponent(idGalinheirojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(galinheirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(registrarEntradaGalinhasjButton)
-                    .addComponent(cancelarEntradaGalinhasjButton)
-                    .addComponent(removerGalinheirojButton)
-                    .addComponent(voltarGalinheirosjButton))
-                .addContainerGap(62, Short.MAX_VALUE))
+                            .addComponent(idGalinheirojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(galinhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registrarEntradaGalinhasjButton)
+                            .addComponent(cancelarEntradaGalinhasjButton))))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         controlejPanel.add(galinhasArmazenamentojPanel, "card5");
@@ -1528,7 +1587,7 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
-        removerRacaPorcojButton.setText("removerRaça");
+        removerRacaPorcojButton.setText("Remover raça");
         removerRacaPorcojButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removerRacaPorcojButtonActionPerformed(evt);
@@ -1712,12 +1771,16 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
+        operacaoPorcosjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrada", "Saída" }));
+
+        operacaoPorcosjLabel.setText("Operação");
+
         javax.swing.GroupLayout porcosArmazenamentojPanelLayout = new javax.swing.GroupLayout(porcosArmazenamentojPanel);
         porcosArmazenamentojPanel.setLayout(porcosArmazenamentojPanelLayout);
         porcosArmazenamentojPanelLayout.setHorizontalGroup(
             porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(47, 47, 47)
                 .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
@@ -1728,7 +1791,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(capacidadeChiqueirojSpinner)
                             .addComponent(idChiqueirojTextField))
-                        .addGap(101, 101, 101))
+                        .addGap(97, 97, 97))
                     .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
                         .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tituloEntradaChiqueirosjLabel)
@@ -1744,16 +1807,18 @@ public class InicioJFrame extends javax.swing.JFrame {
                                     .addComponent(registrarEntradaPorcosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
                                     .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(operacaoPorcosjLabel)
                                         .addComponent(idEntradaChiqueirojLabel)
                                         .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(quantidadeEntradaPorcojLabel)
                                             .addComponent(racaPorcojLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(operacaoPorcosjComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(racaPorcojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(quantidadeEntradaPorcosjSpinner)
+                                        .addComponent(quantidadePorcosjSpinner)
                                         .addComponent(idChiqueirojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(65, 65, 65)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tabelaPorcosjLabel)
                     .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
@@ -1767,8 +1832,8 @@ public class InicioJFrame extends javax.swing.JFrame {
         porcosArmazenamentojPanelLayout.setVerticalGroup(
             porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(28, 28, 28)
+                .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tituloCadastroChiqueirosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tabelaPorcosjLabel))
                 .addGap(21, 21, 21)
@@ -1785,28 +1850,37 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cancelarChiqueirojButton)
                             .addComponent(salvarChiqueirosjButton))
-                        .addGap(41, 41, 41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tituloEntradaChiqueirosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(operacaoPorcosjLabel)
+                            .addComponent(operacaoPorcosjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(racaPorcojLabel)
                             .addComponent(racaPorcojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(quantidadeEntradaPorcojLabel)
-                            .addComponent(quantidadeEntradaPorcosjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(quantidadePorcosjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idEntradaChiqueirojLabel)
                             .addComponent(idChiqueirojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(chiqueirosjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelarEntradaPorcosjButton)
-                    .addComponent(registrarEntradaPorcosjButton)
-                    .addComponent(removerChiqueirojButton)
-                    .addComponent(voltarChiqueirosjButton1))
-                .addContainerGap(51, Short.MAX_VALUE))
+                    .addComponent(chiqueirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cancelarEntradaPorcosjButton)
+                            .addComponent(registrarEntradaPorcosjButton)))
+                    .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(removerChiqueirojButton)
+                            .addComponent(voltarChiqueirosjButton1))))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         controlejPanel.add(porcosArmazenamentojPanel, "card5");
@@ -2061,7 +2135,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         idEntradaApriscojLabel.setText("ID Aprisco:");
 
-        corEntradaOvelhajComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"<Nenhum>", "Leite", "Ovo"}));
+        corOvelhajComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"<Nenhum>", "Leite", "Ovo"}));
 
         cancelarEntradaOvelhasjButton.setText("Cancelar");
         cancelarEntradaOvelhasjButton.addActionListener(new java.awt.event.ActionListener() {
@@ -2087,6 +2161,10 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
+        operacaoOvelhasjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrada", "Saída" }));
+
+        operacaoOvelhasjLabel.setText("Operação");
+
         javax.swing.GroupLayout ovelhasArmazenamentojPanelLayout = new javax.swing.GroupLayout(ovelhasArmazenamentojPanel);
         ovelhasArmazenamentojPanel.setLayout(ovelhasArmazenamentojPanelLayout);
         ovelhasArmazenamentojPanelLayout.setHorizontalGroup(
@@ -2101,12 +2179,14 @@ public class InicioJFrame extends javax.swing.JFrame {
                             .addComponent(idEntradaApriscojLabel)
                             .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(quantidadeEntradaOvelhajLabel)
-                                .addComponent(racaOvelhasjLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                .addComponent(racaOvelhasjLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(operacaoOvelhasjLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(corEntradaOvelhajComboBox, 0, 154, Short.MAX_VALUE)
-                            .addComponent(quantidadeEntradaOvelhasjSpinner)
-                            .addComponent(idApriscojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(corOvelhajComboBox, 0, 154, Short.MAX_VALUE)
+                            .addComponent(quantidadeOvelhasjSpinner)
+                            .addComponent(idApriscojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(operacaoOvelhasjComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(tituloCadastroApriscosjLabel)
                     .addGroup(ovelhasArmazenamentojPanelLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
@@ -2162,16 +2242,20 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(salvarApriscojButton)
                             .addComponent(cancelarApriscojButton))
-                        .addGap(47, 47, 47)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tituloEntradaOvelhasjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
+                        .addGap(15, 15, 15)
+                        .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(operacaoOvelhasjLabel)
+                            .addComponent(operacaoOvelhasjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(racaOvelhasjLabel)
-                            .addComponent(corEntradaOvelhajComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(corOvelhajComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(quantidadeEntradaOvelhajLabel)
-                            .addComponent(quantidadeEntradaOvelhasjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(quantidadeOvelhasjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(ovelhasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idEntradaApriscojLabel)
@@ -2449,6 +2533,10 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
+        operacaoVacasjLabel.setText("Operação");
+
+        operacaoVacasjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrada", "Saída" }));
+
         javax.swing.GroupLayout vacasArmazenamentojPanelLayout = new javax.swing.GroupLayout(vacasArmazenamentojPanel);
         vacasArmazenamentojPanel.setLayout(vacasArmazenamentojPanelLayout);
         vacasArmazenamentojPanelLayout.setHorizontalGroup(
@@ -2456,19 +2544,20 @@ public class InicioJFrame extends javax.swing.JFrame {
             .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tituloEntradaCurraisjLabel)
                     .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(idChiqueirojLabel)
                             .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(quantidadeEntradaVacajLabel)
-                                .addComponent(racaVacajLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                .addComponent(racaVacajLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(operacaoVacasjLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(racaVacajComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(quantidadeEntradaVacasjSpinner)
-                            .addComponent(idCurraljComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(quantidadeVacasjSpinner)
+                            .addComponent(idCurraljComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(operacaoVacasjComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(tituloCadastroCurraisjLabel)
                     .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
                         .addComponent(cancelarCurraljButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2486,8 +2575,11 @@ public class InicioJFrame extends javax.swing.JFrame {
                     .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
                         .addComponent(cancelarEntradaVacasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(registrarEntradaVacasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                        .addComponent(registrarEntradaVacasjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(tituloEntradaCurraisjLabel)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(vacasArmazenamentojPanelLayout.createSequentialGroup()
                         .addComponent(tabelaCurraisjLabel)
@@ -2521,16 +2613,20 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cancelarCurraljButton)
                             .addComponent(salvarCurraljButton))
-                        .addGap(41, 41, 41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tituloEntradaCurraisjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
+                        .addGap(9, 9, 9)
+                        .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(operacaoVacasjLabel)
+                            .addComponent(operacaoVacasjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(racaVacajLabel)
                             .addComponent(racaVacajComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(quantidadeEntradaVacajLabel)
-                            .addComponent(quantidadeEntradaVacasjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(quantidadeVacasjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(vacasArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idChiqueirojLabel)
@@ -2650,6 +2746,10 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
         });
 
+        operacaoProdutojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrada", "Saída" }));
+
+        operacaoProdutojLabel.setText("Operação:");
+
         javax.swing.GroupLayout silosjPanelLayout = new javax.swing.GroupLayout(silosjPanel);
         silosjPanel.setLayout(silosjPanelLayout);
         silosjPanelLayout.setHorizontalGroup(
@@ -2673,12 +2773,6 @@ public class InicioJFrame extends javax.swing.JFrame {
                             .addComponent(idSilojLabel)
                             .addGap(12, 12, 12)
                             .addComponent(idSilojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(tituloCadastroSilosjLabel1)
-                    .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(iDsilojLabel)
-                        .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(quantidadeEntradajLabel)
-                            .addComponent(produtojLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(silosjPanelLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(cancelarEntradajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2686,10 +2780,20 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, silosjPanelLayout.createSequentialGroup()
                             .addGap(150, 150, 150)
                             .addComponent(registrarEntradajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(produtojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(quantidadeEntradaProdutojSpinner)
-                            .addComponent(IDsilojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(silosjPanelLayout.createSequentialGroup()
+                            .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(iDsilojLabel)
+                                .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(quantidadeEntradajLabel)
+                                    .addComponent(produtojLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(operacaoProdutojLabel))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(produtojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(quantidadeProdutosjSpinner)
+                                .addComponent(IDsilojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(operacaoProdutojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(tituloCadastroSilosjLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tabelaSilosjLabel)
@@ -2720,16 +2824,20 @@ public class InicioJFrame extends javax.swing.JFrame {
                         .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cancelarSilojButton)
                             .addComponent(salvarSilojButton))
-                        .addGap(41, 41, 41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tituloCadastroSilosjLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
+                        .addGap(9, 9, 9)
+                        .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(operacaoProdutojLabel)
+                            .addComponent(operacaoProdutojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(produtojLabel)
                             .addComponent(produtojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(quantidadeEntradajLabel)
-                            .addComponent(quantidadeEntradaProdutojSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(quantidadeProdutosjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(iDsilojLabel)
@@ -3042,14 +3150,14 @@ public class InicioJFrame extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Entrada/saída", "Entidade", "Tipo_entidade", "Quantidade", "ID_armazenamento", "Data_hora"
+                "ID", "Entrada/saída", "Entidade", "Tipo_entidade", "Quantidade", "ID_armazenamento", "Data"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -3121,11 +3229,11 @@ public class InicioJFrame extends javax.swing.JFrame {
                             .addComponent(idArmazenamentojLabel)
                             .addComponent(diajLabel)
                             .addComponent(tipoEntidadejComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(historicojScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(historicojScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(historicojPanelLayout.createSequentialGroup()
                         .addComponent(aplicarFiltrosjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 597, Short.MAX_VALUE)
                         .addComponent(voltarHistoricojButton)))
                 .addGap(27, 27, 27))
         );
@@ -3161,7 +3269,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                 .addGroup(historicojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(voltarHistoricojButton)
                     .addComponent(aplicarFiltrosjButton))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         controlejPanel.add(historicojPanel, "card16");
@@ -3186,7 +3294,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(menuAnimaisjPanel);
         menuAnimaisjPanel.setVisible(true);
         menuAnimaisjPanel.setVisible(false);
-        
+
         racaGalinhajTextField.setText("");
         valorGalinhajTextField.setText("");
     }//GEN-LAST:event_voltarGalinhajButtonActionPerformed
@@ -3255,10 +3363,10 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(historicojPanel);
         historicojPanel.setVisible(false);
         historicojPanel.setVisible(true);
-        atualizarTabelaHistorico(idUsuario);  
-        carregarComboBoxFiltroAbrigos(idUsuario);
-          
-        
+        atualizarTabelaHistorico(idUsuario);
+        idArmazenamentojComboBox.removeAllItems();
+        idArmazenamentojComboBox.addItem("<Nenhum>");
+
         entidadejComboBox.addItem("<Nenhum>");
         entidadejComboBox.addItem("Produto");
         entidadejComboBox.addItem("Galinha");
@@ -3266,9 +3374,9 @@ public class InicioJFrame extends javax.swing.JFrame {
         entidadejComboBox.addItem("Ovelha");
         entidadejComboBox.addItem("Vaca");
         String entidade = entidadejComboBox.getSelectedItem().toString();
-        tipoEntidadejComboBox.removeAllItems();
-        carregarComboBoxFiltroTipoEntidade(idUsuario, entidade);            
-        
+        tipoEntidadejComboBox.addItem("<Nenhum>");
+        carregarComboBoxFiltroTipoEntidade(idUsuario, entidade);
+
     }//GEN-LAST:event_historicojButtonActionPerformed
 
     private void produtosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtosjButtonActionPerformed
@@ -3276,7 +3384,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(produtosjPanel);
         produtosjPanel.setVisible(false);
         produtosjPanel.setVisible(true);
-        atualizarTabelaProdutos(idUsuario);       
+        atualizarTabelaProdutos(idUsuario);
 
     }//GEN-LAST:event_produtosjButtonActionPerformed
 
@@ -3291,7 +3399,6 @@ public class InicioJFrame extends javax.swing.JFrame {
         String nomeRaca = racaGalinhajTextField.getText();
         String quantidade = "0";
         String valorVenda = valorGalinhajTextField.getText();
-               
 
         AnimalDTO animalDTO = new AnimalDTO(id, idUsuario + "", tipo, nomeRaca, quantidade, valorVenda);
 
@@ -3323,7 +3430,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(menuAnimaisjPanel);
         menuAnimaisjPanel.setVisible(true);
         menuAnimaisjPanel.setVisible(false);
-        
+
         racaGalinhajTextField.setText("");
         valorPorcojTextField.setText("");
     }//GEN-LAST:event_voltarPorcosjButtonActionPerformed
@@ -3365,7 +3472,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(menuAnimaisjPanel);
         menuAnimaisjPanel.setVisible(true);
         menuAnimaisjPanel.setVisible(false);
-        
+
         corOvelhajTextField.setText("");
         valorOvelhajTextField.setText("");
     }//GEN-LAST:event_voltarOvelhasjButtonActionPerformed
@@ -3407,7 +3514,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(menuAnimaisjPanel);
         menuAnimaisjPanel.setVisible(true);
         menuAnimaisjPanel.setVisible(false);
-        
+
         racaVacajTextField.setText("");
         valorVacajTextField.setText("");
     }//GEN-LAST:event_voltarVacasjButtonActionPerformed
@@ -3447,7 +3554,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
     private void voltarSilosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarSilosjButtonActionPerformed
         capacidadeSilojSpinner.setValue(0);
-        quantidadeEntradaProdutojSpinner.setValue(0);
+        quantidadeProdutosjSpinner.setValue(0);
         controlejPanel.remove(silosjPanel);
         controlejPanel.add(produtosjPanel);
         produtosjPanel.setVisible(false);
@@ -3458,14 +3565,11 @@ public class InicioJFrame extends javax.swing.JFrame {
         String id = idSilojTextField.getText();
         String qtdProdutos = "0";
         String capacidade = capacidadeSilojSpinner.getValue().toString();
-        
-        System.out.println(idUsuario);
-        
+
         SiloDTO silo = new SiloDTO(id, idUsuario + "", qtdProdutos, capacidade);
-        
+
         SiloService siloService = new SiloServiceImpl();
-        
-        
+
         try {
             siloService.salvar(silo);
             atualizarTabelaSilos(idUsuario);
@@ -3502,9 +3606,6 @@ public class InicioJFrame extends javax.swing.JFrame {
         String nome = nomeProdutojTextField.getText();
         String quantidade = "0";
         String valor = valorProdutojTextField.getText();
-        
-        System.out.println(nome);
-        System.out.println(valor);
 
         ProdutoDTO produto = new ProdutoDTO(id, idUsuario + "", nome, quantidade, valor);
 
@@ -3533,7 +3634,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(silosjPanel);
         silosjPanel.setVisible(false);
         silosjPanel.setVisible(true);
-        
+
         carregarComboBoxIdSilos();
         carregarComboBoxProdutos();
         atualizarTabelaSilos(idUsuario);
@@ -3547,8 +3648,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         UsuarioPersistencia persistencia = new UsuarioPersistenciaImpl();
 
         int idAcesso = persistencia.login(usuario, senha);
-        
-        
+
         try {
 
             if (idAcesso != 0) {
@@ -3556,8 +3656,8 @@ public class InicioJFrame extends javax.swing.JFrame {
                 controlejPanel.add(menuPrincipaljPanel);
                 menuPrincipaljPanel.setVisible(false);
                 menuPrincipaljPanel.setVisible(true);
-                
-                idUsuario = idAcesso;                        
+
+                idUsuario = idAcesso;
             }
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro);
@@ -3567,32 +3667,32 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_entrarjButtonActionPerformed
 
     private void confirmarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarjButtonActionPerformed
-        
+
         String telefone = telefonejFormattedTextField.getText();
         String id = idUsuariojTextField.getText();
         String nome = nomejTextField.getText();
         String cpf = CPFjFormattedTextField.getText();
         String usuario = cadastroUsuariojTextField.getText();
         String senha = cadastroSenhajTextField.getText();
-        
-        if(usuario.length() > 40){
+
+        if (usuario.length() > 40) {
             JOptionPane.showMessageDialog(this, "Nome de usuário muito grande!");
             throw new RuntimeException("Nome de usuário muito grande!");
-        } else if (senha.length() > 20){
+        } else if (senha.length() > 20) {
             JOptionPane.showMessageDialog(this, "Senha muito grande!");
             throw new RuntimeException("Senha muito grande!");
         }
-        
+
         UsuarioDTO usuariodto = new UsuarioDTO(id, nome, telefone, cpf, usuario, senha);
         UsuarioService usuarioService = new UsuarioServiceImpl();
-        
-        try{
+
+        try {
             usuarioService.salvar(usuariodto);
             JOptionPane.showMessageDialog(this, "Cadastro completo! Volte à tela de login e acesse agora");
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, "Por favor preencha todos os campos para finalizar seu cadastro");
         }
-      
+
     }//GEN-LAST:event_confirmarjButtonActionPerformed
 
     private void voltarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarjButtonActionPerformed
@@ -3609,46 +3709,91 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastrarContajButtonActionPerformed
 
     private void registrarEntradajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradajButtonActionPerformed
-        
-        try {
-            if(produtojComboBox.getItemCount() != 0 && IDsilojComboBox.getItemCount() != 0){
-                String nomeProduto = produtojComboBox.getSelectedItem().toString();
-                int quantidade = Integer.parseInt(quantidadeEntradaProdutojSpinner.getValue().toString());
-                int siloId = Integer.parseInt(IDsilojComboBox.getSelectedItem().toString());
 
-                SiloPersistencia siloPersistencia = new SiloPersistenciaImpl();
-                boolean entrou = siloPersistencia.entradaEstoque(siloId, quantidade);
-                
-                if(entrou){
-                    ProdutoPersistencia produtoPersistencia = new ProdutoPersistenciaImpl();
-                    produtoPersistencia.atualizarEstoque(nomeProduto, quantidade);
-                    
-                    BancoDeDados bd = new BancoDeDados();
-                    
-                    try{
-                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
-                        + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', 'Produto', '"
-                        + nomeProduto + "', '" + quantidade + "', '" + siloId + "');";
-                        bd.executarQuery(sqlHistTransacao);
-                    } catch(Exception erro) {
-                        
+        String operacao = operacaoProdutojComboBox.getSelectedItem().toString();
+
+        if (operacao.equals("Entrada")) {
+
+            try {
+
+                int quantidade = Integer.parseInt(quantidadeProdutosjSpinner.getValue().toString());
+
+                if (produtojComboBox.getItemCount() != 0 && IDsilojComboBox.getItemCount() != 0) {
+
+                    int idSilo = Integer.parseInt(IDsilojComboBox.getSelectedItem().toString());
+                    String tipoProduto = produtojComboBox.getSelectedItem().toString();
+
+                    SiloPersistencia siloPersistencia = new SiloPersistenciaImpl();
+
+                    if (siloPersistencia.entradaSaidaEstoque(idSilo, quantidade, operacao).equals("Entrou")) {
+                        ProdutoPersistencia produtoPersistencia = new ProdutoPersistenciaImpl();
+                        produtoPersistencia.atualizarEstoque(tipoProduto, quantidade, "Entrou");
+
+                        BancoDeDados bd = new BancoDeDados();
+
+                        try {
+                            String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                                    + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', 'Produto', '"
+                                    + tipoProduto + "', '" + quantidade + "', '" + idSilo + "');";
+                            bd.executarQuery(sqlHistTransacao);
+                        } catch (Exception erro) {
+
+                        }
                     }
-                }    
-            } else {
-                throw new RuntimeException("Por favor, verifique se você cadastrou pelo menos um tipo de produto"
-                + "e silo antes de registrar uma entrada de produtos!");
-            }
-            
-            atualizarTabelaSilos(idUsuario);
-            atualizarTabelaProdutos(idUsuario);
-            
-        } catch(Exception erro) {
-            erro.printStackTrace();
-            JOptionPane.showMessageDialog(this, erro);
-        }
-        
-        
 
+                } else {
+                    throw new RuntimeException("Antes de registrar uma entrada ou saída, verifique se você selecionou um silo e"
+                            + " um tipo de produto");
+                }
+
+                atualizarTabelaProdutos(idUsuario);
+                atualizarTabelaSilos(idUsuario);
+
+            } catch (Exception erro) {
+                erro.printStackTrace();
+                JOptionPane.showMessageDialog(this, erro.getMessage());
+            }
+        } else {
+
+            try {
+                int quantidade = Integer.parseInt(quantidadeProdutosjSpinner.getValue().toString());
+
+                if (produtojComboBox.getItemCount() != 0 && IDsilojComboBox.getItemCount() != 0) {
+
+                    int idSilo = Integer.parseInt(IDsilojComboBox.getSelectedItem().toString());
+                    String tipoProduto = produtojComboBox.getSelectedItem().toString();
+
+                    SiloPersistencia siloPersistencia = new SiloPersistenciaImpl();
+
+                    if (siloPersistencia.entradaSaidaEstoque(idSilo, quantidade, operacao).equals("Saiu")) {
+                        ProdutoPersistencia produtoPersistencia = new ProdutoPersistenciaImpl();
+                        produtoPersistencia.atualizarEstoque(tipoProduto, quantidade, "Saiu");
+
+                        BancoDeDados bd = new BancoDeDados();
+
+                        try {
+                            String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                                    + " id_armazenamento) VALUES ('" + idUsuario + "',  'saída', 'Produto', '"
+                                    + tipoProduto + "', '" + quantidade + "', '" + idSilo + "');";
+                            bd.executarQuery(sqlHistTransacao);
+                        } catch (Exception erro) {
+
+                        }
+                    }
+
+                } else {
+                    throw new RuntimeException("Antes de registrar uma entrada ou saída, verifique"
+                            + " se você selecionou um silo e um tipo de produto");
+                }
+
+                atualizarTabelaProdutos(idUsuario);
+                atualizarTabelaSilos(idUsuario);
+
+            } catch (Exception erro) {
+                erro.printStackTrace();
+                JOptionPane.showMessageDialog(this, erro.getMessage());
+            }
+        }
     }//GEN-LAST:event_registrarEntradajButtonActionPerformed
 
     private void consultarGalinheirosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarGalinheirosjButtonActionPerformed
@@ -3656,17 +3801,17 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(galinhasArmazenamentojPanel);
         galinhasArmazenamentojPanel.setVisible(false);
         galinhasArmazenamentojPanel.setVisible(true);
-        
+
         racaGalinhajTextField.setText("");
         valorGalinhajTextField.setText("");
-        
+
         carregarComboBoxRacas();
         carregarComboBoxIdAbrigos(idUsuario);
-        
+
         String tipoAbrigo = "Galinheiro";
         atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
 
-        
+
     }//GEN-LAST:event_consultarGalinheirosjButtonActionPerformed
 
     private void galinheirosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_galinheirosjTableMouseClicked
@@ -3677,10 +3822,10 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.remove(galinhasArmazenamentojPanel);
         controlejPanel.add(galinhasjPanel);
         galinhasjPanel.setVisible(false);
-        galinhasjPanel.setVisible(true);     
-        
+        galinhasjPanel.setVisible(true);
+
         capacidadeGalinheirojSpinner.setValue(0);
-        quantidadeEntradaGalinhasjSpinner.setValue(0);
+        quantidadeGalinhasjSpinner.setValue(0);
     }//GEN-LAST:event_voltarGalinheirosjButtonActionPerformed
 
     private void salvarGalinheirojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarGalinheirojButtonActionPerformed
@@ -3697,7 +3842,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         try {
             service.salvar(abrigoDTO);
             atualizarTabelaAbrigo(idUsuario, tipo);
-            carregarComboBoxIdAbrigos(idUsuario);            
+            carregarComboBoxIdAbrigos(idUsuario);
             JOptionPane.showMessageDialog(this, "Novo " + tipo + " salvo com sucesso!");
             cancelarGalinheirosjButtonActionPerformed(evt);
         } catch (Exception erro) {
@@ -3707,73 +3852,112 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_salvarGalinheirojButtonActionPerformed
 
     private void cancelarGalinheirosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarGalinheirosjButtonActionPerformed
-        capacidadeGalinheirojSpinner.setValue(0);        
+        capacidadeGalinheirojSpinner.setValue(0);
     }//GEN-LAST:event_cancelarGalinheirosjButtonActionPerformed
 
     private void registrarEntradaGalinhasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradaGalinhasjButtonActionPerformed
-        
-        try {
-            
-            String tipoAnimal = "Galinha";
-            int quantidade = Integer.parseInt(quantidadeEntradaGalinhasjSpinner.getValue().toString());
-            String tipoAbrigo = "Galinheiro";
-            
-            if(racaGalinhajComboBox.getItemCount() != 0 && idGalinheirojComboBox.getItemCount() != 0){
-                
-                int idGalinheiro = Integer.parseInt(idGalinheirojComboBox.getSelectedItem().toString());
-                String racaAnimal = racaGalinhajComboBox.getSelectedItem().toString();
-                
-                AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
-                boolean entrou = abrigoPersistencia.entradaAnimais(idGalinheiro, quantidade);
-                
-                
-                if(entrou){
-                    AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();        
-                    animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade);
-                    
-                    BancoDeDados bd = new BancoDeDados();
-                    
-                    try{
-                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
-                        + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', '" + tipoAnimal + "', '"
-                        + racaAnimal + "', '" + quantidade + "', '" + idGalinheiro + "');";
-                        bd.executarQuery(sqlHistTransacao);
-                    } catch(Exception erro) {
 
-                    }        
+        String operacao = operacaoGalinhajComboBox.getSelectedItem().toString();
+
+        if (operacao.equals("Entrada")) {
+
+            try {
+
+                String tipoAnimal = "Galinha";
+                int quantidade = Integer.parseInt(quantidadeGalinhasjSpinner.getValue().toString());
+                String tipoAbrigo = "Galinheiro";
+
+                if (racaGalinhajComboBox.getItemCount() != 0 && idGalinheirojComboBox.getItemCount() != 0) {
+
+                    int idGalinheiro = Integer.parseInt(idGalinheirojComboBox.getSelectedItem().toString());
+                    String racaAnimal = racaGalinhajComboBox.getSelectedItem().toString();
+
+                    AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
+
+                    if (abrigoPersistencia.entradaSaidaAnimais(idGalinheiro, quantidade, operacao).equals("Entrou")) {
+                        AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();
+                        animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade, "Entrou");
+
+                        BancoDeDados bd = new BancoDeDados();
+
+                        try {
+                            String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                                    + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', '" + tipoAnimal + "', '"
+                                    + racaAnimal + "', '" + quantidade + "', '" + idGalinheiro + "');";
+                            bd.executarQuery(sqlHistTransacao);
+                        } catch (Exception erro) {
+
+                        }
+                    }
+
+                } else {
+                    throw new RuntimeException("Antes de registrar uma entrada ou saída, verifique se você selecionou um abrigo e uma raça de animal");
                 }
 
-            } else {
-                throw new RuntimeException("Antes de registrar uma entrada, verifique se você selecionou um abrigo e uma raça de animal");
+                atualizarTabelaRacas(tipoAnimal);
+                atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+
+            } catch (Exception erro) {
+                erro.printStackTrace();
+                JOptionPane.showMessageDialog(this, erro.getMessage());
             }
-            
-                       
+        } else {
+            String tipoAnimal = "Galinha";
+            int quantidade = Integer.parseInt(quantidadeGalinhasjSpinner.getValue().toString());
+            String tipoAbrigo = "Galinheiro";
+
+            if (racaGalinhajComboBox.getItemCount() != 0 && idGalinheirojComboBox.getItemCount() != 0) {
+
+                int idGalinheiro = Integer.parseInt(idGalinheirojComboBox.getSelectedItem().toString());
+                String racaAnimal = racaGalinhajComboBox.getSelectedItem().toString();
+
+                AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
+
+                if (abrigoPersistencia.entradaSaidaAnimais(idGalinheiro, quantidade, operacao).equals("Saiu")) {
+                    AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();
+                    animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade, "Saiu");
+
+                    BancoDeDados bd = new BancoDeDados();
+
+                    try {
+                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                                + " id_armazenamento) VALUES ('" + idUsuario + "',  'saída', '" + tipoAnimal + "', '"
+                                + racaAnimal + "', '" + quantidade + "', '" + idGalinheiro + "');";
+                        bd.executarQuery(sqlHistTransacao);
+                    } catch (Exception erro) {
+
+                    }
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Falha ao remover animais do abrigo!");
+                    throw new RuntimeException("Falha ao remover animais do abrigo!");
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Antes de registrar uma entrada ou saída, verifique se você selecionou um abrigo e uma raça de animal");
+            }
             atualizarTabelaRacas(tipoAnimal);
             atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
-            
-        } catch (Exception erro) {
-            erro.printStackTrace();
-            JOptionPane.showMessageDialog(this, erro.getMessage());
-        } 
+        }
     }//GEN-LAST:event_registrarEntradaGalinhasjButtonActionPerformed
 
     private void consultarChiqueirosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarChiqueirosjButtonActionPerformed
-        
+
         controlejPanel.remove(porcosjPanel);
         controlejPanel.add(porcosArmazenamentojPanel);
         porcosArmazenamentojPanel.setVisible(false);
         porcosArmazenamentojPanel.setVisible(true);
-        
+
         valorPorcojTextField.setText("");
         racaPorcojTextField.setText("");
-        
+
         carregarComboBoxRacas();
         carregarComboBoxIdAbrigos(idUsuario);
-  
+
         String tipoAbrigo = "Chiqueiro";
         atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
-        
-        
+
+
     }//GEN-LAST:event_consultarChiqueirosjButtonActionPerformed
 
     private void consultarApriscosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarApriscosjButtonActionPerformed
@@ -3781,13 +3965,13 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(ovelhasArmazenamentojPanel);
         ovelhasArmazenamentojPanel.setVisible(false);
         ovelhasArmazenamentojPanel.setVisible(true);
-        
+
         valorOvelhajTextField.setText("");
         corOvelhajTextField.setText("");
-        
+
         carregarComboBoxRacas();
         carregarComboBoxIdAbrigos(idUsuario);
-  
+
         String tipoAbrigo = "Aprisco";
         atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
     }//GEN-LAST:event_consultarApriscosjButtonActionPerformed
@@ -3801,13 +3985,13 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(vacasArmazenamentojPanel);
         vacasArmazenamentojPanel.setVisible(false);
         vacasArmazenamentojPanel.setVisible(true);
-        
+
         valorVacajTextField.setText("");
         racaVacajTextField.setText("");
-        
+
         carregarComboBoxRacas();
         carregarComboBoxIdAbrigos(idUsuario);
-        
+
         String tipoAbrigo = "Curral";
         atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
      }//GEN-LAST:event_consultarCurraisjButtonActionPerformed
@@ -3821,9 +4005,9 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(porcosjPanel);
         porcosjPanel.setVisible(false);
         porcosjPanel.setVisible(true);
-        
+
         capacidadeChiqueirojSpinner.setValue(0);
-        quantidadeEntradaPorcosjSpinner.setValue(0);
+        quantidadePorcosjSpinner.setValue(0);
     }//GEN-LAST:event_voltarChiqueirosjButton1ActionPerformed
 
     private void salvarChiqueirosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarChiqueirosjButtonActionPerformed
@@ -3839,7 +4023,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         try {
             service.salvar(abrigoDTO);
             atualizarTabelaAbrigo(idUsuario, tipo);
-            carregarComboBoxIdAbrigos(idUsuario);            
+            carregarComboBoxIdAbrigos(idUsuario);
             JOptionPane.showMessageDialog(this, "Novo " + tipo + " salvo com sucesso!");
             cancelarChiqueirojButtonActionPerformed(evt);
         } catch (Exception erro) {
@@ -3852,49 +4036,89 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarChiqueirojButtonActionPerformed
 
     private void registrarEntradaPorcosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradaPorcosjButtonActionPerformed
-        
-        try {
-            
-            String tipoAnimal = "Porco";
-            int quantidade = Integer.parseInt(quantidadeEntradaPorcosjSpinner.getValue().toString());
-            String tipoAbrigo = "Chiqueiro";
-            
-            if(racaPorcojComboBox.getItemCount() != 0 && idChiqueirojComboBox.getItemCount() != 0){
-                
-                int idChiqueiro = Integer.parseInt(idChiqueirojComboBox.getSelectedItem().toString());
-                String racaAnimal = racaPorcojComboBox.getSelectedItem().toString();
-                
-                AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
-                boolean entrou = abrigoPersistencia.entradaAnimais(idChiqueiro, quantidade);
-              
-                if(entrou){
-                    AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();        
-                    animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade);
-                    
-                    BancoDeDados bd = new BancoDeDados();
-                    
-                    try{
-                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
-                        + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', '" + tipoAnimal + "', '"
-                        + racaAnimal + "', '" + quantidade + "', '" + idChiqueiro + "');";
-                        bd.executarQuery(sqlHistTransacao);
-                    } catch(Exception erro) {
 
-                    } 
+        String operacao = operacaoPorcosjComboBox.getSelectedItem().toString();
+
+        if (operacao.equals("Entrada")) {
+
+            try {
+
+                String tipoAnimal = "Porco";
+                int quantidade = Integer.parseInt(quantidadePorcosjSpinner.getValue().toString());
+                String tipoAbrigo = "Chiqueiro";
+
+                if (racaPorcojComboBox.getItemCount() != 0 && idChiqueirojComboBox.getItemCount() != 0) {
+
+                    int idChiqueiro = Integer.parseInt(idChiqueirojComboBox.getSelectedItem().toString());
+                    String racaAnimal = racaPorcojComboBox.getSelectedItem().toString();
+
+                    AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
+
+                    if (abrigoPersistencia.entradaSaidaAnimais(idChiqueiro, quantidade, operacao).equals("Entrou")) {
+                        AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();
+                        animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade, "Entrou");
+
+                        BancoDeDados bd = new BancoDeDados();
+
+                        try {
+                            String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                                    + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', '" + tipoAnimal + "', '"
+                                    + racaAnimal + "', '" + quantidade + "', '" + idChiqueiro + "');";
+                            bd.executarQuery(sqlHistTransacao);
+                        } catch (Exception erro) {
+
+                        }
+                    }
+
+                } else {
+                    throw new RuntimeException("Antes de registrar uma entrada ou saída, verifique se você selecionou um abrigo e uma raça de animal");
                 }
 
-            } else {
-                throw new RuntimeException("Antes de registrar uma entrada, verifique se você selecionou um abrigo e uma raça de animal");
+                atualizarTabelaRacas(tipoAnimal);
+                atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+
+            } catch (Exception erro) {
+                erro.printStackTrace();
+                JOptionPane.showMessageDialog(this, erro.getMessage());
             }
-            
-                       
+        } else {
+            String tipoAnimal = "Porco";
+            int quantidade = Integer.parseInt(quantidadePorcosjSpinner.getValue().toString());
+            String tipoAbrigo = "Chiqueiro";
+
+            if (racaPorcojComboBox.getItemCount() != 0 && idChiqueirojComboBox.getItemCount() != 0) {
+
+                int idChiqueiro = Integer.parseInt(idChiqueirojComboBox.getSelectedItem().toString());
+                String racaAnimal = racaPorcojComboBox.getSelectedItem().toString();
+
+                AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
+
+                if (abrigoPersistencia.entradaSaidaAnimais(idChiqueiro, quantidade, operacao).equals("Saiu")) {
+                    AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();
+                    animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade, "Saiu");
+
+                    BancoDeDados bd = new BancoDeDados();
+
+                    try {
+                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                                + " id_armazenamento) VALUES ('" + idUsuario + "',  'saída', '" + tipoAnimal + "', '"
+                                + racaAnimal + "', '" + quantidade + "', '" + idChiqueiro + "');";
+                        bd.executarQuery(sqlHistTransacao);
+                    } catch (Exception erro) {
+
+                    }
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Falha ao remover animais do abrigo!");
+                    throw new RuntimeException("Falha ao remover animais do abrigo!");
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Antes de registrar uma entrada ou saída, verifique se você selecionou um abrigo e uma raça de animal");
+            }
             atualizarTabelaRacas(tipoAnimal);
             atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
-            
-        } catch (Exception erro) {
-            erro.printStackTrace();
-            JOptionPane.showMessageDialog(this, erro.getMessage());
-        }            
+        }
     }//GEN-LAST:event_registrarEntradaPorcosjButtonActionPerformed
 
     private void apriscosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_apriscosjTableMouseClicked
@@ -3906,9 +4130,9 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(ovelhasjPanel);
         ovelhasjPanel.setVisible(false);
         ovelhasjPanel.setVisible(true);
-        
+
         capacidadeApriscojSpinner.setValue(0);
-        quantidadeEntradaOvelhasjSpinner.setValue(0);
+        quantidadeOvelhasjSpinner.setValue(0);
     }//GEN-LAST:event_voltarApriscosjButtonActionPerformed
 
     private void salvarApriscojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarApriscojButtonActionPerformed
@@ -3924,7 +4148,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         try {
             service.salvar(abrigoDTO);
             atualizarTabelaAbrigo(idUsuario, tipo);
-            carregarComboBoxIdAbrigos(idUsuario);            
+            carregarComboBoxIdAbrigos(idUsuario);
             JOptionPane.showMessageDialog(this, "Novo " + tipo + " salvo com sucesso!");
             cancelarApriscojButtonActionPerformed(evt);
         } catch (Exception erro) {
@@ -3937,49 +4161,89 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarApriscojButtonActionPerformed
 
     private void registrarEntradaOvelhasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradaOvelhasjButtonActionPerformed
-        
-        try {
-            
-            String tipoAnimal = "Ovelha";
-            int quantidade = Integer.parseInt(quantidadeEntradaOvelhasjSpinner.getValue().toString());
-            String tipoAbrigo = "Aprisco";
-            
-            if(corEntradaOvelhajComboBox.getItemCount() != 0 && idApriscojComboBox.getItemCount() != 0){
-                
-                int idAprisco = Integer.parseInt(idApriscojComboBox.getSelectedItem().toString());
-                String racaAnimal = corEntradaOvelhajComboBox.getSelectedItem().toString();
-                
-                AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
-                boolean entrou = abrigoPersistencia.entradaAnimais(idAprisco, quantidade);
-              
-                if(entrou){
-                    AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();        
-                    animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade);
-                    
-                    BancoDeDados bd = new BancoDeDados();
-                    
-                    try{
-                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
-                        + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', '" + tipoAnimal + "', '"
-                        + racaAnimal + "', '" + quantidade + "', '" + idAprisco + "');";
-                        bd.executarQuery(sqlHistTransacao);
-                    } catch(Exception erro) {
 
-                    } 
+        String operacao = operacaoOvelhasjComboBox.getSelectedItem().toString();
+
+        if (operacao.equals("Entrada")) {
+
+            try {
+
+                String tipoAnimal = "Ovelha";
+                int quantidade = Integer.parseInt(quantidadeOvelhasjSpinner.getValue().toString());
+                String tipoAbrigo = "Aprisco";
+
+                if (corOvelhajComboBox.getItemCount() != 0 && idApriscojComboBox.getItemCount() != 0) {
+
+                    int idAprisco = Integer.parseInt(idApriscojComboBox.getSelectedItem().toString());
+                    String racaAnimal = corOvelhajComboBox.getSelectedItem().toString();
+
+                    AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
+
+                    if (abrigoPersistencia.entradaSaidaAnimais(idAprisco, quantidade, operacao).equals("Entrou")) {
+                        AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();
+                        animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade, "Entrou");
+
+                        BancoDeDados bd = new BancoDeDados();
+
+                        try {
+                            String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                                    + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', '" + tipoAnimal + "', '"
+                                    + racaAnimal + "', '" + quantidade + "', '" + idAprisco + "');";
+                            bd.executarQuery(sqlHistTransacao);
+                        } catch (Exception erro) {
+
+                        }
+                    }
+
+                } else {
+                    throw new RuntimeException("Antes de registrar uma entrada ou saída, verifique se você selecionou um abrigo e uma raça de animal");
                 }
 
-            } else {
-                throw new RuntimeException("Antes de registrar uma entrada, verifique se você selecionou um abrigo e uma cor de ovelha!");
+                atualizarTabelaRacas(tipoAnimal);
+                atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+
+            } catch (Exception erro) {
+                erro.printStackTrace();
+                JOptionPane.showMessageDialog(this, erro.getMessage());
             }
-            
-                       
+        } else {
+            String tipoAnimal = "Ovelha";
+            int quantidade = Integer.parseInt(quantidadeOvelhasjSpinner.getValue().toString());
+            String tipoAbrigo = "Aprisco";
+
+            if (corOvelhajComboBox.getItemCount() != 0 && idApriscojComboBox.getItemCount() != 0) {
+
+                int idAprisco = Integer.parseInt(idApriscojComboBox.getSelectedItem().toString());
+                String racaAnimal = corOvelhajComboBox.getSelectedItem().toString();
+
+                AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
+
+                if (abrigoPersistencia.entradaSaidaAnimais(idAprisco, quantidade, operacao).equals("Saiu")) {
+                    AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();
+                    animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade, "Saiu");
+
+                    BancoDeDados bd = new BancoDeDados();
+
+                    try {
+                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                                + " id_armazenamento) VALUES ('" + idUsuario + "',  'saída', '" + tipoAnimal + "', '"
+                                + racaAnimal + "', '" + quantidade + "', '" + idAprisco + "');";
+                        bd.executarQuery(sqlHistTransacao);
+                    } catch (Exception erro) {
+
+                    }
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Falha ao remover animais do abrigo!");
+                    throw new RuntimeException("Falha ao remover animais do abrigo!");
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Antes de registrar uma entrada ou saída, verifique se você selecionou um abrigo e uma raça de animal");
+            }
             atualizarTabelaRacas(tipoAnimal);
             atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
-            
-        } catch (Exception erro) {
-            erro.printStackTrace();
-            JOptionPane.showMessageDialog(this, erro.getMessage());
-        } 
+        }
     }//GEN-LAST:event_registrarEntradaOvelhasjButtonActionPerformed
 
     private void curraisjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_curraisjTableMouseClicked
@@ -3991,9 +4255,9 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(vacasjPanel);
         vacasjPanel.setVisible(false);
         vacasjPanel.setVisible(true);
-        
+
         capacidadeCurraljSpinner.setValue(0);
-        quantidadeEntradaVacasjSpinner.setValue(0);
+        quantidadeVacasjSpinner.setValue(0);
     }//GEN-LAST:event_voltarCurraisjButtonActionPerformed
 
     private void cancelarCurraljButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarCurraljButtonActionPerformed
@@ -4001,49 +4265,89 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarCurraljButtonActionPerformed
 
     private void registrarEntradaVacasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradaVacasjButtonActionPerformed
-        
-        try {
-            
-            String tipoAnimal = "Vaca";
-            int quantidade = Integer.parseInt(quantidadeEntradaVacasjSpinner.getValue().toString());
-            String tipoAbrigo = "Curral";
-            
-            if(racaVacajComboBox.getItemCount() != 0 && idCurraljComboBox.getItemCount() != 0){
-                
-                int idCurral = Integer.parseInt(idCurraljComboBox.getSelectedItem().toString());
-                String racaAnimal = racaVacajComboBox.getSelectedItem().toString();
-                
-                AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
-                boolean entrou = abrigoPersistencia.entradaAnimais(idCurral, quantidade);
-              
-                if(entrou){
-                    AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();        
-                    animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade);
-                    
-                    BancoDeDados bd = new BancoDeDados();
-                    
-                    try{
-                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
-                        + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', '" + tipoAnimal + "', '"
-                        + racaAnimal + "', '" + quantidade + "', '" + idCurral + "');";
-                        bd.executarQuery(sqlHistTransacao);
-                    } catch(Exception erro) {
 
-                    } 
+        String operacao = operacaoVacasjComboBox.getSelectedItem().toString();
+
+        if (operacao.equals("Entrada")) {
+
+            try {
+
+                String tipoAnimal = "Vaca";
+                int quantidade = Integer.parseInt(quantidadeVacasjSpinner.getValue().toString());
+                String tipoAbrigo = "Curral";
+
+                if (racaVacajComboBox.getItemCount() != 0 && idCurraljComboBox.getItemCount() != 0) {
+
+                    int idCurral = Integer.parseInt(idCurraljComboBox.getSelectedItem().toString());
+                    String racaAnimal = racaVacajComboBox.getSelectedItem().toString();
+
+                    AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
+
+                    if (abrigoPersistencia.entradaSaidaAnimais(idCurral, quantidade, operacao).equals("Entrou")) {
+                        AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();
+                        animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade, "Entrou");
+
+                        BancoDeDados bd = new BancoDeDados();
+
+                        try {
+                            String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                                    + " id_armazenamento) VALUES ('" + idUsuario + "',  'entrada', '" + tipoAnimal + "', '"
+                                    + racaAnimal + "', '" + quantidade + "', '" + idCurral + "');";
+                            bd.executarQuery(sqlHistTransacao);
+                        } catch (Exception erro) {
+
+                        }
+                    }
+
+                } else {
+                    throw new RuntimeException("Antes de registrar uma entrada ou saída, verifique se você selecionou um abrigo e uma raça de animal");
                 }
 
-            } else {
-                throw new RuntimeException("Antes de registrar uma entrada, verifique se você selecionou um abrigo e uma raça de animal!");
+                atualizarTabelaRacas(tipoAnimal);
+                atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+
+            } catch (Exception erro) {
+                erro.printStackTrace();
+                JOptionPane.showMessageDialog(this, erro.getMessage());
             }
-            
-                       
+        } else {
+            String tipoAnimal = "Vaca";
+            int quantidade = Integer.parseInt(quantidadeVacasjSpinner.getValue().toString());
+            String tipoAbrigo = "Curral";
+
+            if (racaVacajComboBox.getItemCount() != 0 && idCurraljComboBox.getItemCount() != 0) {
+
+                int idCurral = Integer.parseInt(idCurraljComboBox.getSelectedItem().toString());
+                String racaAnimal = racaVacajComboBox.getSelectedItem().toString();
+
+                AbrigoPersistencia abrigoPersistencia = new AbrigoPersistenciaImpl();
+
+                if (abrigoPersistencia.entradaSaidaAnimais(idCurral, quantidade, operacao).equals("Saiu")) {
+                    AnimalPersistencia animalPersistencia = new AnimalPersistenciaImpl();
+                    animalPersistencia.atualizarQtdAnimais(racaAnimal, quantidade, "Saiu");
+
+                    BancoDeDados bd = new BancoDeDados();
+
+                    try {
+                        String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
+                                + " id_armazenamento) VALUES ('" + idUsuario + "',  'saída', '" + tipoAnimal + "', '"
+                                + racaAnimal + "', '" + quantidade + "', '" + idCurral + "');";
+                        bd.executarQuery(sqlHistTransacao);
+                    } catch (Exception erro) {
+
+                    }
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Falha ao remover animais do abrigo!");
+                    throw new RuntimeException("Falha ao remover animais do abrigo!");
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Antes de registrar uma entrada ou saída, verifique se você selecionou um abrigo e uma raça de animal");
+            }
             atualizarTabelaRacas(tipoAnimal);
             atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
-            
-        } catch (Exception erro) {
-            erro.printStackTrace();
-            JOptionPane.showMessageDialog(this, erro.getMessage());
-        } 
+        }
     }//GEN-LAST:event_registrarEntradaVacasjButtonActionPerformed
 
     private void salvarCurraljButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarCurraljButtonActionPerformed
@@ -4059,7 +4363,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         try {
             service.salvar(abrigoDTO);
             atualizarTabelaAbrigo(idUsuario, tipo);
-            carregarComboBoxIdAbrigos(idUsuario);            
+            carregarComboBoxIdAbrigos(idUsuario);
             JOptionPane.showMessageDialog(this, "Novo " + tipo + " salvo com sucesso!");
             cancelarApriscojButtonActionPerformed(evt);
         } catch (Exception erro) {
@@ -4076,23 +4380,23 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_corOvelhajTextFieldActionPerformed
 
     private void cancelarEntradaGalinhasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarEntradaGalinhasjButtonActionPerformed
-        quantidadeEntradaGalinhasjSpinner.setValue(0);
+        quantidadeGalinhasjSpinner.setValue(0);
     }//GEN-LAST:event_cancelarEntradaGalinhasjButtonActionPerformed
 
     private void cancelarEntradaPorcosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarEntradaPorcosjButtonActionPerformed
-        quantidadeEntradaPorcosjSpinner.setValue(0);
+        quantidadePorcosjSpinner.setValue(0);
     }//GEN-LAST:event_cancelarEntradaPorcosjButtonActionPerformed
 
     private void cancelarEntradaOvelhasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarEntradaOvelhasjButtonActionPerformed
-        quantidadeEntradaOvelhasjSpinner.setValue(0);
+        quantidadeOvelhasjSpinner.setValue(0);
     }//GEN-LAST:event_cancelarEntradaOvelhasjButtonActionPerformed
 
     private void cancelarEntradaVacasjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarEntradaVacasjButtonActionPerformed
-        quantidadeEntradaVacasjSpinner.setValue(0);
+        quantidadeVacasjSpinner.setValue(0);
     }//GEN-LAST:event_cancelarEntradaVacasjButtonActionPerformed
 
     private void cancelarEntradajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarEntradajButtonActionPerformed
-        quantidadeEntradaProdutojSpinner.setValue(0);
+        quantidadeProdutosjSpinner.setValue(0);
     }//GEN-LAST:event_cancelarEntradajButtonActionPerformed
 
     private void valorProdutojTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorProdutojTextFieldActionPerformed
@@ -4113,21 +4417,26 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_aplicarFiltrosjButtonActionPerformed
 
     private void entidadejComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entidadejComboBoxActionPerformed
-        
-        try{
-            String entidade = entidadejComboBox.getSelectedItem().toString();
-            tipoEntidadejComboBox.removeAllItems();
+
+        String entidade = entidadejComboBox.getSelectedItem().toString();
+
+        if (entidade.equals("Produto")) {
             carregarComboBoxFiltroTipoEntidade(idUsuario, entidade);
-        } catch(Exception erro){
-            
+            carregarComboBoxFiltroIdArmazenamentos(idUsuario, entidade);
+
+        } else if (entidade.equals("Galinha") || entidade.equals("Porco") || entidade.equals("Ovelha")
+                || entidade.equals("Vaca")) {
+            carregarComboBoxFiltroTipoEntidade(idUsuario, entidade);
+            carregarComboBoxFiltroIdArmazenamentos(idUsuario, entidade);
         }
-        
+
+
     }//GEN-LAST:event_entidadejComboBoxActionPerformed
 
     private void removerGalinheirojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerGalinheirojButtonActionPerformed
-                
+
         int total = galinheirosjTable.getSelectedRowCount();
-        if(total <= 0){
+        if (total <= 0) {
             JOptionPane.showMessageDialog(galinheirosjTable, "Por favor selecione as linhas a serem removidas!");
             return;
         }
@@ -4142,6 +4451,9 @@ public class InicioJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(galinheirosjTable, "Registros removidos com sucesso!");
             String tipoAbrigo = "Galinheiro";
             atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+            String tipoAnimal = "Galinha";
+            atualizarTabelaAnimais(idUsuario, tipoAnimal);
+            carregarComboBoxIdAbrigos(idUsuario);
         } catch (Exception erro) {
             erro.printStackTrace();
             JOptionPane.showMessageDialog(galinheirosjTable, erro.getMessage());
@@ -4149,9 +4461,9 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_removerGalinheirojButtonActionPerformed
 
     private void removerChiqueirojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerChiqueirojButtonActionPerformed
-        
+
         int total = chiqueirosjTable.getSelectedRowCount();
-        if(total <= 0){
+        if (total <= 0) {
             JOptionPane.showMessageDialog(chiqueirosjTable, "Por favor selecione as linhas a serem removidas!");
             return;
         }
@@ -4166,17 +4478,20 @@ public class InicioJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(chiqueirosjTable, "Registros removidos com sucesso!");
             String tipoAbrigo = "Chiqueiro";
             atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+            String tipoAnimal = "Porco";
+            atualizarTabelaAnimais(idUsuario, tipoAnimal);
+            carregarComboBoxIdAbrigos(idUsuario);
         } catch (Exception erro) {
             erro.printStackTrace();
             JOptionPane.showMessageDialog(chiqueirosjTable, erro.getMessage());
         }
-        
+
     }//GEN-LAST:event_removerChiqueirojButtonActionPerformed
 
     private void removerApriscojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerApriscojButtonActionPerformed
-        
+
         int total = apriscosjTable.getSelectedRowCount();
-        if(total <= 0){
+        if (total <= 0) {
             JOptionPane.showMessageDialog(apriscosjTable, "Por favor selecione as linhas a serem removidas!");
             return;
         }
@@ -4191,16 +4506,19 @@ public class InicioJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(apriscosjTable, "Registros removidos com sucesso!");
             String tipoAbrigo = "Aprisco";
             atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+            String tipoAnimal = "Ovelha";
+            atualizarTabelaAnimais(idUsuario, tipoAnimal);
+            carregarComboBoxIdAbrigos(idUsuario);
         } catch (Exception erro) {
             erro.printStackTrace();
-            JOptionPane.showMessageDialog(apriscosjTable, erro.getMessage());
+            JOptionPane.showMessageDialog(chiqueirosjTable, erro.getMessage());
         }
             }//GEN-LAST:event_removerApriscojButtonActionPerformed
 
     private void removerCurraljButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerCurraljButtonActionPerformed
-        
+
         int total = curraisjTable.getSelectedRowCount();
-        if(total <= 0){
+        if (total <= 0) {
             JOptionPane.showMessageDialog(curraisjTable, "Por favor selecione as linhas a serem removidas!");
             return;
         }
@@ -4215,16 +4533,19 @@ public class InicioJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(curraisjTable, "Registros removidos com sucesso!");
             String tipoAbrigo = "Curral";
             atualizarTabelaAbrigo(idUsuario, tipoAbrigo);
+            String tipoAnimal = "Vaca";
+            atualizarTabelaAnimais(idUsuario, tipoAnimal);
+            carregarComboBoxIdAbrigos(idUsuario);
         } catch (Exception erro) {
             erro.printStackTrace();
             JOptionPane.showMessageDialog(curraisjTable, erro.getMessage());
         }
-        
+
     }//GEN-LAST:event_removerCurraljButtonActionPerformed
 
     private void removerSilojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerSilojButtonActionPerformed
         int total = silosjTable.getSelectedRowCount();
-        if(total <= 0){
+        if (total <= 0) {
             JOptionPane.showMessageDialog(silosjTable, "Por favor selecione as linhas a serem removidas!");
             return;
         }
@@ -4238,6 +4559,7 @@ public class InicioJFrame extends javax.swing.JFrame {
             }
             JOptionPane.showMessageDialog(silosjTable, "Registros removidos com sucesso!");
             atualizarTabelaSilos(idUsuario);
+            atualizarTabelaProdutos(idUsuario);
         } catch (Exception erro) {
             erro.printStackTrace();
             JOptionPane.showMessageDialog(silosjTable, erro.getMessage());
@@ -4245,9 +4567,9 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_removerSilojButtonActionPerformed
 
     private void removerRacaGalinhajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerRacaGalinhajButtonActionPerformed
-        
+
         int total = galinhasjTable.getSelectedRowCount();
-        if(total <= 0){
+        if (total <= 0) {
             JOptionPane.showMessageDialog(galinhasjTable, "Por favor selecione as linhas a serem removidas!");
             return;
         }
@@ -4260,7 +4582,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                 service.remover(dto);
             }
             JOptionPane.showMessageDialog(galinhasjTable, "Registros removidos com sucesso!");
-            
+
             String tipoAnimal = "Galinha";
             atualizarTabelaRacas(tipoAnimal);
         } catch (Exception erro) {
@@ -4271,7 +4593,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
     private void removerRacaPorcojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerRacaPorcojButtonActionPerformed
         int total = porcosjTable.getSelectedRowCount();
-        if(total <= 0){
+        if (total <= 0) {
             JOptionPane.showMessageDialog(porcosjTable, "Por favor selecione as linhas a serem removidas!");
             return;
         }
@@ -4284,7 +4606,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                 service.remover(dto);
             }
             JOptionPane.showMessageDialog(porcosjTable, "Registros removidos com sucesso!");
-            
+
             String tipoAnimal = "Porco";
             atualizarTabelaRacas(tipoAnimal);
         } catch (Exception erro) {
@@ -4295,7 +4617,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
     private void removerRacaOvelhajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerRacaOvelhajButtonActionPerformed
         int total = ovelhasjTable.getSelectedRowCount();
-        if(total <= 0){
+        if (total <= 0) {
             JOptionPane.showMessageDialog(ovelhasjTable, "Por favor selecione as linhas a serem removidas!");
             return;
         }
@@ -4308,7 +4630,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                 service.remover(dto);
             }
             JOptionPane.showMessageDialog(ovelhasjTable, "Registros removidos com sucesso!");
-            
+
             String tipoAnimal = "Ovelha";
             atualizarTabelaRacas(tipoAnimal);
         } catch (Exception erro) {
@@ -4319,7 +4641,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
     private void removerRacaVacajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerRacaVacajButtonActionPerformed
         int total = vacasjTable.getSelectedRowCount();
-        if(total <= 0){
+        if (total <= 0) {
             JOptionPane.showMessageDialog(vacasjTable, "Por favor selecione as linhas a serem removidas!");
             return;
         }
@@ -4332,9 +4654,10 @@ public class InicioJFrame extends javax.swing.JFrame {
                 service.remover(dto);
             }
             JOptionPane.showMessageDialog(vacasjTable, "Registros removidos com sucesso!");
-            
+
             String tipoAnimal = "Vaca";
             atualizarTabelaRacas(tipoAnimal);
+            atualizarTabelaSilos(idUsuario);
         } catch (Exception erro) {
             erro.printStackTrace();
             JOptionPane.showMessageDialog(vacasjTable, erro.getMessage());
@@ -4343,7 +4666,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
     private void removerProdutojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerProdutojButtonActionPerformed
         int total = produtosjTable.getSelectedRowCount();
-        if(total <= 0){
+        if (total <= 0) {
             JOptionPane.showMessageDialog(produtosjTable, "Por favor selecione as linhas a serem removidas!");
             return;
         }
@@ -4356,7 +4679,7 @@ public class InicioJFrame extends javax.swing.JFrame {
                 service.remover(dto);
             }
             JOptionPane.showMessageDialog(produtosjTable, "Registros removidos com sucesso!");
-            
+
             atualizarTabelaProdutos(idUsuario);
         } catch (Exception erro) {
             erro.printStackTrace();
@@ -4452,7 +4775,7 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JButton consultarCurraisjButton;
     private javax.swing.JButton consultarGalinheirosjButton;
     private javax.swing.JPanel controlejPanel;
-    private javax.swing.JComboBox<String> corEntradaOvelhajComboBox;
+    private javax.swing.JComboBox<String> corOvelhajComboBox;
     private javax.swing.JLabel corOvelhajLabel;
     private javax.swing.JTextField corOvelhajTextField;
     private javax.swing.JScrollPane curraisjScrollPane;
@@ -4520,6 +4843,16 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel nomeVacajLabel;
     private javax.swing.JLabel nomejLabel;
     private javax.swing.JTextField nomejTextField;
+    private javax.swing.JComboBox<String> operacaoGalinhajComboBox;
+    private javax.swing.JLabel operacaoGalinhasjLabel;
+    private javax.swing.JComboBox<String> operacaoOvelhasjComboBox;
+    private javax.swing.JLabel operacaoOvelhasjLabel;
+    private javax.swing.JComboBox<String> operacaoPorcosjComboBox;
+    private javax.swing.JLabel operacaoPorcosjLabel;
+    private javax.swing.JComboBox<String> operacaoProdutojComboBox;
+    private javax.swing.JLabel operacaoProdutojLabel;
+    private javax.swing.JComboBox<String> operacaoVacasjComboBox;
+    private javax.swing.JLabel operacaoVacasjLabel;
     private javax.swing.JPanel ovelhasArmazenamentojPanel;
     private javax.swing.JButton ovelhasjButton;
     private javax.swing.JPanel ovelhasjPanel;
@@ -4538,15 +4871,15 @@ public class InicioJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane produtosjScrollPane;
     private javax.swing.JTable produtosjTable;
     private javax.swing.JLabel quantidadeEntradaGalinhajLabel;
-    private javax.swing.JSpinner quantidadeEntradaGalinhasjSpinner;
     private javax.swing.JLabel quantidadeEntradaOvelhajLabel;
-    private javax.swing.JSpinner quantidadeEntradaOvelhasjSpinner;
     private javax.swing.JLabel quantidadeEntradaPorcojLabel;
-    private javax.swing.JSpinner quantidadeEntradaPorcosjSpinner;
-    private javax.swing.JSpinner quantidadeEntradaProdutojSpinner;
     private javax.swing.JLabel quantidadeEntradaVacajLabel;
-    private javax.swing.JSpinner quantidadeEntradaVacasjSpinner;
     private javax.swing.JLabel quantidadeEntradajLabel;
+    private javax.swing.JSpinner quantidadeGalinhasjSpinner;
+    private javax.swing.JSpinner quantidadeOvelhasjSpinner;
+    private javax.swing.JSpinner quantidadePorcosjSpinner;
+    private javax.swing.JSpinner quantidadeProdutosjSpinner;
+    private javax.swing.JSpinner quantidadeVacasjSpinner;
     private javax.swing.JComboBox<String> racaGalinhajComboBox;
     private javax.swing.JTextField racaGalinhajTextField;
     private javax.swing.JLabel racaOvelhasjLabel;

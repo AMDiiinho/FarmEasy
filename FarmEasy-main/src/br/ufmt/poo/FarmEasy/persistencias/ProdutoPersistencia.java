@@ -21,5 +21,5 @@ public interface ProdutoPersistencia {
     
     public List<Produto> buscar(int idUsuario);
     
-    public void atualizarEstoque(String nomeProduto, int quantidade);
+    public void atualizarEstoque(String nomeProduto, int quantidade, String operacao);
 }

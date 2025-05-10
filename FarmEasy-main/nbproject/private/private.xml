@@ -17,6 +17,22 @@
             <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/persistencias/impl/UsuarioPersistenciaImpl.java</file>
             <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/persistencias/impl/SiloPersistenciaImpl.java</file>
             <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/UI/DTOs/TransacaoDTO.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/persistencias/impl/BancoDeDados.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/persistencias/ProdutoPersistencia.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/persistencias/AnimalPersistencia.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/persistencias/AbrigoPersistencia.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/persistencias/SiloPersistencia.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/persistencias/UsuarioPersistencia.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/persistencias/impl/AnimalPersistenciaImpl.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/services/impl/AbrigoServiceImpl.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/services/UsuarioService.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/services/SiloService.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/services/ProdutoService.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/services/AbrigoService.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/services/impl/AnimalServiceImpl.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/services/impl/ProdutoServiceImpl.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/main/Main.java</file>
+            <file>file:/home/arthurmarques/NetBeansProjects/FarmEasy-main/FarmEasy-main/src/br/ufmt/poo/FarmEasy/UI/DTOs/AbrigoDTO.java</file>
         </group>
     </open-files>
 </project-private>

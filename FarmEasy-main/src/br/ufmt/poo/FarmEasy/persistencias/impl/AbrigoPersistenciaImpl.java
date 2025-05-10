@@ -33,11 +33,13 @@ public class AbrigoPersistenciaImpl extends javax.swing.JFrame implements Abrigo
     }
 
     @Override
-    public void remover(int id) {
+    public void remover(int id) {            
+        
         String sql = "DELETE FROM tb_abrigos WHERE id = ?;";
         List parametros = new ArrayList();
         parametros.add(id);
-        bd.executar(sql, parametros);    
+        bd.executar(sql, parametros);
+        
     }
 
     @Override
@@ -81,13 +83,12 @@ public class AbrigoPersistenciaImpl extends javax.swing.JFrame implements Abrigo
     }
     
     @Override
-    public boolean entradaAnimais(int idAbrigo, int qtdAnimais){
-                       
-        try {
-                      
+    public String entradaSaidaAnimais(int idAbrigo, int qtdAnimais, String operacao){
+        
+        String entrouSaiu = "";
+        try {    
             if(qtdAnimais <= 0){
                 JOptionPane.showMessageDialog(rootPane, "O campo quantidade não pode zer menor ou igual a zero!");
-                return false;
             } else {
             
                 String sqlSelect  = "SELECT qtdAnimais, capacidade FROM tb_abrigos WHERE id = '" + idAbrigo + "';";
@@ -97,24 +98,42 @@ public class AbrigoPersistenciaImpl extends javax.swing.JFrame implements Abrigo
 
                     int qtdAnimaisAtual = rs.getInt("qtdAnimais");
                     int capacidade = rs.getInt("capacidade");
+                    if (operacao.equals("Entrada")){
+                        
+                        int qtdAnimaisNova = qtdAnimaisAtual + qtdAnimais;
+                        if(qtdAnimaisNova <= capacidade){      
+                            
+                            String sqlUpdate = "UPDATE tb_abrigos SET qtdAnimais = '" + qtdAnimaisNova + "' WHERE id = '" + idAbrigo + "';";
+                            JOptionPane.showMessageDialog(rootPane, "Entrada de animais registrada!");
+                            entrouSaiu = "Entrou";
+                            bd.executarQuery(sqlUpdate);
+                            
+                        } else {                       
+                            JOptionPane.showMessageDialog(rootPane, "Espaço insuficiente no abrigo!");
+                        }
+                    } else {
+                        
+                        int qtdAnimaisNova = qtdAnimaisAtual - qtdAnimais;
 
-                    int qtdAnimaisNova = qtdAnimaisAtual + qtdAnimais;
-          
-                    if(qtdAnimaisNova <= capacidade){                                             
-                        String sqlUpdate = "UPDATE tb_abrigos SET qtdAnimais = '" + qtdAnimaisNova + "' WHERE id = '" + idAbrigo + "';";
-                        JOptionPane.showMessageDialog(rootPane, "Entrada de animais registrada!");
-                        bd.executarQuery(sqlUpdate);
+                        if(qtdAnimaisNova >= 0){      
+                            
+                            String sqlUpdate = "UPDATE tb_abrigos SET qtdAnimais = '" + qtdAnimaisNova + "' WHERE id = '" + idAbrigo + "';";
+                            JOptionPane.showMessageDialog(rootPane, "Saída de animais registrada!");
+                            entrouSaiu = "Saiu";
+                            bd.executarQuery(sqlUpdate);
 
                         } else {                       
-                        JOptionPane.showMessageDialog(rootPane, "Espaço insuficiente no abrigo!");
-                        return false;
+                            JOptionPane.showMessageDialog(rootPane, "A quantia de animais a serem removidas"
+                            + " é maior que a quantia que existe no abrigo!");
+                        }
+                    
                     }
                 }               
             } 
         } catch (Exception erro) {
-  
+            
         }
-        return true;
+        return entrouSaiu;
     }
     
 }

@@ -79,7 +79,7 @@ public class ProdutoPersistenciaImpl implements ProdutoPersistencia{
     
     
     @Override
-    public void atualizarEstoque(String nomeProduto, int quantidade){
+    public void atualizarEstoque(String nomeProduto, int quantidade, String operacao){
         
         String sqlSelect = "SELECT estoque FROM tb_produtos WHERE nome = '" + nomeProduto + "';";
         ResultSet rs = bd.executarQuery(sqlSelect);
@@ -90,10 +90,18 @@ public class ProdutoPersistenciaImpl implements ProdutoPersistencia{
                 
                 int estoqueAtual = rs.getInt("estoque");
                 
-                int estoqueNovo = estoqueAtual + quantidade;
-                
-                String sqlUpdate = "UPDATE tb_produtos SET estoque = '" + estoqueNovo + "' WHERE nome = '" + nomeProduto + "';";
-                bd.executarQuery(sqlUpdate);
+                if(operacao.equals("Entrou")){
+                    int estoqueNovo = estoqueAtual + quantidade;
+
+                    String sqlUpdate = "UPDATE tb_produtos SET estoque = '" + estoqueNovo + "' WHERE nome = '" + nomeProduto + "';";
+                    bd.executarQuery(sqlUpdate);
+                    
+                } else {
+                    int estoqueNovo = estoqueAtual - quantidade;
+
+                    String sqlUpdate = "UPDATE tb_produtos SET estoque = '" + estoqueNovo + "' WHERE nome = '" + nomeProduto + "';";
+                    bd.executarQuery(sqlUpdate);
+                }
                 
             }
             

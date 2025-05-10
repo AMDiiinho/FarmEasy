@@ -129,7 +129,7 @@ public class TransacaoPersistenciaImpl implements TransacaoPersistencia {
         if (filtroIdArmazenamento){
             sqlFiltros += " AND id_armazenamento = '" + idArmazenamento + "'";
         }
-
+        
         if (filtroData){                    
             
             
