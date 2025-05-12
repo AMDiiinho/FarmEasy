@@ -52,7 +52,7 @@ public @interface Anotações {
             telefone varchar(14),
             cpf varchar(14),
             usuario varchar(40),
-            senha varchar(20),
+            senha varchar(20)
         );
     
     
@@ -74,17 +74,22 @@ public @interface Anotações {
         RETURNS TRIGGER AS $$
         DECLARE
             registro RECORD;
-        BEGIN
+        BEGIN    
             UPDATE tb_animais t1
-            SET quantidade = t1.quantidade - t2.total
-            FROM (
-                SELECT tipo_entidade, SUM(quantidade) as total
-                FROM tb_historico_transacoes
-                WHERE id_armazenamento = OLD.id
-                GROUP BY tipo_entidade
-            ) t2
-            WHERE t1.raca = t2.tipo_entidade;
-        RETURN NEW;
+            SET quantidade = t1.quantidade - (
+            SELECT SUM(quantidade)
+            FROM tb_historico_transacoes
+            WHERE id_armazenamento = OLD.id 
+            AND tipo_entidade = t1.raca 
+            AND entrada_saida = 'entrada')
+            + (   
+            SELECT SUM(quantidade)
+            FROM tb_historico_transacoes
+            WHERE id_armazenamento = OLD.id
+            AND tipo_entidade = t1.raca
+            AND entrada_saida = 'saida');
+    
+            RETURN NEW;
         END;
         $$ LANGUAGE plpgsql;
 
@@ -135,7 +140,11 @@ public @interface Anotações {
                     'saida',
                     registro.entidade,
                     registro.tipo_entidade,
-                    registro.quantidade_somada,
+                    registro.quantidade_somada - (   
+                    SELECT SUM(quantidade)
+                    FROM tb_historico_transacoes
+                    WHERE id_armazenamento = OLD.id
+                    AND entrada_saida = 'saida'),
                     registro.id_armazenamento
                 );
             END LOOP;
@@ -197,14 +206,18 @@ public @interface Anotações {
             registro RECORD;
         BEGIN
             UPDATE tb_produtos t1
-            SET estoque = t1.estoque - t2.total
-            FROM (
-                SELECT tipo_entidade, SUM(quantidade) as total
-                FROM tb_historico_transacoes
-                WHERE id_armazenamento = OLD.id
-                GROUP BY tipo_entidade
-            ) t2
-            WHERE t1.nome = t2.tipo_entidade;
+            SET estoque = t1.estoque - (
+            SELECT SUM(quantidade)
+            FROM tb_historico_transacoes
+            WHERE id_armazenamento = OLD.id 
+            AND tipo_entidade = t1.nome 
+            AND entrada_saida = 'entrada')
+            + (   
+            SELECT SUM(quantidade)
+            FROM tb_historico_transacoes
+            WHERE id_armazenamento = OLD.id
+            AND tipo_entidade = t1.nome
+            AND entrada_saida = 'saida');
         RETURN NEW;
         END;
         $$ LANGUAGE plpgsql;
@@ -237,11 +250,15 @@ public @interface Anotações {
                     id_armazenamento                
                 )
                 VALUES (
-                    registro.usuarioid,
+                    registro.idusuario,
                     'saida',
                     'Produto',
-                    registro.nome,
-                    registro.estoque,
+                    registro.tipo_entidade,
+                    registro.quantidade_somada - (   
+                    SELECT SUM(quantidade)
+                    FROM tb_historico_transacoes
+                    WHERE id_armazenamento = OLD.id
+                    AND entrada_saida = 'saida'),
                     '0'
                 );
             END LOOP;
@@ -318,7 +335,7 @@ public @interface Anotações {
         FOR EACH ROW
         EXECUTE FUNCTION registra_saida_produtos_por_exclusao_de_produto();
         
-    
-        
+ 
+
     */
 }

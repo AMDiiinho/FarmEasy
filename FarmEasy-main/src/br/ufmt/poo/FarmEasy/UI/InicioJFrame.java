@@ -1869,17 +1869,14 @@ public class InicioJFrame extends javax.swing.JFrame {
                             .addComponent(idEntradaChiqueirojLabel)
                             .addComponent(idChiqueirojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(chiqueirosjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cancelarEntradaPorcosjButton)
-                            .addComponent(registrarEntradaPorcosjButton)))
-                    .addGroup(porcosArmazenamentojPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(removerChiqueirojButton)
-                            .addComponent(voltarChiqueirosjButton1))))
+                    .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cancelarEntradaPorcosjButton)
+                        .addComponent(registrarEntradaPorcosjButton))
+                    .addGroup(porcosArmazenamentojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(removerChiqueirojButton)
+                        .addComponent(voltarChiqueirosjButton1)))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
@@ -3366,7 +3363,7 @@ public class InicioJFrame extends javax.swing.JFrame {
         atualizarTabelaHistorico(idUsuario);
         idArmazenamentojComboBox.removeAllItems();
         idArmazenamentojComboBox.addItem("<Nenhum>");
-
+        
         entidadejComboBox.addItem("<Nenhum>");
         entidadejComboBox.addItem("Produto");
         entidadejComboBox.addItem("Galinha");
@@ -3797,7 +3794,7 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_registrarEntradajButtonActionPerformed
 
     private void consultarGalinheirosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarGalinheirosjButtonActionPerformed
-        controlejPanel.remove(galinhasjPanel);
+        controlejPanel.removeAll();
         controlejPanel.add(galinhasArmazenamentojPanel);
         galinhasArmazenamentojPanel.setVisible(false);
         galinhasArmazenamentojPanel.setVisible(true);
@@ -3819,7 +3816,7 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_galinheirosjTableMouseClicked
 
     private void voltarGalinheirosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarGalinheirosjButtonActionPerformed
-        controlejPanel.remove(galinhasArmazenamentojPanel);
+        controlejPanel.removeAll();
         controlejPanel.add(galinhasjPanel);
         galinhasjPanel.setVisible(false);
         galinhasjPanel.setVisible(true);
@@ -3921,7 +3918,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
                     try {
                         String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
-                                + " id_armazenamento) VALUES ('" + idUsuario + "',  'saída', '" + tipoAnimal + "', '"
+                                + " id_armazenamento) VALUES ('" + idUsuario + "',  'saida', '" + tipoAnimal + "', '"
                                 + racaAnimal + "', '" + quantidade + "', '" + idGalinheiro + "');";
                         bd.executarQuery(sqlHistTransacao);
                     } catch (Exception erro) {
@@ -4101,7 +4098,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
                     try {
                         String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
-                                + " id_armazenamento) VALUES ('" + idUsuario + "',  'saída', '" + tipoAnimal + "', '"
+                                + " id_armazenamento) VALUES ('" + idUsuario + "',  'saida', '" + tipoAnimal + "', '"
                                 + racaAnimal + "', '" + quantidade + "', '" + idChiqueiro + "');";
                         bd.executarQuery(sqlHistTransacao);
                     } catch (Exception erro) {
@@ -4226,7 +4223,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
                     try {
                         String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
-                                + " id_armazenamento) VALUES ('" + idUsuario + "',  'saída', '" + tipoAnimal + "', '"
+                                + " id_armazenamento) VALUES ('" + idUsuario + "',  'saida', '" + tipoAnimal + "', '"
                                 + racaAnimal + "', '" + quantidade + "', '" + idAprisco + "');";
                         bd.executarQuery(sqlHistTransacao);
                     } catch (Exception erro) {
@@ -4330,7 +4327,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
                     try {
                         String sqlHistTransacao = "INSERT INTO tb_historico_transacoes (idUsuario, entrada_saida, entidade, tipo_entidade, quantidade,"
-                                + " id_armazenamento) VALUES ('" + idUsuario + "',  'saída', '" + tipoAnimal + "', '"
+                                + " id_armazenamento) VALUES ('" + idUsuario + "',  'saida', '" + tipoAnimal + "', '"
                                 + racaAnimal + "', '" + quantidade + "', '" + idCurral + "');";
                         bd.executarQuery(sqlHistTransacao);
                     } catch (Exception erro) {
