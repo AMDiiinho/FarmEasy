@@ -8,7 +8,7 @@ package main;
  *
  * @author arthurmarques
  */
-public @interface Anotações {
+public @interface ScriptDeCriacaoDoBancoDeDados {
     /*
         TABELAS
         
@@ -205,7 +205,6 @@ public @interface Anotações {
                 AND h.entrada_saida = 'entrada'
                 GROUP BY h.id_armazenamento, h.entidade, h.tipo_entidade
             ) LOOP
-                -- Insere um registro de saída para cada abrigo
                 INSERT INTO tb_historico_transacoes(
                     entrada_saida, 
                     entidade, 
@@ -354,7 +353,6 @@ public @interface Anotações {
                 AND h.entrada_saida = 'entrada'
                 GROUP BY h.id_armazenamento, h.idUsuario, h.tipo_entidade
             ) LOOP
-                -- Insere um registro de saída para cada abrigo
                 INSERT INTO tb_historico_transacoes(
                     idUsuario, 
                     entrada_saida, 
