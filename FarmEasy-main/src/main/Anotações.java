@@ -76,19 +76,19 @@ public @interface Anotações {
             registro RECORD;
         BEGIN    
             UPDATE tb_animais t1
-            SET quantidade = t1.quantidade - (
-            SELECT SUM(quantidade)
-            FROM tb_historico_transacoes
-            WHERE id_armazenamento = OLD.id 
-            AND tipo_entidade = t1.raca 
-            AND entrada_saida = 'entrada')
-            + (   
-            SELECT SUM(quantidade)
-            FROM tb_historico_transacoes
-            WHERE id_armazenamento = OLD.id
-            AND tipo_entidade = t1.raca
-            AND entrada_saida = 'saida');
-    
+            SET quantidade = t1.quantidade - COALESCE((
+                SELECT SUM(quantidade)
+                FROM tb_historico_transacoes
+                WHERE id_armazenamento = OLD.id 
+                AND tipo_entidade = t1.raca 
+                AND entrada_saida = 'entrada'), 0)
+            + COALESCE((
+                SELECT SUM(quantidade)
+                FROM tb_historico_transacoes
+                WHERE id_armazenamento = OLD.id
+                AND tipo_entidade = t1.raca
+                AND entrada_saida = 'saida'), 0);
+
             RETURN NEW;
         END;
         $$ LANGUAGE plpgsql;
@@ -101,11 +101,11 @@ public @interface Anotações {
         CREATE OR REPLACE FUNCTION atualiza_tb_abrigos()
         RETURNS TRIGGER AS $$
         BEGIN
-
+    
             UPDATE tb_abrigos
-            SET qtdAnimais = tb_abrigos.qtdAnimais - tb_animais.quantidade
+            SET qtdAnimais = GREATEST(tb_abrigos.qtdAnimais - tb_animais.quantidade, 0)
             FROM tb_animais
-            WHERE raca = OLD.raca;
+            WHERE tb_animais.raca = OLD.raca;
 
             RETURN OLD;
         END;
@@ -140,11 +140,11 @@ public @interface Anotações {
                     'saida',
                     registro.entidade,
                     registro.tipo_entidade,
-                    registro.quantidade_somada - (   
-                    SELECT SUM(quantidade)
-                    FROM tb_historico_transacoes
-                    WHERE id_armazenamento = OLD.id
-                    AND entrada_saida = 'saida'),
+                    registro.quantidade_somada - COALESCE((
+                        SELECT SUM(quantidade)
+                        FROM tb_historico_transacoes
+                        WHERE id_armazenamento = OLD.id
+                        AND entrada_saida = 'saida'), 0),
                     registro.id_armazenamento
                 );
             END LOOP;
@@ -187,6 +187,44 @@ public @interface Anotações {
         BEFORE DELETE ON tb_animais
         FOR EACH ROW
         EXECUTE FUNCTION registra_saida_animais_por_exclusao_raca();
+    
+    
+        CREATE OR REPLACE FUNCTION registra_saida_animais_por_exclusao_raca()
+        RETURNS TRIGGER AS $$
+        DECLARE 
+            abrigo RECORD;
+        BEGIN
+            FOR abrigo IN (
+                SELECT 
+                    h.entidade,
+                    h.tipo_entidade,
+                    SUM(h.quantidade) as quantidade_total,
+                    h.id_armazenamento
+                FROM tb_historico_transacoes h
+                WHERE h.tipo_entidade = OLD.raca
+                AND h.entrada_saida = 'entrada'
+                GROUP BY h.id_armazenamento, h.entidade, h.tipo_entidade
+            ) LOOP
+                -- Insere um registro de saída para cada abrigo
+                INSERT INTO tb_historico_transacoes(
+                    entrada_saida, 
+                    entidade, 
+                    tipo_entidade, 
+                    quantidade,
+                    id_armazenamento                
+                )
+                VALUES (
+                    'saida',
+                    abrigo.entidade,
+                    abrigo.tipo_entidade,
+                    abrigo.quantidade_total,
+                    abrigo.id_armazenamento
+                );
+            END LOOP;
+
+            RETURN OLD;
+        END;
+        $$ LANGUAGE plpgsql;
         
     
 
@@ -206,18 +244,18 @@ public @interface Anotações {
             registro RECORD;
         BEGIN
             UPDATE tb_produtos t1
-            SET estoque = t1.estoque - (
+            SET estoque = t1.estoque - COALESCE((
             SELECT SUM(quantidade)
             FROM tb_historico_transacoes
             WHERE id_armazenamento = OLD.id 
             AND tipo_entidade = t1.nome 
-            AND entrada_saida = 'entrada')
-            + (   
+            AND entrada_saida = 'entrada'), 0)
+            + COALESCE((   
             SELECT SUM(quantidade)
             FROM tb_historico_transacoes
             WHERE id_armazenamento = OLD.id
             AND tipo_entidade = t1.nome
-            AND entrada_saida = 'saida');
+            AND entrada_saida = 'saida'), 0);
         RETURN NEW;
         END;
         $$ LANGUAGE plpgsql;
@@ -254,11 +292,11 @@ public @interface Anotações {
                     'saida',
                     'Produto',
                     registro.tipo_entidade,
-                    registro.quantidade_somada - (   
+                    registro.quantidade_somada - COALESCE((   
                     SELECT SUM(quantidade)
                     FROM tb_historico_transacoes
                     WHERE id_armazenamento = OLD.id
-                    AND entrada_saida = 'saida'),
+                    AND entrada_saida = 'saida'), 0),
                     '0'
                 );
             END LOOP;
@@ -278,12 +316,12 @@ public @interface Anotações {
         CREATE OR REPLACE FUNCTION atualiza_tb_silos_exclusao_tipo_produto()
         RETURNS TRIGGER AS $$
         BEGIN
-
+    
             UPDATE tb_silos
-            SET qtdProdutos = tb_silos.qtdProdutos - tb_produtos.estoque
+            SET qtdProdutos = GREATEST(tb_silos.qtdProdutos - tb_produtos.estoque, 0)
             FROM tb_produtos
-            WHERE nome = OLD.nome;
-            
+            WHERE tb_produtos.nome = OLD.nome;
+   
     
 
             RETURN OLD;
@@ -302,13 +340,21 @@ public @interface Anotações {
         CREATE OR REPLACE FUNCTION registra_saida_produtos_por_exclusao_de_produto()
         RETURNS TRIGGER AS $$
         DECLARE 
-            registro RECORD;
+            abrigo RECORD;
         BEGIN
-            FOR registro IN (
-                SELECT usuarioid, nome, estoque
-                FROM tb_produtos
-                WHERE nome = OLD.nome
+            FOR abrigo IN (
+                SELECT 
+                    h.idUsuario,
+                    h.tipo_entidade,
+                    SUM(h.quantidade) as quantidade_total,
+                    h.id_armazenamento
+                FROM tb_historico_transacoes h
+                WHERE h.tipo_entidade = OLD.nome
+                AND h.entidade = 'Produto'
+                AND h.entrada_saida = 'entrada'
+                GROUP BY h.id_armazenamento, h.idUsuario, h.tipo_entidade
             ) LOOP
+                -- Insere um registro de saída para cada abrigo
                 INSERT INTO tb_historico_transacoes(
                     idUsuario, 
                     entrada_saida, 
@@ -318,14 +364,15 @@ public @interface Anotações {
                     id_armazenamento                
                 )
                 VALUES (
-                    registro.usuarioid,
+                    abrigo.idUsuario,
                     'saida',
                     'Produto',
-                    registro.nome,
-                    registro.estoque,
-                    '0'
+                    abrigo.tipo_entidade,
+                    abrigo.quantidade_total,
+                    abrigo.id_armazenamento
                 );
             END LOOP;
+
             RETURN OLD;
         END;
         $$ LANGUAGE plpgsql;

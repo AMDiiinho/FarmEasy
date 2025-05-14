@@ -408,8 +408,8 @@ public class InicioJFrame extends javax.swing.JFrame {
 
     private void carregarComboBoxRacas() {
 
-        AnimalService animalServiceGalinha = new AnimalServiceImpl();
-        List<AnimalDTO> listaGalinhas = animalServiceGalinha.listar(idUsuario, "Galinha");
+        AnimalService animalService = new AnimalServiceImpl();
+        List<AnimalDTO> listaGalinhas = animalService.listar(idUsuario, "Galinha");
         racaGalinhajComboBox.removeAllItems();
 
         for (AnimalDTO animalDTO : listaGalinhas) {
@@ -418,8 +418,7 @@ public class InicioJFrame extends javax.swing.JFrame {
 
         }
 
-        AnimalService animalServicePorco = new AnimalServiceImpl();
-        List<AnimalDTO> listaPorcos = animalServicePorco.listar(idUsuario, "Porco");
+        List<AnimalDTO> listaPorcos = animalService.listar(idUsuario, "Porco");
         racaPorcojComboBox.removeAllItems();
 
         for (AnimalDTO animalDTO : listaPorcos) {
@@ -427,8 +426,7 @@ public class InicioJFrame extends javax.swing.JFrame {
             racaPorcojComboBox.addItem(animalDTO.getRaca());
         }
 
-        AnimalService animalServiceOvelha = new AnimalServiceImpl();
-        List<AnimalDTO> listaOvelhas = animalServiceOvelha.listar(idUsuario, "Ovelha");
+        List<AnimalDTO> listaOvelhas = animalService.listar(idUsuario, "Ovelha");
         corOvelhajComboBox.removeAllItems();
 
         for (AnimalDTO animalDTO : listaOvelhas) {
@@ -436,8 +434,7 @@ public class InicioJFrame extends javax.swing.JFrame {
             corOvelhajComboBox.addItem(animalDTO.getRaca());
         }
 
-        AnimalService animalServiceVaca = new AnimalServiceImpl();
-        List<AnimalDTO> listaVacas = animalServiceVaca.listar(idUsuario, "Vaca");
+        List<AnimalDTO> listaVacas = animalService.listar(idUsuario, "Vaca");
         racaVacajComboBox.removeAllItems();
 
         for (AnimalDTO animalDTO : listaVacas) {
@@ -2771,26 +2768,25 @@ public class InicioJFrame extends javax.swing.JFrame {
                             .addGap(12, 12, 12)
                             .addComponent(idSilojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(silosjPanelLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(iDsilojLabel)
+                            .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(quantidadeEntradajLabel)
+                                .addComponent(produtojLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(operacaoProdutojLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(produtojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(quantidadeProdutosjSpinner)
+                            .addComponent(operacaoProdutojComboBox, 0, 155, Short.MAX_VALUE)
+                            .addComponent(IDsilojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(tituloCadastroSilosjLabel1)
+                    .addGroup(silosjPanelLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(cancelarEntradajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
-                        .addComponent(cancelarEntradajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, silosjPanelLayout.createSequentialGroup()
-                            .addGap(150, 150, 150)
-                            .addComponent(registrarEntradajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(silosjPanelLayout.createSequentialGroup()
-                            .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(iDsilojLabel)
-                                .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(quantidadeEntradajLabel)
-                                    .addComponent(produtojLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addComponent(operacaoProdutojLabel))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(produtojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(quantidadeProdutosjSpinner)
-                                .addComponent(IDsilojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(operacaoProdutojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addComponent(tituloCadastroSilosjLabel1))
+                        .addComponent(registrarEntradajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addGroup(silosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tabelaSilosjLabel)
@@ -3361,6 +3357,8 @@ public class InicioJFrame extends javax.swing.JFrame {
         historicojPanel.setVisible(false);
         historicojPanel.setVisible(true);
         atualizarTabelaHistorico(idUsuario);
+        entidadejComboBox.removeAllItems();
+        tipoEntidadejComboBox.removeAllItems();
         idArmazenamentojComboBox.removeAllItems();
         idArmazenamentojComboBox.addItem("<Nenhum>");
         
@@ -4405,8 +4403,6 @@ public class InicioJFrame extends javax.swing.JFrame {
         controlejPanel.add(menuPrincipaljPanel);
         menuPrincipaljPanel.setVisible(false);
         menuPrincipaljPanel.setVisible(true);
-        entidadejComboBox.removeAllItems();
-        tipoEntidadejComboBox.removeAllItems();
     }//GEN-LAST:event_voltarHistoricojButtonActionPerformed
 
     private void aplicarFiltrosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarFiltrosjButtonActionPerformed
@@ -4414,17 +4410,19 @@ public class InicioJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_aplicarFiltrosjButtonActionPerformed
 
     private void entidadejComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entidadejComboBoxActionPerformed
+        
+        if(entidadejComboBox.getSelectedItem() != null){
+            String entidade = entidadejComboBox.getSelectedItem().toString();
 
-        String entidade = entidadejComboBox.getSelectedItem().toString();
+            if (entidade.equals("Produto")) {
+                carregarComboBoxFiltroTipoEntidade(idUsuario, entidade);
+                carregarComboBoxFiltroIdArmazenamentos(idUsuario, entidade);
 
-        if (entidade.equals("Produto")) {
-            carregarComboBoxFiltroTipoEntidade(idUsuario, entidade);
-            carregarComboBoxFiltroIdArmazenamentos(idUsuario, entidade);
-
-        } else if (entidade.equals("Galinha") || entidade.equals("Porco") || entidade.equals("Ovelha")
-                || entidade.equals("Vaca")) {
-            carregarComboBoxFiltroTipoEntidade(idUsuario, entidade);
-            carregarComboBoxFiltroIdArmazenamentos(idUsuario, entidade);
+            } else if (entidade.equals("Galinha") || entidade.equals("Porco") || entidade.equals("Ovelha")
+                    || entidade.equals("Vaca")) {
+                carregarComboBoxFiltroTipoEntidade(idUsuario, entidade);
+                carregarComboBoxFiltroIdArmazenamentos(idUsuario, entidade);
+            }
         }
 
 

@@ -17,6 +17,20 @@ import java.util.List;
  */
 public class BancoDeDados {
     
+    static Connection con;
+
+    public BancoDeDados() {
+        try{
+            if (con == null){
+                con = conectar();
+            }
+        } catch (Exception erro){
+            
+        }
+    }
+    
+    
+    
     public Connection conectar() throws SQLException {
         
         String url = "jdbc:postgresql://localhost:5432/farmeasydb";
@@ -51,10 +65,11 @@ public class BancoDeDados {
     public ResultSet executarQuery(String sql){
         
         try {
-            Connection con = conectar();
+            
             return con.createStatement().executeQuery(sql);
             
             } catch(SQLException erro) {
+                erro.printStackTrace();
                 throw new RuntimeException("Erro ao inserir no banco de dados");
         }
     }

@@ -2679,33 +2679,30 @@
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="cancelarEntradajButton" min="-2" pref="96" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
-                                  <Component id="registrarEntradajButton" min="-2" pref="96" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="iDsilojLabel" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                      <Component id="quantidadeEntradajLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="produtojLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="operacaoProdutojLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="iDsilojLabel" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Component id="quantidadeEntradajLabel" min="-2" max="-2" attributes="0"/>
-                                          <Component id="produtojLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="operacaoProdutojLabel" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="produtojComboBox" max="32767" attributes="0"/>
-                                      <Component id="quantidadeProdutosjSpinner" max="32767" attributes="0"/>
-                                      <Component id="IDsilojComboBox" min="-2" pref="138" max="-2" attributes="0"/>
-                                      <Component id="operacaoProdutojComboBox" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="produtojComboBox" max="32767" attributes="0"/>
+                                  <Component id="quantidadeProdutosjSpinner" max="32767" attributes="0"/>
+                                  <Component id="operacaoProdutojComboBox" alignment="0" pref="155" max="32767" attributes="0"/>
+                                  <Component id="IDsilojComboBox" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="tituloCadastroSilosjLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                              <Component id="cancelarEntradajButton" min="-2" pref="113" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="registrarEntradajButton" min="-2" pref="113" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="72" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">

@@ -101,7 +101,7 @@ public class AnimalPersistenciaImpl implements AnimalPersistencia {
             }
             
         } catch (Exception erro){
-            
+            erro.printStackTrace();
         }
        
         
